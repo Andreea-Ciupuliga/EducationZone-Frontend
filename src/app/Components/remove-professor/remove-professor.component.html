@@ -1,0 +1,12 @@
+<mat-card>
+  <p>Write the professor id</p>
+  <mat-form-field class="example-form-field" appearance="fill">
+    <input matInput type="number" [(ngModel)]="professorId">
+  </mat-form-field>
+  <button mat-raised-button (click)="removeProfessor(professorId)">Delete professor</button>
+  <br>
+  <button mat-raised-button (click)="removeAllProfessors()">Delete all professors</button>
+</mat-card>
+
+<router-outlet></router-outlet>
+

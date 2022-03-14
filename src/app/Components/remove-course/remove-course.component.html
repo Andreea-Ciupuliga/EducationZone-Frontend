@@ -1,0 +1,9 @@
+<mat-card>
+  <p>Write the course id</p>
+  <mat-form-field class="example-form-field" appearance="fill">
+    <input matInput type="number" [(ngModel)]="courseId">
+  </mat-form-field>
+  <button mat-raised-button (click)="removeCourse(courseId)">Delete course</button>
+</mat-card>
+
+<router-outlet></router-outlet>

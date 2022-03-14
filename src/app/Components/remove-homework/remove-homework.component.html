@@ -1,0 +1,10 @@
+<mat-card>
+  <p>Write the homework id</p>
+  <mat-form-field class="example-form-field" appearance="fill">
+    <input matInput type="number" [(ngModel)]="homeworkId">
+  </mat-form-field>
+  <button mat-raised-button (click)="removeHomework(homeworkId)">Delete homework</button>
+</mat-card>
+
+<router-outlet></router-outlet>
+

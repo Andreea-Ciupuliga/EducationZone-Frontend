@@ -1,0 +1,26 @@
+<div>
+  <mat-card>
+    <p>Update Student</p>
+    <form [formGroup]="registrationForm">
+
+      <input formControlName="id" placeholder="id" type="number">
+      <input formControlName="firstName" placeholder="firstName" type="text">
+      <input formControlName="lastName" placeholder="lastName" type="text">
+      <input formControlName="email" placeholder="email" type="text">
+      <input formControlName="password" placeholder="password" type="password">
+      <input formControlName="username" placeholder="username" type="text">
+      <input formControlName="groupNumber" placeholder="groupNumber" type="text">
+      <input formControlName="phone" placeholder="phone" type="text">
+      <input formControlName="year" placeholder="year" type="text">
+      <input formControlName="department" placeholder="department" type="text">
+
+    </form>
+
+    <div>
+      <button mat-button (click)="submit()">Submit</button>
+    </div>
+
+  </mat-card>
+
+</div>
+<router-outlet></router-outlet>

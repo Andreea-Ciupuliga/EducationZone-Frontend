@@ -1,0 +1,96 @@
+<div>
+  <mat-card>
+    <p>Register Student</p>
+
+    <form [formGroup]="registrationForm">
+
+      <input formControlName="firstName" placeholder="firstName" type="text">
+      <input formControlName="lastName" placeholder="lastName" type="text">
+      <input formControlName="email" placeholder="email" type="text">
+      <input formControlName="password" placeholder="password" type="password">
+      <input formControlName="username" placeholder="username" type="text">
+      <input formControlName="groupNumber" placeholder="groupNumber" type="text">
+      <input formControlName="phone" placeholder="phone" type="text">
+      <input formControlName="year" placeholder="year" type="text">
+      <input formControlName="department" placeholder="department" type="text">
+
+    </form>
+
+    <div>
+      <button mat-button (click)="submit()">Submit</button>
+    </div>
+
+  </mat-card>
+
+  <mat-card>
+    <p>Register Student at Course</p>
+
+    <form [formGroup]="registrationStudentAtCourseForm">
+
+      <input formControlName="studentId" placeholder="studentId" type="number">
+      <input formControlName="courseId" placeholder="courseId" type="number">
+
+    </form>
+
+    <div>
+      <button mat-button (click)="registerStudentAtCourse()">Submit</button>
+    </div>
+
+  </mat-card>
+
+  <mat-card>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Type student name</mat-label>
+        <input type="text"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                      (click)="onSelFunc(option)">
+
+            {{option.firstName}}
+
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See student info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <p> Id: {{selectedValue.id}} </p>
+          <p> First name: {{selectedValue.firstName}} </p>
+          <p> Last name: {{selectedValue.lastName}} </p>
+          <p> Email: {{selectedValue.email}} </p>
+          <p> Username: {{selectedValue.username}} </p>
+          <p> Group number: {{selectedValue.groupNumber}} </p>
+          <p> Phone: {{selectedValue.phone}} </p>
+          <p> Department: {{selectedValue.department}} </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+
+    </form>
+
+
+
+
+
+
+  </mat-card>
+
+</div>
+<router-outlet></router-outlet>

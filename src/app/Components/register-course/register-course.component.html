@@ -1,0 +1,23 @@
+<div>
+  <mat-card>
+    <p>Register Course</p>
+    <form [formGroup]="registrationForm">
+
+      <input formControlName="name" placeholder="name" type="text">
+      <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
+      <input formControlName="description" placeholder="description" type="text">
+      <input formControlName="year" placeholder="year" type="text">
+      <input formControlName="semester" placeholder="semester" type="text">
+
+
+
+    </form>
+
+    <div>
+      <button mat-button (click)="submit()">Submit</button>
+    </div>
+
+  </mat-card>
+
+</div>
+<router-outlet></router-outlet>

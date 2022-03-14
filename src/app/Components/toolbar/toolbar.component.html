@@ -1,0 +1,30 @@
+<router-outlet></router-outlet>
+
+<mat-toolbar>
+
+  <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" class="mat-menu">
+
+<!--    <div *ngFor="let category of Categories">-->
+      <script>
+
+      </script>
+<!--      <button routerLink="/productsFromCategory/{{category.id}} " mat-menu-item>-->
+        <!--      <button (click)="printCategory(category.id)"  mat-menu-item>-->
+
+<!--        {{category.name}}-->
+<!--      </button>-->
+
+<!--    </div>-->
+  </mat-menu>
+
+  <span>{{title}}</span>
+  <span class="example-spacer"></span>
+  <button routerLink="/admin-page" mat-raised-button>Admin</button>
+
+
+</mat-toolbar>
