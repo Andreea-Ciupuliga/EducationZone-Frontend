@@ -1,0 +1,80 @@
+<html>
+<body>
+<mat-card class="course-details">
+
+
+  <mat-card-content>
+    <p>
+      <b>{{course.name}}</b> <br>
+      {{course.description}} <br>
+      Number of students : {{course.numberOfStudents}} <br>
+      Year: {{course.year}} <br>
+      Semester: {{course.semester}} <br>
+      Professor name: {{course.professorName}} <br>
+
+      Exam date: {{exam.examDate}}
+
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <!--    <button mat-raised-button routerLink="/createOrder/{{product.id}}">Create order</button>-->
+    <!--    <button mat-raised-button (click)="deleteProduct(product.id)">Delete Product</button> &lt;!&ndash;butonul asta ar trebui sa fie vizibil doar pt admin&ndash;&gt;-->
+
+  </mat-card-actions>
+
+
+</mat-card>
+
+HOMEWORKS:
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
+
+
+      <mat-card class="example-card">
+
+        <mat-card-content>
+          <!--          <img mat-card-image src="{{product.photoLink}}" alt="Photo">-->
+          <p>
+            {{homework.description}} <br>
+            <br>
+            Deadline: {{homework.deadline}}<br>
+            Points: {{homework.points}}<br>
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<mat-card class="course-details">
+
+  EXAM:
+
+  <mat-card-content>
+    <p>
+
+      Exam date: {{exam.examDate}}<br>
+      {{exam.description}}<br>
+      Points: {{exam.points}}<br>
+
+    </p>
+  </mat-card-content>
+
+</mat-card>
+
+
+</body>
+</html>
+<router-outlet></router-outlet>
