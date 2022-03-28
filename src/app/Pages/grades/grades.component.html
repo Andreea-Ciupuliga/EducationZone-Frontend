@@ -1,1 +1,42 @@
-<p>grades works!</p>
+<app-toolbar></app-toolbar>
+<html>
+<p>Pagina pt notele unui student</p>
+<body>
+
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let grade of Grades">
+
+
+      <mat-card class="example-card">
+
+        <mat-card-content>
+          <p>
+            Course name: {{grade.courseName}} <br>
+            Course grade: {{grade.courseGrade}}<br>
+
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+</body>
+
+
+<!-- ca sa se vada pag1 si pag2 pe site punem router-outlet ptc daca nu il puneam nu se vedeau-->
+<router-outlet></router-outlet>
+<!--<app-sign-up></app-sign-up>-->
+
+</html>
