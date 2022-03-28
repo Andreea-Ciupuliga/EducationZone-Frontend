@@ -1,0 +1,112 @@
+<div>
+
+
+
+<!--  Get students by name-->
+  <mat-card>
+    <p>Write student name:</p>
+        <form class="example-form">
+
+          <mat-form-field class="example-form-field" appearance="fill">
+            <input matInput type="text" [(ngModel)]="studentName" name="studentName">
+          </mat-form-field>
+          <button mat-raised-button (click)="getAllStudentsByName(studentName)">Search</button>
+
+          <mat-accordion>
+
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  See student/students info:
+                </mat-panel-title>
+
+              </mat-expansion-panel-header>
+              <div *ngFor="let student of StudentsByName">
+              <p> Id: {{student.id}} </p>
+              <p> First name: {{student.firstName}} </p>
+              <p> Last name: {{student.lastName}} </p>
+              <p> Email: {{student.email}} </p>
+              <p> Username: {{student.username}} </p>
+              <p> Group number: {{student.groupNumber}} </p>
+              <p> Phone: {{student.phone}} </p>
+              <p> Department: {{student.department}} </p>
+                <br>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </form>
+  </mat-card>
+
+
+
+
+<!--  Get all students-->
+  <mat-card>
+
+    <form class="example-form">
+      <button mat-raised-button (click)="getAllStudents()">Show all students</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all students info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngFor="let student of AllStudents">
+            <p> Id: {{student.id}} </p>
+            <p> First name: {{student.firstName}} </p>
+            <p> Last name: {{student.lastName}} </p>
+            <p> Email: {{student.email}} </p>
+            <p> Username: {{student.username}} </p>
+            <p> Group number: {{student.groupNumber}} </p>
+            <p> Phone: {{student.phone}} </p>
+            <p> Department: {{student.department}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+  <!--  Get student by id-->
+  <mat-card>
+    <p>Write student id:</p>
+    <form class="example-form">
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <input matInput type="text" [(ngModel)]="studentId" name="studentId">
+      </mat-form-field>
+      <button mat-raised-button (click)="getStudent(studentId)">Search</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See student info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngIf="student" >
+            <p> First name: {{student.firstName}} </p>
+            <p> Last name: {{student.lastName}} </p>
+            <p> Email: {{student.email}} </p>
+            <p> Username: {{student.username}} </p>
+            <p> Group number: {{student.groupNumber}} </p>
+            <p> Phone: {{student.phone}} </p>
+            <p> Department: {{student.department}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+</div>
+<router-outlet></router-outlet>
