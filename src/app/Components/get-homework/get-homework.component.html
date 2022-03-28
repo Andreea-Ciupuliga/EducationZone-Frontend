@@ -1,0 +1,67 @@
+<div>
+
+
+  <!--  Get all homeworks-->
+  <mat-card>
+
+    <form class="example-form">
+      <button mat-raised-button (click)="getAllHomeworks()">Show all Homeworks</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all homeworks info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngFor="let homework of AllHomeworks">
+            <p> description: {{homework.description}} </p>
+            <p> deadline: {{homework.deadline}} </p>
+            <p> points: {{homework.points}} </p>
+            <p> courseId: {{homework.courseId}} </p>
+            <p> courseName: {{homework.courseName}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+  <!--  Get course by id-->
+  <mat-card>
+    <p>Write homework id:</p>
+    <form class="example-form">
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <input matInput type="text" [(ngModel)]="homeworkId" name="homeworkId">
+      </mat-form-field>
+      <button mat-raised-button (click)="getHomework(homeworkId)">Search</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See homework info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngIf="homework" >
+            <p> description: {{homework.description}} </p>
+            <p> deadline: {{homework.deadline}} </p>
+            <p> points: {{homework.points}} </p>
+            <p> courseId: {{homework.courseId}} </p>
+            <p> courseName: {{homework.courseName}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+</div>
+<router-outlet></router-outlet>
