@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
-import {Course} from "../../Models/course";
 import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 
 @Component({
