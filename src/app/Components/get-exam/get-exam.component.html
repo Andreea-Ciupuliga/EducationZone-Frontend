@@ -1,0 +1,79 @@
+<div>
+
+
+
+  <!--  Get exam by course id -->
+  <mat-card>
+    <p>Write course id:</p>
+    <form class="example-form">
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <input matInput type="text" [(ngModel)]="courseId" name="courseId">
+      </mat-form-field>
+      <button mat-raised-button (click)="getExamByCourseId(courseId)">Search</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See exam info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngIf="exam">
+            <p> Course name: {{exam.courseName}} </p>
+            <p> Description: {{exam.description}} </p>
+            <p> Exam date: {{exam.examDate}} </p>
+            <p> Description: {{exam.description}} </p>
+            <p> Points: {{exam.points}} </p>
+            <p> Course id: {{exam.courseId}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+
+
+
+  <!--  Get all exams by student id-->
+  <mat-card>
+    <p>Write student id:</p>
+    <form class="example-form">
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <input matInput type="text" [(ngModel)]="studentId" name="studentId">
+      </mat-form-field>
+
+      <button mat-raised-button (click)="getAllExamsByStudentId(studentId)">Show all exams</button>
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all exams info:
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div *ngFor="let exam of AllExams">
+            <p> Course name: {{exam.courseName}} </p>
+            <p> Description: {{exam.description}} </p>
+            <p> Exam date: {{exam.examDate}} </p>
+            <p> Description: {{exam.description}} </p>
+            <p> Points: {{exam.points}} </p>
+            <p> Course id: {{exam.courseId}} </p>
+            <br>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+
+</div>
+<router-outlet></router-outlet>
