@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {Participants} from "../../Models/participants";
 
@@ -8,15 +8,29 @@ import {Participants} from "../../Models/participants";
 export class ParticipantsService {
 
   private readonly endpoint = '/participants';
-  constructor(private apiService : ApiService) { }
 
-  //nu stiu daca merge????
-  registerStudentAtCourse(studentId:number,courseId:number) {
-    return this.apiService.post<Participants>(this.endpoint + '/register/'+studentId+'/'+courseId);
+  constructor(private apiService: ApiService) {
   }
 
-  getAllCoursesByStudentId(studentId:number){
-    return this.apiService.get<Participants>(this.endpoint + '/getAllCoursesByStudentId/'+studentId)
+  //nu stiu daca merge????
+  registerStudentAtCourse(studentId: number, courseId: number) {
+    return this.apiService.post<Participants>(this.endpoint + '/register/' + studentId + '/' + courseId);
+  }
+
+  getAllCoursesByStudentId(studentId: number) {
+    return this.apiService.get<Participants>(this.endpoint + '/getAllCoursesByStudentId/' + studentId)
+  }
+
+  getAllGradesByStudentId(studentId: number) {
+    return this.apiService.get<Participants>(this.endpoint + '/getAllGradesByStudentId/' + studentId)
+  }
+
+  getAllStudentsByCourseId(courseId: number) {
+    return this.apiService.get<Participants>(this.endpoint + '/getAllStudentsByCourseId/' + courseId)
+  }
+
+  removeStudentCourseRelationship(studentId: number, courseId: number) {
+    return this.apiService.delete(this.endpoint + '/' + studentId + '/' + courseId);
   }
 
 }

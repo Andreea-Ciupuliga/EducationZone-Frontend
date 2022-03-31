@@ -31,6 +31,10 @@ export class StudentService {
     return this.apiService.get<Student>(this.endpoint + '/getAll');
   }
 
+  getAllStudentsByName(studentName:string){
+    return this.apiService.get<Student>(this.endpoint + '/getAllByName/'+studentName);
+  }
+
   updateStudent(id: number,studentRegisterDTO: RegisterStudentDTO){
     return this.apiService.put<Student>(this.endpoint + '/'+id,studentRegisterDTO);
   }
