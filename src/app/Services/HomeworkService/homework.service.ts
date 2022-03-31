@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterHomeworkDTO} from "../../DTOs/HomeworkDTOs/register-homework-dto";
 import {Homework} from "../../Models/homework";
-import {RegisterCourseDTO} from "../../DTOs/CourseDTOs/register-course-dto";
-import {Course} from "../../Models/course";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +37,9 @@ export class HomeworkService {
 
   updateHomework(id: number,homeworkRegisterDTO: RegisterHomeworkDTO){
     return this.apiService.put<Homework>(this.endpoint + '/'+id,homeworkRegisterDTO);
+  }
+
+  getAllHomeworks(){
+    return this.apiService.get<Homework>(this.endpoint + '/getAll');
   }
 }
