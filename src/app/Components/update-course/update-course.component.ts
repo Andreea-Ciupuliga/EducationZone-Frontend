@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CourseService} from "../../Services/CourseService/course.service";
+import {StudentService} from "../../Services/StudentService/student.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-update-course',
@@ -10,15 +12,15 @@ import {CourseService} from "../../Services/CourseService/course.service";
 export class UpdateCourseComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    id: ['', Validators.required],
-    name: ['', Validators.required],
-    numberOfStudents: ['', Validators.required],
-    description: ['', Validators.required],
-    year: ['', Validators.required],
-    semester: ['', Validators.required],
+    id: [null, Validators.required],
+    name: [null, Validators.required],
+    numberOfStudents: [null, Validators.required],
+    description: [null, Validators.required],
+    year: [null, Validators.required],
+    semester: [null, Validators.required],
   })
 
-  constructor(private readonly courseService: CourseService, private fb: FormBuilder) {
+  constructor(private readonly courseService: CourseService, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +32,8 @@ export class UpdateCourseComponent implements OnInit {
     let courseRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.courseService.updateCourse(courseId, courseRegisterDto).subscribe((data: any) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
 
   }

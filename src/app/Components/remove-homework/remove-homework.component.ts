@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {Homework} from "../../Models/homework";
+import {StudentService} from "../../Services/StudentService/student.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-remove-homework',
@@ -9,7 +11,7 @@ import {Homework} from "../../Models/homework";
 })
 export class RemoveHomeworkComponent implements OnInit {
 
-  constructor(private readonly homeworkService: HomeworkService) {
+  constructor(private readonly homeworkService: HomeworkService, private notifyService: NotificationService) {
   }
 
   public homeworkId: any;
@@ -20,6 +22,8 @@ export class RemoveHomeworkComponent implements OnInit {
   removeHomework(id: number) {
     this.homeworkId = "";
     this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
   }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetProfessorDTO} from "../../DTOs/ProfessorDTOs/get-professor-dto";
 import {ProfessorService} from "../../Services/ProfessorService/professor.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-get-professor',
@@ -9,14 +10,14 @@ import {ProfessorService} from "../../Services/ProfessorService/professor.servic
 })
 export class GetProfessorComponent implements OnInit {
 
-  public professorName:string;
-  public professorId:any;
+  public professorName: string;
+  public professorId: any;
   panelOpenState = false;
-  public ProfessorsByName : GetProfessorDTO[]=[];
-  public AllProfessors : GetProfessorDTO[]=[];
+  public ProfessorsByName: GetProfessorDTO[] = [];
+  public AllProfessors: GetProfessorDTO[] = [];
   public professor: GetProfessorDTO;
 
-  constructor(private readonly professorService: ProfessorService) {
+  constructor(private readonly professorService: ProfessorService, private notifyService: NotificationService) {
 
   }
 
@@ -24,24 +25,32 @@ export class GetProfessorComponent implements OnInit {
 
   }
 
-  getAllProfessorsByName(name:string){
-    this.professorName="";
+  getAllProfessorsByName(name: string) {
+    this.professorName = "";
     this.professorService.getAllProfessorsByName(name).subscribe((data: GetProfessorDTO[]) => {
-      this.ProfessorsByName=data;
-    });
+        this.ProfessorsByName = data;
+      },
+      (err) => {
+        this.notifyService.showError(err.error.message);
+      }
+    );
   }
 
-  getProfessor(id: number){
+  getProfessor(id: number) {
     this.professorId = "";
     this.professorService.getProfessor(id).subscribe((data: GetProfessorDTO) => {
-      this.professor=data;
+      this.professor = data;
 
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
   }
 
-  getAllProfessors(){
+  getAllProfessors() {
     this.professorService.getAllProfessors().subscribe((data: GetProfessorDTO[]) => {
-      this.AllProfessors=data;
+      this.AllProfessors = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
   }
 
