@@ -1,4 +1,6 @@
+<app-toolbar></app-toolbar>
 <html>
+
 <body>
 <mat-card class="course-details">
 
@@ -17,18 +19,14 @@
     </p>
   </mat-card-content>
 
-  <mat-card-actions>
-    <!--    <button mat-raised-button routerLink="/createOrder/{{product.id}}">Create order</button>-->
-    <!--    <button mat-raised-button (click)="deleteProduct(product.id)">Delete Product</button> &lt;!&ndash;butonul asta ar trebui sa fie vizibil doar pt admin&ndash;&gt;-->
-
-  </mat-card-actions>
-
-
 </mat-card>
 
-HOMEWORKS:
-
 <div class="content">
+
+  <br>
+  <p>HOMEWORKS:</p>
+  <mat-divider></mat-divider>
+
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
 
