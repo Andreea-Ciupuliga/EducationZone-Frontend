@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {ProfessorService} from "../../Services/ProfessorService/professor.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-register-professor',
@@ -16,14 +17,14 @@ export class RegisterProfessorComponent implements OnInit {
 
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    email: ['', Validators.email],
+    email: ['', Validators.required, Validators.email],
     password: ['', Validators.required],
     username: ['', Validators.required],
     phone: ['', Validators.required],
 
   })
 
-  constructor(private readonly professorService: ProfessorService, private fb: FormBuilder) {
+  constructor(private readonly professorService: ProfessorService, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +35,8 @@ export class RegisterProfessorComponent implements OnInit {
     let professorRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.professorService.registerProfessor(professorRegisterDto).subscribe((data: any) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
 
   }

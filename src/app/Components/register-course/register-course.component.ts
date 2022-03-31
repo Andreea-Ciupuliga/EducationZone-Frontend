@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {CourseService} from "../../Services/CourseService/course.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
+import {ErrorStateMatcher} from "@angular/material/core";
+import {FormGroupDirective, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-register-course',
@@ -19,7 +22,9 @@ export class RegisterCourseComponent implements OnInit {
     semester: ['', Validators.required],
   })
 
-  constructor(private readonly courseService: CourseService, private fb: FormBuilder) {
+
+  constructor(private notifyService: NotificationService, private readonly courseService: CourseService, private fb: FormBuilder) {
+
   }
 
   ngOnInit(): void {
@@ -30,6 +35,8 @@ export class RegisterCourseComponent implements OnInit {
     let courseRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.courseService.registerCourse(courseRegisterDto).subscribe((data: any) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
 
   }
