@@ -1,0 +1,162 @@
+<!--Pagina in care profesorul poate edita cursul-->
+<app-toolbar></app-toolbar>
+<html>
+
+<body>
+<mat-card class="course-details">
+
+
+  <mat-card-content>
+    <p>
+      <b>{{course.name}}</b> <br>
+      {{course.description}} <br>
+      Number of students : {{course.numberOfStudents}} <br>
+      Year: {{course.year}} <br>
+      Semester: {{course.semester}} <br>
+      Professor name: {{course.professorName}} <br>
+
+      Exam date: {{exam.examDate}}
+
+    </p>
+  </mat-card-content>
+
+</mat-card>
+
+<br>
+<p>HOMEWORKS:</p>
+<mat-divider></mat-divider>
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
+
+
+      <mat-card class="example-card">
+
+        <mat-card-content>
+          <!--          <img mat-card-image src="{{product.photoLink}}" alt="Photo">-->
+          <p>
+            {{homework.description}} <br>
+            <br>
+            Deadline: {{homework.deadline}}<br>
+            Points: {{homework.points}}<br>
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<mat-card class="course-details">
+
+  EXAM:
+
+  <mat-card-content>
+    <p>
+
+      Exam date: {{exam.examDate}}<br>
+      {{exam.description}}<br>
+      Points: {{exam.points}}<br>
+
+    </p>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card>
+  <p>Edit Course</p>
+  <form [formGroup]="registrationFormCourse">
+
+    <input formControlName="name" placeholder="name" type="text">
+    <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
+    <input formControlName="description" placeholder="description" type="text">
+    <input formControlName="year" placeholder="year" type="text">
+    <input formControlName="semester" placeholder="semester" type="text">
+
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="updateCourse()">Submit</button>
+  </div>
+
+</mat-card>
+
+<mat-card>
+  <p>Edit Exam</p>
+  <form [formGroup]="registrationFormExam">
+    <input formControlName="id" placeholder="id" type="number">
+    <input formControlName="description" placeholder="description" type="text">
+    <input formControlName="examDate" placeholder="examDate" type="text">
+    <input formControlName="points" placeholder="points" type="text">
+    <input formControlName="courseId" placeholder="courseId" type="number">
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="updateExam()">Submit</button>
+  </div>
+
+</mat-card>
+
+<mat-card>
+  <p>Edit Homework</p>
+  <form [formGroup]="registrationFormHomework">
+
+    <input formControlName="id" placeholder="id" type="number">
+    <input formControlName="description" placeholder="description" type="text">
+    <input formControlName="deadline" placeholder="deadline" type="text">
+    <input formControlName="points" placeholder="points" type="text">
+    <input formControlName="courseId" placeholder="courseId" type="number">
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="updateHomework()">Submit</button>
+  </div>
+
+</mat-card>
+
+
+<mat-card>
+  <form class="example-form">
+
+    <button mat-raised-button (click)="getAllStudentsByCourseId()">Show students</button>
+
+    <mat-accordion>
+
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            See all students info:
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div *ngFor="let student of AllStudents">
+          <p> Id: {{student.id}} </p>
+          <p> First name: {{student.firstName}} </p>
+          <p> Last name: {{student.lastName}} </p>
+          <p> Email: {{student.email}} </p>
+          <p> Username: {{student.username}} </p>
+          <p> Group number: {{student.groupNumber}} </p>
+          <p> Phone: {{student.phone}} </p>
+          <p> Department: {{student.department}} </p>
+          <br>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</mat-card>
+
+</body>
+</html>
+<router-outlet></router-outlet>
