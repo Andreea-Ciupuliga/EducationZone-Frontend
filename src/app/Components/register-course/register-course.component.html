@@ -3,16 +3,60 @@
     <p>Register Course</p>
     <form [formGroup]="registrationForm">
 
-      <input formControlName="name" placeholder="name" type="text">
-      <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
+      <input formControlName="name" name="name" placeholder="name" id="name" type="text">
+      <input formControlName="numberOfStudents" placeholder="number Of Students" type="number">
       <input formControlName="description" placeholder="description" type="text">
       <input formControlName="year" placeholder="year" type="text">
       <input formControlName="semester" placeholder="semester" type="text">
 
+      <br>
 
+      <mat-error
+        *ngIf=" (registrationForm.controls['name'].dirty || registrationForm.controls['name'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['name'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['numberOfStudents'].dirty || registrationForm.controls['numberOfStudents'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['numberOfStudents'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['description'].dirty || registrationForm.controls['description'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['description'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['year'].dirty || registrationForm.controls['year'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['year'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['semester'].dirty || registrationForm.controls['semester'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['semester'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <ng-template #condition>
+        <span class="spanClass">
+        </span>
+      </ng-template>
 
     </form>
-
     <div>
       <button mat-raised-button (click)="submit()">Submit</button>
     </div>

@@ -11,6 +11,60 @@
       <input formControlName="username" placeholder="username" type="text">
       <input formControlName="phone" placeholder="phone" type="text">
 
+      <br>
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['lastName'].dirty || registrationForm.controls['lastName'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['lastName'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['email'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['username'].dirty || registrationForm.controls['username'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['username'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['phone'].dirty || registrationForm.controls['phone'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['phone'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <ng-template #condition>
+        <span class="spanClass">
+        </span>
+      </ng-template>
+
     </form>
 
     <div>

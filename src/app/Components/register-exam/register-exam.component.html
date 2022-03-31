@@ -8,6 +8,45 @@
       <input formControlName="examDate" placeholder="examDate" type="text">
       <input formControlName="points" placeholder="points" type="text">
       <input formControlName="courseId" placeholder="courseId" type="number">
+
+      <br>
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['description'].dirty || registrationForm.controls['description'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['description'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['examDate'].dirty || registrationForm.controls['examDate'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['examDate'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['points'].dirty || registrationForm.controls['points'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['points'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['courseId'].dirty || registrationForm.controls['courseId'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['courseId'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+      <ng-template #condition>
+        <span class="spanClass">
+        </span>
+      </ng-template>
+
     </form>
 
     <div>
