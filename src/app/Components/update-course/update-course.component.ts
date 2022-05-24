@@ -18,6 +18,7 @@ export class UpdateCourseComponent implements OnInit {
     description: [null, Validators.required],
     year: [null, Validators.required],
     semester: [null, Validators.required],
+    professorId: [null, Validators.required],
   })
 
   constructor(private readonly courseService: CourseService, private fb: FormBuilder, private notifyService: NotificationService) {

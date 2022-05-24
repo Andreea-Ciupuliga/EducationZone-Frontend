@@ -7,6 +7,8 @@
       <input formControlName="description" placeholder="description" type="text">
       <input formControlName="examDate" placeholder="examDate" type="text">
       <input formControlName="points" placeholder="points" type="text">
+      <input formControlName="examRoom" placeholder="examRoom" type="text">
+      <input formControlName="examHour" placeholder="examHour" type="text">
       <input formControlName="courseId" placeholder="courseId" type="number">
 
       <br>
@@ -30,6 +32,20 @@
       <mat-error
         *ngIf=" (registrationForm.controls['points'].dirty || registrationForm.controls['points'].touched); else condition">
         <mat-error *ngIf="registrationForm.controls['points'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['examRoom'].dirty || registrationForm.controls['examRoom'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['examRoom'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+
+      <mat-error
+        *ngIf=" (registrationForm.controls['examHour'].dirty || registrationForm.controls['examHour'].touched); else condition">
+        <mat-error *ngIf="registrationForm.controls['examHour'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>

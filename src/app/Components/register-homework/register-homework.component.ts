@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {StudentService} from "../../Services/StudentService/student.service";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 
 @Component({
@@ -11,13 +10,10 @@ import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 export class RegisterHomeworkComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    //scriem proprietatile pe care o sa le folosim
-
     description: ['', Validators.required],
     deadline: ['', Validators.required],
     points: ['', Validators.required],
     courseId: ['', Validators.required],
-
   })
 
   constructor(private readonly homeworkService: HomeworkService, private fb: FormBuilder) {

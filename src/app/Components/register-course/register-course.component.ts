@@ -20,6 +20,7 @@ export class RegisterCourseComponent implements OnInit {
     description: ['', Validators.required],
     year: ['', Validators.required],
     semester: ['', Validators.required],
+    professorId: ['', Validators.required],
   })
 
 

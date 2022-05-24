@@ -9,8 +9,9 @@
 
   <span>{{title}}</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button routerLink="/admin-page" mat-raised-button>Admin</button>
-  <button mat-raised-button routerLink="/professor-page" mat-raised-button>Professor</button>
+  <button mat-raised-button *ngIf="isAdmin" routerLink="/admin-home" mat-raised-button>Admin</button>
+  <button mat-raised-button routerLink="/edit-profile" mat-raised-button>Edit profile</button>
+  <button mat-raised-button (click)="logout()">logout</button>
 
 
 </mat-toolbar>

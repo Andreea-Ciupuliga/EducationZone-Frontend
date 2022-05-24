@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
   title = 'Education Zone';
-  constructor() { }
+  isAdmin:boolean =false;
+  roles=this.keycloakService.getUserRoles();
+  constructor(private keycloakService: KeycloakService) {
+  }
 
   ngOnInit(): void {
+
+    this.roles.forEach(value=>{
+      if (value == 'ROLE_ADMIN')
+        this.isAdmin=true;
+    })
+
+    console.log("roluri student curent: ",this.roles)
+  }
+
+  logout() {
+    this.keycloakService.logout();
   }
 
 }

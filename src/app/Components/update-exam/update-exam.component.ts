@@ -15,6 +15,8 @@ export class UpdateExamComponent implements OnInit {
     description: [null, Validators.required],
     examDate: [null, Validators.required],
     points: [null, Validators.required],
+    examRoom: ['', Validators.required],
+    examHour: ['', Validators.required],
     courseId: [null, Validators.required],
 
   })

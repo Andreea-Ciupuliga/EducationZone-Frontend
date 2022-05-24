@@ -87,6 +87,7 @@ export class RegisterStudentComponent implements OnInit {
   registerStudentAtCourse(): void {
     let studentId = this.registrationStudentAtCourseForm.value.studentId;
     let courseId = this.registrationStudentAtCourseForm.value.courseId;
+    this.registrationStudentAtCourseForm.reset();
     this.participantsService.registerStudentAtCourse(studentId, courseId).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);

@@ -11,11 +11,11 @@ import {ExamService} from "../../Services/ExamService/exam.service";
 export class RegisterExamComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    //scriem proprietatile pe care o sa le folosim
-
     description: ['', Validators.required],
     examDate: ['', Validators.required],
     points: ['', Validators.required],
+    examRoom: ['', Validators.required],
+    examHour: ['', Validators.required],
     courseId: ['', Validators.required],
 
   })
