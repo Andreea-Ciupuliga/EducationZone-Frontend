@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
-import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-home',
@@ -8,23 +8,24 @@ import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public Courses: GetCourseDTO[] = [];
-  private studentId: number = 9;
+  isStudent:boolean =false;
+  isProfessor:boolean =false;
+  isAdmin:boolean =false;
+  roles=this.keycloakService.getUserRoles();
 
-
-  constructor(private readonly participantsService: ParticipantsService) {
+  constructor(private readonly participantsService: ParticipantsService,private keycloakService: KeycloakService) {
   }
 
   ngOnInit(): void {
+    this.roles.forEach(value=>{
+      if (value == 'ROLE_STUDENT')
+        this.isStudent=true;
+      if (value == 'ROLE_PROFESSOR')
+        this.isProfessor=true;
+      if (value == 'ROLE_ADMIN')
+        this.isAdmin=true;
+    })
 
-    this.getAllCoursesByStudentId();
+    console.log("roluri user curent: ",this.roles)
   }
-
-  getAllCoursesByStudentId() {
-    this.participantsService.getAllCoursesByStudentId(this.studentId).subscribe((data: GetCourseDTO[]) => {         //daca nu scriem .subscribe nu o sa se faca requestul
-      this.Courses = data;
-      console.log(this.Courses)
-    });
-  }
-
 }
