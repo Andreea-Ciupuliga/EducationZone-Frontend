@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ExamService} from "../../Services/ExamService/exam.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-exams',
@@ -8,15 +9,16 @@ import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
   styleUrls: ['./exams.component.scss']
 })
 export class ExamsComponent implements OnInit {
-  private studentId: number = 9;
+  private studentUsername: string = "";
   public Exams: GetExamDTO[] = [];
-  constructor(private readonly examService: ExamService) { }
+  constructor(private readonly examService: ExamService,private keycloakService: KeycloakService) { }
 
   ngOnInit(): void {
-    this.getAllExamsByStudentId();
+    this.getAllExamsByStudentUsername();
   }
-  getAllExamsByStudentId() {
-    this.examService.getAllExamsByStudentId(this.studentId).subscribe((data: GetExamDTO[]) => {         //daca nu scriem .subscribe nu o sa se faca requestul
+  getAllExamsByStudentUsername() {
+    this.studentUsername=this.keycloakService.getUsername();
+    this.examService.getAllExamsByStudentUsername(this.studentUsername).subscribe((data: GetExamDTO[]) => {
       this.Exams = data;
       console.log(this.Exams)
     });
