@@ -1,0 +1,82 @@
+<app-toolbar></app-toolbar>
+<html>
+
+<body>
+
+<mat-card *ngIf="isStudent" class="example-card">
+
+  <mat-card-content>
+
+    <div>
+      <p> Id: {{student.id}} </p>
+      <p> First name: {{student.firstName}} </p>
+      <p> Last name: {{student.lastName}} </p>
+      <p> Email: {{student.email}} </p>
+      <p> Username: {{student.username}} </p>
+      <p> Group number: {{student.groupNumber}} </p>
+      <p> Phone: {{student.phone}} </p>
+      <p> Department: {{student.department}} </p>
+      <br>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="isStudent">
+  <p>Update profile</p>
+  <form [formGroup]="updateStudentForm">
+
+    <input formControlName="firstName" placeholder="firstName" type="text">
+    <input formControlName="lastName" placeholder="lastName" type="text">
+    <input formControlName="password" placeholder="password" type="password">
+    <input formControlName="phone" placeholder="phone" type="text">
+
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="updateStudent()">Submit</button>
+  </div>
+
+</mat-card>
+
+<mat-card *ngIf="isProfessor" class="example-card">
+
+  <mat-card-content>
+
+    <div>
+      <p> Id: {{professor.id}} </p>
+      <p> First name: {{professor.firstName}} </p>
+      <p> Last name: {{professor.lastName}} </p>
+      <p> Email: {{professor.email}} </p>
+      <p> Username: {{professor.username}} </p>
+      <p> Phone: {{professor.phone}} </p>
+      <br>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="isProfessor">
+  <p>Update profile</p>
+  <form [formGroup]="updateProfessorForm">
+    <input formControlName="firstName" placeholder="firstName" type="text">
+    <input formControlName="lastName" placeholder="lastName" type="text">
+    <input formControlName="password" placeholder="password" type="password">
+    <input formControlName="phone" placeholder="phone" type="text">
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="updateProfessor()">Submit</button>
+  </div>
+
+</mat-card>
+
+
+</body>
+
+<router-outlet></router-outlet>
+
+</html>
+
