@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GetGradeDTO} from "../../DTOs/GradeDTOs/get-grade-dto";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-grades',
@@ -9,15 +10,16 @@ import {ParticipantsService} from "../../Services/ParticipantsService/participan
 })
 export class GradesComponent implements OnInit {
 
-  private studentId: number = 9;
+  private studentUsername: string = "";
   public Grades: GetGradeDTO[] = [];
-  constructor(private readonly participantsService: ParticipantsService) { }
+  constructor(private readonly participantsService: ParticipantsService,private keycloakService: KeycloakService) { }
 
   ngOnInit(): void {
-    this.getAllGradesByStudentId();
+    this.getAllGradesByStudentUsername();
   }
-  getAllGradesByStudentId() {
-    this.participantsService.getAllGradesByStudentId(this.studentId).subscribe((data: GetGradeDTO[]) => {         //daca nu scriem .subscribe nu o sa se faca requestul
+  getAllGradesByStudentUsername() {
+    this.studentUsername=this.keycloakService.getUsername();
+    this.participantsService.getAllGradesByStudentUsername(this.studentUsername).subscribe((data: GetGradeDTO[]) => {
       this.Grades = data;
       console.log(this.Grades)
     });
