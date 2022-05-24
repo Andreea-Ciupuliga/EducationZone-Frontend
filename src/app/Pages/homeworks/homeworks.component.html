@@ -4,7 +4,6 @@
 
 <body>
 
-
 <div class="content">
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
@@ -13,7 +12,6 @@
       <mat-card class="example-card">
 
         <mat-card-content>
-          <!--          <img mat-card-image src="{{product.photoLink}}" alt="Photo">-->
           <p>
             Course: {{homework.courseName}} <br>
             {{homework.description}}<br>
@@ -21,10 +19,6 @@
             Points: {{homework.points}}<br>
           </p>
         </mat-card-content>
-
-        <mat-card-actions>
-          <!--          <button mat-raised-button routerLink="/createOrder/{{product.id}}">Create order</button>-->
-        </mat-card-actions>
 
       </mat-card>
 
@@ -37,9 +31,6 @@
 
 </body>
 
-
-<!-- ca sa se vada pag1 si pag2 pe site punem router-outlet ptc daca nu il puneam nu se vedeau-->
 <router-outlet></router-outlet>
-<!--<app-sign-up></app-sign-up>-->
 
 </html>
