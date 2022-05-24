@@ -5,5 +5,5 @@ export interface RegisterCourseDTO {
   description: string;
   year: string;
   semester: string;
-
+  professorId:number;
 }
