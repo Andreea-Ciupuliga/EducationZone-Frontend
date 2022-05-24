@@ -6,6 +6,8 @@ export interface Exam {
   description: string;
   examDate: string;
   points: string;
+  examRoom: string;
+  examHour: string;
 
   course: Course;
 

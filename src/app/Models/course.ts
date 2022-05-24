@@ -1,7 +1,7 @@
 import {Participants} from "./participants";
-import {ProfessorCourse} from "./professor-course";
 import {Homework} from "./homework";
 import {Exam} from "./exam";
+import {Professor} from "./professor";
 
 export interface Course {
 
@@ -13,7 +13,7 @@ export interface Course {
   year: string;
 
   participants: Participants[];
-  professorCourse: ProfessorCourse[];
+  professor: Professor;
   homeworks: Homework[];
   exam: Exam;
 

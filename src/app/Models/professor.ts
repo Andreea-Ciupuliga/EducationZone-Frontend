@@ -1,4 +1,5 @@
-import {ProfessorCourse} from "./professor-course";
+
+import {Course} from "./course";
 
 export interface Professor {
 
@@ -9,6 +10,6 @@ export interface Professor {
   password: string;
   username: string;
   phone: string;
-  professorCourse: ProfessorCourse[];
+  courses: Course[];
 
 }

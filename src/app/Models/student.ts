@@ -1,4 +1,5 @@
 import {Participants} from "./participants";
+import {StickyNote} from "./sticky-note";
 
 export interface Student {
   id: number;
@@ -12,6 +13,7 @@ export interface Student {
   year: string;
   department: string;
   participants: Participants[];
+  stickyNotes: StickyNote[];
 
 
 
