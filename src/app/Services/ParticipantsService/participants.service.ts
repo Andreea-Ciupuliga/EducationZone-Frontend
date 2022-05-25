@@ -12,17 +12,28 @@ export class ParticipantsService {
   constructor(private apiService: ApiService) {
   }
 
-  //nu stiu daca merge????
   registerStudentAtCourse(studentId: number, courseId: number) {
     return this.apiService.post<Participants>(this.endpoint + '/register/' + studentId + '/' + courseId);
+  }
+
+  addGradeForStudent(studentId: number, courseId: number, courseGrade: String) {
+    return this.apiService.put<Participants>(this.endpoint + '/addGradeForStudent/' + studentId + '/' + courseId + '/' + courseGrade);
   }
 
   getAllCoursesByStudentId(studentId: number) {
     return this.apiService.get<Participants>(this.endpoint + '/getAllCoursesByStudentId/' + studentId)
   }
 
+  getAllCoursesByStudentUsername(studentUsername: string) {
+    return this.apiService.get<Participants>(this.endpoint + '/getAllCoursesByStudentUsername/' + studentUsername)
+  }
+
   getAllGradesByStudentId(studentId: number) {
     return this.apiService.get<Participants>(this.endpoint + '/getAllGradesByStudentId/' + studentId)
+  }
+
+  getAllGradesByStudentUsername(studentUsername: string){
+    return this.apiService.get<Participants>(this.endpoint + '/getAllGradesByStudentUsername/' + studentUsername)
   }
 
   getAllStudentsByCourseId(courseId: number) {
