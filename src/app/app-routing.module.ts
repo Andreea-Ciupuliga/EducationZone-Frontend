@@ -10,13 +10,13 @@ import {HomeworksComponent} from "./Pages/homeworks/homeworks.component";
 import {StudentAdministrationComponent} from "./Pages/student-administration/student-administration.component";
 import {ProfessorAdministrationComponent} from "./Pages/professor-administration/professor-administration.component";
 import {GradesComponent} from "./Pages/grades/grades.component";
-import {AdminPageComponent} from "./Pages/admin-page/admin-page.component";
-import {ProfessorPageComponent} from "./Pages/professor-page/professor-page.component";
 import {ManageCourseComponent} from "./Pages/manage-course/manage-course.component";
-//import {AccessDeniedComponent} from "./access-denied/access-denied.component";
-//import {AuthGuard} from "./auth/auth.guard";
-//import {AdminComponent} from "./admin/admin.component";
-//import {ManagerComponent} from "./manager/manager.component";
+import {AccessDeniedComponent} from "./access-denied/access-denied.component";
+import {AuthGuard} from "./auth/auth.guard";
+import {AdminHomeComponent} from "./Pages/admin-home/admin-home.component";
+import {ProfessorHomeComponent} from "./Pages/professor-home/professor-home.component";
+import {StudentHomeComponent} from "./Pages/student-home/student-home.component";
+import {EditProfileComponent} from "./Pages/edit-profile/edit-profile.component";
 
 const routes: Routes = [
   {
@@ -30,72 +30,95 @@ const routes: Routes = [
   },
   {
     path:'exams',
-    component: ExamsComponent
+    component: ExamsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
   {
     path:'homeworks',
-    component: HomeworksComponent
+    component: HomeworksComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
   {
     path:'grades',
-    component:GradesComponent
+    component:GradesComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
   {
     path:'courseDetails/:id',
-    component: CourseDetailsComponent
+    component: CourseDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
   {
     path:'manageCourse/:id',
-    component: ManageCourseComponent
+    component: ManageCourseComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_PROFESSOR'] },
   },
   {
     path:'courseAdministration',
-    component: CourseAdministrationComponent
+    component: CourseAdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
     path:'examAdministration',
-    component: ExamAdministrationComponent
+    component: ExamAdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
     path:'homeworkAdministration',
-    component: HomeworkAdministrationComponent
+    component: HomeworkAdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
     path:'professorAdministration',
-    component: ProfessorAdministrationComponent
+    component: ProfessorAdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
     path:'studentAdministration',
-    component: StudentAdministrationComponent
+    component: StudentAdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
-    path:'admin-page',
-    component:AdminPageComponent
+    path:'admin-home',
+    component:AdminHomeComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_ADMIN'] },
   },
   {
-    path:'professor-page',
-    component:ProfessorPageComponent
+    path:'professor-home',
+    component:ProfessorHomeComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_PROFESSOR'] },
+  },
+  {
+    path:'student-home',
+    component:StudentHomeComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
 
-  // {
-  //   path: 'access-denied',
-  //   component: AccessDeniedComponent,
-  //   canActivate: [AuthGuard],
-  // },
-  // {
-  //   path: 'admin',
-  //   component: AdminComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: ['ROLE_CLIENT_ADMIN'] },
-  // },
-  // {
-  //   path: 'manager',
-  //   component: ManagerComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: ['ROLE_CLIENT_STUDENT'] },
-  // },
+  {
+    path:'edit-profile',
+    component:EditProfileComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [] },
+  },
 
-
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent,
+    canActivate: [AuthGuard],
+  },
 
 ];
 
