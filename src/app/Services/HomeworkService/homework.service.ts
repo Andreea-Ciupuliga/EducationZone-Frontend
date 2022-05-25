@@ -35,6 +35,10 @@ export class HomeworkService {
     return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentId/'+id);
   }
 
+  getAllHomeworksByStudentUsername(username: string){
+    return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentUsername/'+username);
+  }
+
   updateHomework(id: number,homeworkRegisterDTO: RegisterHomeworkDTO){
     return this.apiService.put<Homework>(this.endpoint + '/'+id,homeworkRegisterDTO);
   }
