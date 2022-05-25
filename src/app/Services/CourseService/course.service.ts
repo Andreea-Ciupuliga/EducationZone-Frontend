@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterCourseDTO} from "../../DTOs/CourseDTOs/register-course-dto";
 import {Course} from "../../Models/course";
-import {Student} from "../../Models/student";
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,13 @@ export class CourseService {
     return this.apiService.get<Course>(this.endpoint + '/getAllByName/'+courseName);
   }
 
+  getAllCoursesByProfessorId(professorId: number) {
+    return this.apiService.get<Course>(this.endpoint + '/getAllCoursesByProfessorId/' + professorId)
+  }
+
+  getAllCoursesByProfessorUsername(professorUsername: string) {
+    return this.apiService.get<Course>(this.endpoint + '/getAllCoursesByProfessorUsername/' + professorUsername)
+  }
 
   // removeAllCourses(){
   //   return this.apiService.delete(this.endpoint+'/deleteAll');
