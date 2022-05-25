@@ -10,16 +10,14 @@
       <mat-card class="example-card">
 
         <mat-card-content>
-          <!--          <img mat-card-image src="{{product.photoLink}}" alt="Photo">-->
-          <p>
-            {{course.name}} <br>
+          <div>
+            Course name: <b>{{course.name}}</b> <br>
             <br>
-            {{course.professorName}}<br>
-          </p>
+            Professor name: {{course.professorName}} <br>
+          </div>
         </mat-card-content>
 
         <mat-card-actions>
-          <!--          <button mat-raised-button routerLink="/createOrder/{{product.id}}">Create order</button>-->
           <button class="matButton" mat-raised-button routerLink="/manageCourse/{{course.id}}">See details</button>
         </mat-card-actions>
 
@@ -34,10 +32,7 @@
 
 </body>
 
-
-<!-- ca sa se vada pag1 si pag2 pe site punem router-outlet ptc daca nu il puneam nu se vedeau-->
 <router-outlet></router-outlet>
-<!--<app-sign-up></app-sign-up>-->
 
 </html>
 
