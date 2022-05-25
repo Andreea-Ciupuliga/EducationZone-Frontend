@@ -27,6 +27,10 @@ export class StudentService {
     return this.apiService.get<Student>(this.endpoint + '/'+id);
   }
 
+  getStudentByUsername(username: String){
+    return this.apiService.get<Student>(this.endpoint + '/getStudentByUsername/'+username);
+  }
+
   getAllStudents(){
     return this.apiService.get<Student>(this.endpoint + '/getAll');
   }
