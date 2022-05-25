@@ -7,26 +7,32 @@
 
 
   <mat-card-content>
-    <p>
+    <div>
       <b>{{course.name}}</b> <br>
       {{course.description}} <br>
       Number of students : {{course.numberOfStudents}} <br>
       Year: {{course.year}} <br>
       Semester: {{course.semester}} <br>
+
+
       Professor name: {{course.professorName}} <br>
 
-      Exam date: {{exam.examDate}}
 
-    </p>
+      <p *ngIf="exam">Exam date: {{exam.examDate}}</p>
+
+    </div>
   </mat-card-content>
+
 
 </mat-card>
 
-<br>
-<p>HOMEWORKS:</p>
-<mat-divider></mat-divider>
 
-<div class="content">
+<div *ngIf="Homeworks" class="content">
+
+  <br>
+  <p>HOMEWORKS:</p>
+  <mat-divider></mat-divider>
+
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
 
@@ -34,19 +40,15 @@
       <mat-card class="example-card">
 
         <mat-card-content>
-          <!--          <img mat-card-image src="{{product.photoLink}}" alt="Photo">-->
           <p>
+            Id: {{homework.id}}<br>
             {{homework.description}} <br>
             <br>
             Deadline: {{homework.deadline}}<br>
             Points: {{homework.points}}<br>
           </p>
         </mat-card-content>
-
-        <mat-card-actions>
-
-        </mat-card-actions>
-
+        <button mat-raised-button (click)="removeHomework(homework.id)">Delete homework</button>
       </mat-card>
 
     </div>
@@ -56,7 +58,7 @@
 </div>
 
 
-<mat-card class="course-details">
+<mat-card *ngIf="exam" class="course-details">
 
   EXAM:
 
@@ -66,15 +68,126 @@
       Exam date: {{exam.examDate}}<br>
       {{exam.description}}<br>
       Points: {{exam.points}}<br>
+      Exam room: {{exam.examRoom}}<br>
+      Exam hour: {{exam.examHour}}<br>
 
     </p>
   </mat-card-content>
-
+  <button mat-raised-button (click)="removeExam(exam.id)">Delete Exam</button>
 </mat-card>
 
 <mat-card>
+  <p>Register Homework</p>
+
+  <form [formGroup]="registrationFormHomework">
+
+    <input formControlName="description" placeholder="description" type="text">
+    <input formControlName="deadline" placeholder="deadline" type="text">
+    <input formControlName="points" placeholder="points" type="text">
+    <br>
+
+    <mat-error
+      *ngIf=" (registrationFormHomework.controls['description'].dirty || registrationFormHomework.controls['description'].touched); else condition">
+      <mat-error *ngIf="registrationFormHomework.controls['description'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+
+    <mat-error
+      *ngIf=" (registrationFormHomework.controls['deadline'].dirty || registrationFormHomework.controls['deadline'].touched); else condition">
+      <mat-error *ngIf="registrationFormHomework.controls['deadline'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+
+    <mat-error
+      *ngIf=" (registrationFormHomework.controls['points'].dirty || registrationFormHomework.controls['points'].touched); else condition">
+      <mat-error *ngIf="registrationFormHomework.controls['points'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+    <ng-template #condition>
+        <span class="spanClass">
+        </span>
+    </ng-template>
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="registerHomework()">Submit</button>
+  </div>
+</mat-card>
+
+<mat-card>
+  <p>Register Exam</p>
+
+  <form [formGroup]="registrationFormExam">
+
+    <input formControlName="description" placeholder="description" type="text">
+    <input formControlName="examDate" placeholder="examDate" type="text">
+    <input formControlName="points" placeholder="points" type="text">
+    <input formControlName="examRoom" placeholder="examRoom" type="text">
+    <input formControlName="examHour" placeholder="examHour" type="text">
+
+    <br>
+
+    <mat-error
+      *ngIf=" (registrationFormExam.controls['description'].dirty || registrationFormExam.controls['description'].touched); else condition">
+      <mat-error *ngIf="registrationFormExam.controls['description'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+
+    <mat-error
+      *ngIf=" (registrationFormExam.controls['examDate'].dirty || registrationFormExam.controls['examDate'].touched); else condition">
+      <mat-error *ngIf="registrationFormExam.controls['examDate'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+
+    <mat-error
+      *ngIf=" (registrationFormExam.controls['points'].dirty || registrationFormExam.controls['points'].touched); else condition">
+      <mat-error *ngIf="registrationFormExam.controls['points'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+    <mat-error
+      *ngIf=" (registrationFormExam.controls['examRoom'].dirty || registrationFormExam.controls['examRoom'].touched); else condition">
+      <mat-error *ngIf="registrationFormExam.controls['examRoom'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+    <mat-error
+      *ngIf=" (registrationFormExam.controls['examHour'].dirty || registrationFormExam.controls['examHour'].touched); else condition">
+      <mat-error *ngIf="registrationFormExam.controls['examHour'].hasError('required')">
+        Field required
+      </mat-error>
+    </mat-error>
+
+    <ng-template #condition>
+        <span class="spanClass">
+        </span>
+    </ng-template>
+
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="registerExam()">Submit</button>
+  </div>
+
+</mat-card>
+
+
+<mat-card>
   <p>Edit Course</p>
-  <form [formGroup]="registrationFormCourse">
+  <form [formGroup]="updateFormCourse">
 
     <input formControlName="name" placeholder="name" type="text">
     <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
@@ -93,13 +206,13 @@
 
 <mat-card>
   <p>Edit Exam</p>
-  <form [formGroup]="registrationFormExam">
-    <input formControlName="id" placeholder="id" type="number">
+  <form [formGroup]="updateFormExam">
+
     <input formControlName="description" placeholder="description" type="text">
     <input formControlName="examDate" placeholder="examDate" type="text">
     <input formControlName="points" placeholder="points" type="text">
-    <input formControlName="courseId" placeholder="courseId" type="number">
-
+    <input formControlName="examRoom" placeholder="examRoom" type="text">
+    <input formControlName="examHour" placeholder="examHour" type="text">
   </form>
 
   <div>
@@ -110,7 +223,7 @@
 
 <mat-card>
   <p>Edit Homework</p>
-  <form [formGroup]="registrationFormHomework">
+  <form [formGroup]="updateFormHomework">
 
     <input formControlName="id" placeholder="id" type="number">
     <input formControlName="description" placeholder="description" type="text">
@@ -129,7 +242,7 @@
 <mat-card>
   <form class="example-form">
 
-    <button mat-raised-button (click)="getAllStudentsByCourseId()">Show students</button>
+    <button mat-raised-button (click)="getAllStudentsByCourseId()">Show all students</button>
 
     <mat-accordion>
 
@@ -142,14 +255,21 @@
 
         </mat-expansion-panel-header>
         <div *ngFor="let student of AllStudents">
-          <p> Id: {{student.id}} </p>
           <p> First name: {{student.firstName}} </p>
           <p> Last name: {{student.lastName}} </p>
           <p> Email: {{student.email}} </p>
-          <p> Username: {{student.username}} </p>
           <p> Group number: {{student.groupNumber}} </p>
-          <p> Phone: {{student.phone}} </p>
           <p> Department: {{student.department}} </p>
+          <div>
+            <b><p>Assign grade to student:</p></b>
+
+            <form [formGroup]="addGradeForStudentForm" #formDirective="ngForm" >
+              <mat-form-field class="example-form-field" appearance="fill">
+                <input matInput type="text" id="courseGrade" name="courseGrade" #courseGrade>
+              </mat-form-field>
+            </form>
+            <button mat-raised-button (click)="addGradeForStudent(student.id,courseGrade.value)">Add grade</button>
+          </div>
           <br>
         </div>
       </mat-expansion-panel>
