@@ -23,12 +23,20 @@ export class ExamService {
     return this.apiService.put<Exam>(this.endpoint + '/'+id,examRegisterDTO);
   }
 
+  updateExamByCourseId(examRegisterDTO: RegisterExamDTO){
+    return this.apiService.put<Exam>(this.endpoint + '/updateExamByCourseId/',examRegisterDTO);
+  }
+
   getExamByCourseId(id: number){
     return this.apiService.get<Exam>(this.endpoint + '/getByCourseId/'+id);
   }
 
   getAllExamsByStudentId(id: number){
     return this.apiService.get<Exam>(this.endpoint + '/getAllByStudentId/'+id);
+  }
+
+  getAllExamsByStudentUsername(username: string){
+    return this.apiService.get<Exam>(this.endpoint + '/getAllExamsByStudentUsername/'+username);
   }
 
 
