@@ -1,0 +1,42 @@
+<app-toolbar></app-toolbar>
+<html>
+
+<body>
+<button mat-raised-button routerLink="/exams">My Exams</button>
+<button mat-raised-button routerLink="/homeworks">My Homeworks</button>
+<button mat-raised-button routerLink="/grades">My Grades</button>
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="32%" *ngFor="let course of Courses">
+
+
+      <mat-card class="example-card">
+
+        <mat-card-content>
+          <div>
+            Course name: <b>{{course.name}}</b> <br>
+            <br>
+            Professor name: {{course.professorName}} <br>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button routerLink="/courseDetails/{{course.id}}">See details</button>
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+</body>
+
+<router-outlet></router-outlet>
+
+</html>
+
