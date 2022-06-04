@@ -1,5 +1,31 @@
 <app-toolbar></app-toolbar>
-<app-register-exam></app-register-exam>
-<app-remove-exam></app-remove-exam>
-<app-update-exam></app-update-exam>
+<!--<app-register-exam></app-register-exam>-->
+<!--<app-remove-exam></app-remove-exam>-->
+<!--<app-update-exam></app-update-exam>-->
+<!--<app-get-exam></app-get-exam>-->
+
+<html>
+
+<body>
+
+<div style="text-align: center">
+  <button mat-fab (click)="openDialogAddNewExam()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div style="text-align: center">
+  <button mat-raised-button (click)="openDialogUpdateExam()">
+    Update exam
+  </button>
+
+  <button mat-raised-button (click)="openDialogRemoveExam()">
+    Remove exam
+  </button>
+</div>
+
+</body>
+</html>
+
 <app-get-exam></app-get-exam>
+<router-outlet></router-outlet>
