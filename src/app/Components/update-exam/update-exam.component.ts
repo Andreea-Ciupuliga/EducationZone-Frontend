@@ -12,12 +12,12 @@ import {NotificationService} from "../../Services/NotificationService/notificati
 export class UpdateExamComponent implements OnInit {
   registrationForm = this.fb.group({
     id: [null, Validators.required],
-    description: [null, Validators.required],
-    examDate: [null, Validators.required],
-    points: [null, Validators.required],
-    examRoom: ['', Validators.required],
-    examHour: ['', Validators.required],
-    courseId: [null, Validators.required],
+    description: [null],
+    examDate: [null],
+    points: [null],
+    examRoom: [null],
+    examHour: [null],
+    courseId: [null],
 
   })
 
