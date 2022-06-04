@@ -1,25 +1,43 @@
-<div>
-  <mat-card>
-    <p>Update Course</p>
-    <form [formGroup]="registrationForm">
+<h2 mat-dialog-title>Update course</h2>
 
-      <input formControlName="id" placeholder="id" type="number">
-      <input formControlName="name" placeholder="name" type="text">
-      <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
-      <input formControlName="description" placeholder="description" type="text">
-      <input formControlName="year" placeholder="year" type="text">
-      <input formControlName="semester" placeholder="semester" type="text">
-      <input formControlName="professorId" placeholder="professorId" type="number">
+<mat-dialog-content class="register-dialog">
+  <form [formGroup]="registrationForm">
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="id" placeholder="id" type="number">
+            <mat-error
+              *ngIf=" (registrationForm.controls['id'].dirty || registrationForm.controls['id'].touched);">
+              <mat-error *ngIf="registrationForm.controls['id'].hasError('required')">
+                Field required
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="name" placeholder="name" type="text">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="description" placeholder="description" type="text">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="year" placeholder="year" type="text">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="semester" placeholder="semester" type="text">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="professorId" placeholder="professor id" type="number">
+          </mat-form-field>
+
+  </form>
+</mat-dialog-content>
 
 
-
-    </form>
-
-    <div>
-      <button mat-raised-button (click)="submit()">Submit</button>
-    </div>
-
-  </mat-card>
-
-</div>
-<router-outlet></router-outlet>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="submit()">Submit</button>
+</mat-dialog-actions>
