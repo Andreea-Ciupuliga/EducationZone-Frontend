@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {StudentService} from "../../Services/StudentService/student.service";
 import {CourseService} from "../../Services/CourseService/course.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {ErrorStateMatcher} from "@angular/material/core";
-import {FormGroupDirective, NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-register-course',
@@ -16,7 +14,6 @@ export class RegisterCourseComponent implements OnInit {
   registrationForm = this.fb.group({
 
     name: ['', Validators.required],
-    numberOfStudents: ['', Validators.required],
     description: ['', Validators.required],
     year: ['', Validators.required],
     semester: ['', Validators.required],
