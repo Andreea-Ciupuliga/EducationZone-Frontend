@@ -12,15 +12,15 @@ export class UpdateStudentComponent implements OnInit {
   registrationForm = this.fb.group({
 
     id: [null, Validators.required],
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    email: [null, Validators.email],
-    password: [null, Validators.required],
-    username: [null, Validators.required],
-    groupNumber: [null, Validators.required],
-    phone: [null, Validators.required],
-    year: [null, Validators.required],
-    department: [null, Validators.required],
+    firstName: [null],
+    lastName: [null],
+    email: [null],
+    password: [null],
+    username: [null],
+    groupNumber: [null],
+    phone: [null],
+    year: [null],
+    department: [null],
   })
 
   constructor(private fb: FormBuilder, private readonly studentService: StudentService, private notifyService: NotificationService) {
