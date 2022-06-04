@@ -1,75 +1,76 @@
-<div>
-  <mat-card>
-    <p>Register Exam</p>
+<h2 mat-dialog-title>Add new exam</h2>
 
-    <form [formGroup]="registrationForm">
+<mat-dialog-content class="register-dialog">
+  <form [formGroup]="registrationForm">
 
-      <input formControlName="description" placeholder="description" type="text">
-      <input formControlName="examDate" placeholder="examDate" type="text">
-      <input formControlName="points" placeholder="points" type="text">
-      <input formControlName="examRoom" placeholder="examRoom" type="text">
-      <input formControlName="examHour" placeholder="examHour" type="text">
-      <input formControlName="courseId" placeholder="courseId" type="number">
-
-      <br>
-
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="description" placeholder="description" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['description'].dirty || registrationForm.controls['description'].touched); else condition">
+        *ngIf=" (registrationForm.controls['description'].dirty || registrationForm.controls['description'].touched);">
         <mat-error *ngIf="registrationForm.controls['description'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
-
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="examDate" placeholder="exam date" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['examDate'].dirty || registrationForm.controls['examDate'].touched); else condition">
+        *ngIf=" (registrationForm.controls['examDate'].dirty || registrationForm.controls['examDate'].touched);">
         <mat-error *ngIf="registrationForm.controls['examDate'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="points" placeholder="points" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['points'].dirty || registrationForm.controls['points'].touched); else condition">
+        *ngIf=" (registrationForm.controls['points'].dirty || registrationForm.controls['points'].touched);">
         <mat-error *ngIf="registrationForm.controls['points'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="examRoom" placeholder="exam room" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['examRoom'].dirty || registrationForm.controls['examRoom'].touched); else condition">
+        *ngIf=" (registrationForm.controls['examRoom'].dirty || registrationForm.controls['examRoom'].touched);">
         <mat-error *ngIf="registrationForm.controls['examRoom'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="examHour" placeholder="exam hour" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['examHour'].dirty || registrationForm.controls['examHour'].touched); else condition">
+        *ngIf=" (registrationForm.controls['examHour'].dirty || registrationForm.controls['examHour'].touched);">
         <mat-error *ngIf="registrationForm.controls['examHour'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="courseId" placeholder="course id" type="number">
       <mat-error
-        *ngIf=" (registrationForm.controls['courseId'].dirty || registrationForm.controls['courseId'].touched); else condition">
+        *ngIf=" (registrationForm.controls['courseId'].dirty || registrationForm.controls['courseId'].touched);">
         <mat-error *ngIf="registrationForm.controls['courseId'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
-      <ng-template #condition>
-        <span class="spanClass">
-        </span>
-      </ng-template>
+  </form>
+</mat-dialog-content>
 
-    </form>
-
-    <div>
-      <button mat-raised-button (click)="submit()">Submit</button>
-    </div>
-
-  </mat-card>
-
-</div>
-<router-outlet></router-outlet>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="submit()">Submit</button>
+</mat-dialog-actions>
