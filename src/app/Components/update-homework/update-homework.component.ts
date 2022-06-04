@@ -13,10 +13,10 @@ import {NotificationService} from "../../Services/NotificationService/notificati
 export class UpdateHomeworkComponent implements OnInit {
   registrationForm = this.fb.group({
     id: [null, Validators.required],
-    description: [null, Validators.required],
-    deadline: [null, Validators.required],
-    points: [null, Validators.required],
-    courseId: [null, Validators.required],
+    description: [null],
+    deadline: [null],
+    points: [null],
+    courseId: [null],
 
   })
 
