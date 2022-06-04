@@ -1,77 +1,77 @@
-<div>
-  <mat-card>
-    <p>Register Professor</p>
+<h2 mat-dialog-title>Add new professor</h2>
 
-    <form [formGroup]="registrationForm">
+<mat-dialog-content class="register-dialog">
+  <form [formGroup]="registrationForm" >
 
-      <input formControlName="firstName" placeholder="firstName" type="text">
-      <input formControlName="lastName" placeholder="lastName" type="text">
-      <input formControlName="email" placeholder="email" type="text">
-      <input formControlName="password" placeholder="password" type="password">
-      <input formControlName="username" placeholder="username" type="text">
-      <input formControlName="phone" placeholder="phone" type="text">
-
-      <br>
-
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="firstName" placeholder="first name" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched); else condition">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
         <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="lastName" placeholder="last name" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['lastName'].dirty || registrationForm.controls['lastName'].touched); else condition">
-        <mat-error *ngIf="registrationForm.controls['lastName'].hasError('required')">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="email" placeholder="email" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched); else condition">
-        <mat-error *ngIf="registrationForm.controls['email'].hasError('required')">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="password" placeholder="password" type="password">
       <mat-error
-        *ngIf=" (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched); else condition">
-        <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
 
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="username" placeholder="username" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['username'].dirty || registrationForm.controls['username'].touched); else condition">
-        <mat-error *ngIf="registrationForm.controls['username'].hasError('required')">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="phone" placeholder="phone" type="text">
       <mat-error
-        *ngIf=" (registrationForm.controls['phone'].dirty || registrationForm.controls['phone'].touched); else condition">
-        <mat-error *ngIf="registrationForm.controls['phone'].hasError('required')">
+        *ngIf=" (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched);">
+        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
           Field required
         </mat-error>
       </mat-error>
+    </mat-form-field>
 
+  </form>
+</mat-dialog-content>
 
-      <ng-template #condition>
-        <span class="spanClass">
-        </span>
-      </ng-template>
-
-    </form>
-
-    <div>
-      <button mat-raised-button (click)="submit()">Submit</button>
-    </div>
-
-  </mat-card>
-
-</div>
-<router-outlet></router-outlet>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="submit()">Submit</button>
+</mat-dialog-actions>
