@@ -1,10 +1,18 @@
-<mat-card>
-  <p>Write the homework id</p>
-  <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="number" [(ngModel)]="homeworkId">
-  </mat-form-field>
-  <button mat-raised-button (click)="removeHomework(homeworkId)">Delete homework</button>
-</mat-card>
 
-<router-outlet></router-outlet>
+<h2 mat-dialog-title>Remove homework</h2>
+<mat-dialog-content>
+
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="homework id" type="number" [(ngModel)]="homeworkId">
+  </mat-form-field>
+
+  <button  mat-mini-fab [mat-dialog-close]="true" (click)="removeHomework(homeworkId)" >
+    <mat-icon>delete</mat-icon>
+  </button>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
 
