@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseService} from "../../Services/CourseService/course.service";
 import {Course} from "../../Models/course";
-import {StudentService} from "../../Services/StudentService/student.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
@@ -13,7 +12,6 @@ export class RemoveCourseComponent implements OnInit {
 
   constructor(private readonly courseService: CourseService, private notifyService: NotificationService) {
   }
-
   public courseId: any;
 
   ngOnInit(): void {
