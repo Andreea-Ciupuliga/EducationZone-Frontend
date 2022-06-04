@@ -1,5 +1,28 @@
 <app-toolbar></app-toolbar>
-<app-register-professor></app-register-professor>
-<app-remove-professor></app-remove-professor>
-<app-update-professor></app-update-professor>
+<html>
+
+<body>
+
+<div style="text-align: center">
+  <button mat-fab (click)="openDialogRegisterProfessor()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div style="text-align: center">
+  <button mat-raised-button (click)="openDialogUpdateProfessor()">
+    Update professor
+  </button>
+
+  <button mat-raised-button (click)="openDialogRemoveProfessor()">
+    Remove professor
+  </button>
+</div>
+
+
+</body>
+</html>
 <app-get-professor></app-get-professor>
+<router-outlet></router-outlet>
+
+
