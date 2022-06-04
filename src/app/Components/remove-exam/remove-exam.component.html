@@ -1,9 +1,18 @@
-<mat-card>
-  <p>Write the exam id</p>
-  <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="number" [(ngModel)]="examId">
-  </mat-form-field>
-  <button mat-raised-button (click)="removeExam(examId)">Delete Exam</button>
-</mat-card>
+<h2 mat-dialog-title>Remove exam</h2>
 
-<router-outlet></router-outlet>
+<mat-dialog-content>
+
+
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="exam id" type="number" [(ngModel)]="examId">
+  </mat-form-field>
+
+
+  <button  mat-mini-fab [mat-dialog-close]="true" (click)="removeExam(examId)" >
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
