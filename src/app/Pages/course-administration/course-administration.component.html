@@ -1,5 +1,27 @@
 <app-toolbar></app-toolbar>
-<app-register-course></app-register-course>
-<app-remove-course></app-remove-course>
-<app-update-course></app-update-course>
+
+<html>
+
+<body>
+
+<div style="text-align: center">
+  <button mat-fab (click)="openDialogAddNewCourse()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div style="text-align: center">
+  <button mat-raised-button (click)="openDialogUpdateCourse()">
+    Update course
+  </button>
+
+  <button mat-raised-button (click)="openDialogRemoveCourse()">
+    Remove course
+  </button>
+</div>
+
+</body>
+</html>
+
 <app-get-course></app-get-course>
+<router-outlet></router-outlet>
