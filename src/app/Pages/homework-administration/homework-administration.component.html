@@ -1,5 +1,30 @@
 <app-toolbar></app-toolbar>
-<app-register-homework></app-register-homework>
-<app-remove-homework></app-remove-homework>
-<app-update-homework></app-update-homework>
+
+<html>
+
+<body>
+
+<div style="text-align: center">
+  <button mat-fab (click)="openDialogAddNewHomework()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div style="text-align: center">
+  <button mat-raised-button (click)="openDialogUpdateHomework()">
+    Update homework
+  </button>
+
+  <button mat-raised-button (click)="openDialogRemoveHomework()">
+    Remove homework
+  </button>
+</div>
+
+</body>
+</html>
+
 <app-get-homework></app-get-homework>
+
+<router-outlet></router-outlet>
+
+
