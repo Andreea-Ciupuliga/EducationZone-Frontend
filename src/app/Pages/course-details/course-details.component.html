@@ -2,77 +2,75 @@
 <html>
 
 <body>
-<mat-card class="course-details">
+<h2>{{course.name}}</h2>
+
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
 
 
-  <mat-card-content>
-    <div>
-      <b>{{course.name}}</b> <br>
-      {{course.description}} <br>
-      Number of students : {{course.numberOfStudents}} <br>
-      Year: {{course.year}} <br>
-      Semester: {{course.semester}} <br>
+  <mat-tab label="Details">
 
-      Professor name: {{course.professorName}} <br>
+    <mat-card class="details">
+      <mat-card-content>
+        <div>
+          <p>{{course.description}}</p>
+          <br>
+          <p>Year: {{course.year}}</p>
+          <p>Semester: {{course.semester}}</p>
+          <p>Professor name: {{course.professorName}}</p>
+          <p *ngIf="exam" >Exam date: {{exam.examDate}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <p *ngIf="exam">Exam date: {{exam.examDate}}</p>
-
-    </div>
-  </mat-card-content>
-
-</mat-card>
-
-<div *ngIf="Homeworks" class="content">
-
-  <br>
-  <p>HOMEWORKS:</p>
-  <mat-divider></mat-divider>
-
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
+  </mat-tab>
 
 
-      <mat-card class="example-card">
+  <mat-tab label="Exam">
 
-        <mat-card-content>
-          <p>
-            {{homework.description}} <br>
-            <br>
-            Deadline: {{homework.deadline}}<br>
-            Points: {{homework.points}}<br>
-          </p>
-        </mat-card-content>
+    <mat-card *ngIf="exam" class="exam">
+      <mat-card-content>
+        <div>
+          <p>{{exam.description}}</p><br>
+          <br>
+          <p>Exam date: {{exam.examDate}}</p>
+          <p>Exam room: {{exam.examRoom}}</p>
+          <p>Exam hour: {{exam.examHour}}</p>
+          <p>Points: {{exam.points}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-        <mat-card-actions>
-
-        </mat-card-actions>
-
-      </mat-card>
-
-    </div>
+  </mat-tab>
 
 
-  </div>
-</div>
+  <mat-tab label="Homeworks">
 
 
-<mat-card *ngIf="exam" class="course-details">
+    <table mat-table [dataSource]="Homeworks" class="mat-elevation-z8">
 
-  EXAM:
+      <ng-container matColumnDef="deadline">
+        <th mat-header-cell *matHeaderCellDef> Deadline</th>
+        <td mat-cell *matCellDef="let homework"> {{homework.deadline}} </td>
+      </ng-container>
 
-  <mat-card-content>
-    <p>
+      <ng-container matColumnDef="points">
+        <th mat-header-cell *matHeaderCellDef> Points</th>
+        <td mat-cell *matCellDef="let homework">{{homework.points}}</td>
+      </ng-container>
 
-      Exam date: {{exam.examDate}}<br>
-      {{exam.description}}<br>
-      Points: {{exam.points}}<br>
-      Exam room: {{exam.examRoom}}<br>
-      Exam hour: {{exam.examHour}}<br>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description</th>
+        <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+      </ng-container>
 
-    </p>
-  </mat-card-content>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-</mat-card>
+    </table>
+
+  </mat-tab>
+
+</mat-tab-group>
 
 
 </body>

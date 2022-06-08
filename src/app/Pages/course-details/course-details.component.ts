@@ -13,6 +13,8 @@ import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
   styleUrls: ['./course-details.component.scss']
 })
 export class CourseDetailsComponent implements OnInit {
+
+  displayedColumns: string[] = ['deadline','points', 'description'];
   public Homeworks: GetHomeworkDTO[] = [];
   public course: GetCourseDTO={
     id: 0,
@@ -23,16 +25,7 @@ export class CourseDetailsComponent implements OnInit {
     semester: "",
     professorName: "",
   }
-  public exam: GetExamDTO = {
-    id:0,
-    courseName : "",
-    description : "",
-    examDate : "",
-    points : "",
-    examRoom : "",
-    examHour : "",
-    courseId : 0
-  };
+  public exam: GetExamDTO;
 
   constructor(private readonly examService: ExamService, private readonly homeworkService: HomeworkService, private readonly courseService: CourseService, private route: ActivatedRoute) {
   }
