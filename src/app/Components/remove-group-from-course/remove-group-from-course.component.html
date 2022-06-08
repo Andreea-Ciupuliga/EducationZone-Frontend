@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Remove group of students from course</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="removeGroupOfStudentsFromCourseForm">
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="groupNumber" placeholder="group number" type="number">
+      <mat-error
+        *ngIf=" (removeGroupOfStudentsFromCourseForm.controls['groupNumber'].dirty || removeGroupOfStudentsFromCourseForm.controls['groupNumber'].touched);">
+        <mat-error *ngIf="removeGroupOfStudentsFromCourseForm.controls['groupNumber'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="courseId" placeholder="course id" type="number">
+      <mat-error
+        *ngIf=" (removeGroupOfStudentsFromCourseForm.controls['courseId'].dirty || removeGroupOfStudentsFromCourseForm.controls['courseId'].touched);">
+        <mat-error *ngIf="removeGroupOfStudentsFromCourseForm.controls['courseId'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button mat-mini-fab [mat-dialog-close]="true" (click)="removeGroupOfStudentsFromCourse()">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+
+
