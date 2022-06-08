@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GetGradeDTO} from "../../DTOs/GradeDTOs/get-grade-dto";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {KeycloakService} from "keycloak-angular";
+import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 
 @Component({
   selector: 'app-grades',
@@ -10,8 +11,15 @@ import {KeycloakService} from "keycloak-angular";
 })
 export class GradesComponent implements OnInit {
 
+  displayedColumns: string[] = ['courseName', 'courseGrade'];
+  panelOpenState = false;
+
+  public courseName: string;
   private studentUsername: string = "";
+
   public Grades: GetGradeDTO[] = [];
+  public AllGradesByCourseName: GetGradeDTO[] = [];
+
   constructor(private readonly participantsService: ParticipantsService,private keycloakService: KeycloakService) { }
 
   ngOnInit(): void {
@@ -22,6 +30,15 @@ export class GradesComponent implements OnInit {
     this.participantsService.getAllGradesByStudentUsername(this.studentUsername).subscribe((data: GetGradeDTO[]) => {
       this.Grades = data;
       console.log(this.Grades)
+    });
+  }
+
+  getAllGradesByCourseNameAndStudentUsername(name: string) {
+    this.courseName = "";
+    this.studentUsername = this.keycloakService.getUsername();
+
+    this.participantsService.getAllGradesByCourseNameAndStudentUsername(name, this.studentUsername).subscribe((data: GetGradeDTO[]) => {
+      this.AllGradesByCourseName = data;
     });
   }
 
