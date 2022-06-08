@@ -3,280 +3,200 @@
 <html>
 
 <body>
-<mat-card class="course-details">
+<h2>{{course.name}}</h2>
 
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
 
-  <mat-card-content>
-    <div>
-      <b>{{course.name}}</b> <br>
-      {{course.description}} <br>
-      Number of students : {{course.numberOfStudents}} <br>
-      Year: {{course.year}} <br>
-      Semester: {{course.semester}} <br>
+  <mat-tab label="Details">
 
-
-      Professor name: {{course.professorName}} <br>
-
-
-      <p *ngIf="exam">Exam date: {{exam.examDate}}</p>
-
-    </div>
-  </mat-card-content>
-
-
-</mat-card>
-
-
-<div *ngIf="Homeworks" class="content">
-
-  <br>
-  <p>HOMEWORKS:</p>
-  <mat-divider></mat-divider>
-
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
-
-
-      <mat-card class="example-card">
-
-        <mat-card-content>
-          <p>
-            Id: {{homework.id}}<br>
-            {{homework.description}} <br>
-            <br>
-            Deadline: {{homework.deadline}}<br>
-            Points: {{homework.points}}<br>
-          </p>
-        </mat-card-content>
-        <button mat-raised-button (click)="removeHomework(homework.id)">Delete homework</button>
-      </mat-card>
-
-    </div>
-
-
-  </div>
-</div>
-
-
-<mat-card *ngIf="exam" class="course-details">
-
-  EXAM:
-
-  <mat-card-content>
-    <p>
-
-      Exam date: {{exam.examDate}}<br>
-      {{exam.description}}<br>
-      Points: {{exam.points}}<br>
-      Exam room: {{exam.examRoom}}<br>
-      Exam hour: {{exam.examHour}}<br>
-
-    </p>
-  </mat-card-content>
-  <button mat-raised-button (click)="removeExam(exam.id)">Delete Exam</button>
-</mat-card>
-
-<mat-card>
-  <p>Register Homework</p>
-
-  <form [formGroup]="registrationFormHomework">
-
-    <input formControlName="description" placeholder="description" type="text">
-    <input formControlName="deadline" placeholder="deadline" type="text">
-    <input formControlName="points" placeholder="points" type="text">
-    <br>
-
-    <mat-error
-      *ngIf=" (registrationFormHomework.controls['description'].dirty || registrationFormHomework.controls['description'].touched); else condition">
-      <mat-error *ngIf="registrationFormHomework.controls['description'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-
-    <mat-error
-      *ngIf=" (registrationFormHomework.controls['deadline'].dirty || registrationFormHomework.controls['deadline'].touched); else condition">
-      <mat-error *ngIf="registrationFormHomework.controls['deadline'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-
-    <mat-error
-      *ngIf=" (registrationFormHomework.controls['points'].dirty || registrationFormHomework.controls['points'].touched); else condition">
-      <mat-error *ngIf="registrationFormHomework.controls['points'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-    <ng-template #condition>
-        <span class="spanClass">
-        </span>
-    </ng-template>
-
-  </form>
-
-  <div>
-    <button mat-raised-button (click)="registerHomework()">Submit</button>
-  </div>
-</mat-card>
-
-<mat-card>
-  <p>Register Exam</p>
-
-  <form [formGroup]="registrationFormExam">
-
-    <input formControlName="description" placeholder="description" type="text">
-    <input formControlName="examDate" placeholder="examDate" type="text">
-    <input formControlName="points" placeholder="points" type="text">
-    <input formControlName="examRoom" placeholder="examRoom" type="text">
-    <input formControlName="examHour" placeholder="examHour" type="text">
-
-    <br>
-
-    <mat-error
-      *ngIf=" (registrationFormExam.controls['description'].dirty || registrationFormExam.controls['description'].touched); else condition">
-      <mat-error *ngIf="registrationFormExam.controls['description'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-
-    <mat-error
-      *ngIf=" (registrationFormExam.controls['examDate'].dirty || registrationFormExam.controls['examDate'].touched); else condition">
-      <mat-error *ngIf="registrationFormExam.controls['examDate'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-
-    <mat-error
-      *ngIf=" (registrationFormExam.controls['points'].dirty || registrationFormExam.controls['points'].touched); else condition">
-      <mat-error *ngIf="registrationFormExam.controls['points'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-    <mat-error
-      *ngIf=" (registrationFormExam.controls['examRoom'].dirty || registrationFormExam.controls['examRoom'].touched); else condition">
-      <mat-error *ngIf="registrationFormExam.controls['examRoom'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-    <mat-error
-      *ngIf=" (registrationFormExam.controls['examHour'].dirty || registrationFormExam.controls['examHour'].touched); else condition">
-      <mat-error *ngIf="registrationFormExam.controls['examHour'].hasError('required')">
-        Field required
-      </mat-error>
-    </mat-error>
-
-    <ng-template #condition>
-        <span class="spanClass">
-        </span>
-    </ng-template>
-
-  </form>
-
-  <div>
-    <button mat-raised-button (click)="registerExam()">Submit</button>
-  </div>
-
-</mat-card>
-
-
-<mat-card>
-  <p>Edit Course</p>
-  <form [formGroup]="updateFormCourse">
-
-    <input formControlName="name" placeholder="name" type="text">
-    <input formControlName="numberOfStudents" placeholder="numberOfStudents" type="number">
-    <input formControlName="description" placeholder="description" type="text">
-    <input formControlName="year" placeholder="year" type="text">
-    <input formControlName="semester" placeholder="semester" type="text">
-
-
-  </form>
-
-  <div>
-    <button mat-raised-button (click)="updateCourse()">Submit</button>
-  </div>
-
-</mat-card>
-
-<mat-card>
-  <p>Edit Exam</p>
-  <form [formGroup]="updateFormExam">
-
-    <input formControlName="description" placeholder="description" type="text">
-    <input formControlName="examDate" placeholder="examDate" type="text">
-    <input formControlName="points" placeholder="points" type="text">
-    <input formControlName="examRoom" placeholder="examRoom" type="text">
-    <input formControlName="examHour" placeholder="examHour" type="text">
-  </form>
-
-  <div>
-    <button mat-raised-button (click)="updateExam()">Submit</button>
-  </div>
-
-</mat-card>
-
-<mat-card>
-  <p>Edit Homework</p>
-  <form [formGroup]="updateFormHomework">
-
-    <input formControlName="id" placeholder="id" type="number">
-    <input formControlName="description" placeholder="description" type="text">
-    <input formControlName="deadline" placeholder="deadline" type="text">
-    <input formControlName="points" placeholder="points" type="text">
-    <input formControlName="courseId" placeholder="courseId" type="number">
-  </form>
-
-  <div>
-    <button mat-raised-button (click)="updateHomework()">Submit</button>
-  </div>
-
-</mat-card>
-
-
-<mat-card>
-  <form class="example-form">
-
-    <button mat-raised-button (click)="getAllStudentsByCourseId()">Show all students</button>
-
-    <mat-accordion>
-
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            See all students info:
-          </mat-panel-title>
-
-        </mat-expansion-panel-header>
-        <div *ngFor="let student of AllStudents">
-          <p> First name: {{student.firstName}} </p>
-          <p> Last name: {{student.lastName}} </p>
-          <p> Email: {{student.email}} </p>
-          <p> Group number: {{student.groupNumber}} </p>
-          <p> Department: {{student.department}} </p>
-          <div>
-            <b><p>Assign grade to student:</p></b>
-
-            <form [formGroup]="addGradeForStudentForm" #formDirective="ngForm" >
-              <mat-form-field class="example-form-field" appearance="fill">
-                <input matInput type="text" id="courseGrade" name="courseGrade" #courseGrade>
-              </mat-form-field>
-            </form>
-            <button mat-raised-button (click)="addGradeForStudent(student.id,courseGrade.value)">Add grade</button>
-          </div>
+    <mat-card class="details">
+      <mat-card-content>
+        <div>
+          <p>{{course.description}} </p>
           <br>
+          <p>Year: {{course.year}} </p>
+          <p>Semester: {{course.semester}}</p>
+          <p>Number of students: {{course.numberOfStudents}} </p>
+          <p *ngIf="exam">Exam date: {{exam.examDate}}</p>
         </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </form>
-</mat-card>
+      </mat-card-content>
 
+      <button mat-mini-fab (click)="openDialogUpdateCourse()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card>
+
+    <mat-card>
+      <form>
+
+        <div style="text-align: center">
+          <button mat-raised-button (click)="getAllStudentsByCourseId()">Show all students</button>
+        </div>
+
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                See all students info:
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <table mat-table [dataSource]="AllStudents" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id</th>
+                <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> First name</th>
+                <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef> Last name</th>
+                <td mat-cell *matCellDef="let student"> {{student.lastName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email</th>
+                <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Username</th>
+                <td mat-cell *matCellDef="let student"> {{student.username}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="groupNumber">
+                <th mat-header-cell *matHeaderCellDef> Group number</th>
+                <td mat-cell *matCellDef="let student"> {{student.groupNumber}}  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Phone</th>
+                <td mat-cell *matCellDef="let student"> {{student.phone}}  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="year">
+                <th mat-header-cell *matHeaderCellDef> Year</th>
+                <td mat-cell *matCellDef="let student"> {{student.year}}  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="department">
+                <th mat-header-cell *matHeaderCellDef> Department</th>
+                <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="grade">
+                <th mat-header-cell *matHeaderCellDef> Grade</th>
+                <td mat-cell *matCellDef="let student"> {{student.grade}}  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="addGrade">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let student">
+                  <button mat-mini-fab (click)="openDialogAddGradeForStudent(student.id)">
+                    <mat-icon class="material-icons-outlined">grading</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsStudents"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsStudents;"></tr>
+
+            </table>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </form>
+    </mat-card>
+  </mat-tab>
+
+
+  <mat-tab label="Exam">
+
+    <div style="text-align: center">
+      <button mat-fab (click)="openDialogAddNewExam()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <mat-card *ngIf="exam" class="exam">
+      <mat-card-content>
+        <div>
+          <p>{{exam.description}}</p>
+          <br>
+          <p>Exam date: {{exam.examDate}}</p>
+          <p>Exam room: {{exam.examRoom}}</p>
+          <p>Exam hour: {{exam.examHour}}</p>
+          <p>Points: {{exam.points}}</p>
+        </div>
+      </mat-card-content>
+
+      <button mat-mini-fab (click)="removeExam(exam.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button mat-mini-fab (click)="openDialogUpdateExam(exam.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+    </mat-card>
+  </mat-tab>
+
+
+  <mat-tab label="Homeworks">
+
+    <div style="text-align: center">
+      <button mat-fab (click)="openDialogAddNewHomework()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <table mat-table [dataSource]="Homeworks" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="deadline">
+        <th mat-header-cell *matHeaderCellDef> Deadline</th>
+        <td mat-cell *matCellDef="let homework"> {{homework.deadline}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="points">
+        <th mat-header-cell *matHeaderCellDef> Points</th>
+        <td mat-cell *matCellDef="let homework">{{homework.points}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description</th>
+        <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="removeHomework">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let homework">
+          <button mat-mini-fab (click)="removeHomework(homework.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editHomework">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let homework">
+          <button mat-mini-fab (click)="openDialogUpdateHomework(homework.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsHomeworks"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsHomeworks;"></tr>
+
+    </table>
+  </mat-tab>
+
+</mat-tab-group>
 </body>
 </html>
 <router-outlet></router-outlet>

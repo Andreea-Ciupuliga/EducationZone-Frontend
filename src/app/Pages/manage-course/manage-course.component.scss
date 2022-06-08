@@ -1,14 +1,29 @@
-mat-error,.spanClass{
-  display: inline-block;
-  width: 150px;
-  margin: 5px 5px 5px 0px;
+h2 {
   text-align: center;
+  font-weight: bold;
 }
 
-.spanClass:first-child{
-  padding-left: 50px;
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.details {
+  width: 50%;
+
+  margin-left:auto;
+  margin-right:auto;
+}
+.exam {
+  width: 50%;
+
+  margin-left:auto;
+  margin-right:auto;
 }
 
-#condition{
-  display: inline;
+.homeworks{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.mat-column-description {
+  max-width: 45vw;
 }
