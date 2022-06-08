@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterHomeworkDTO} from "../../DTOs/HomeworkDTOs/register-homework-dto";
 import {Homework} from "../../Models/homework";
@@ -9,41 +9,43 @@ import {Homework} from "../../Models/homework";
 export class HomeworkService {
 
   private readonly endpoint = '/homework';
-  constructor(private apiService : ApiService) { }
+
+  constructor(private apiService: ApiService) {
+  }
 
   registerHomework(homeworkRegisterDTO: RegisterHomeworkDTO) {
-    return this.apiService.post<Homework>(this.endpoint + '/register',homeworkRegisterDTO);
+    return this.apiService.post<Homework>(this.endpoint + '/register', homeworkRegisterDTO);
   }
 
-  removeHomework(id: number){
-    return this.apiService.delete(this.endpoint+'/'+id);
+  removeHomework(id: number) {
+    return this.apiService.delete(this.endpoint + '/' + id);
   }
 
-  // removeAllHomeworks(){
-  //   return this.apiService.delete(this.endpoint+'/deleteAll');
-  // }
-
-  getHomework(id: number){
-    return this.apiService.get<Homework>(this.endpoint + '/'+id);
+  getHomework(id: number) {
+    return this.apiService.get<Homework>(this.endpoint + '/' + id);
   }
 
-  getAllHomeworksByCourseId(id: number){
-    return this.apiService.get<Homework>(this.endpoint + '/getAllByCourseId/'+id);
+  getAllHomeworksByCourseId(id: number) {
+    return this.apiService.get<Homework>(this.endpoint + '/getAllByCourseId/' + id);
   }
 
-  getAllHomeworksByStudentId(id: number){
-    return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentId/'+id);
+  getAllHomeworksByStudentId(id: number) {
+    return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentId/' + id);
   }
 
-  getAllHomeworksByStudentUsername(username: string){
-    return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentUsername/'+username);
+  getAllHomeworksByStudentUsername(username: string) {
+    return this.apiService.get<Homework>(this.endpoint + '/getAllByStudentUsername/' + username);
   }
 
-  updateHomework(id: number,homeworkRegisterDTO: RegisterHomeworkDTO){
-    return this.apiService.put<Homework>(this.endpoint + '/'+id,homeworkRegisterDTO);
+  getAllHomeworksByCourseNameAndStudentUsername(courseName: string, username: string) {
+    return this.apiService.get<Homework>(this.endpoint + '/getAllHomeworksByCourseNameAndStudentUsername/' + courseName + '/' + username);
   }
 
-  getAllHomeworks(){
+  updateHomework(id: number, homeworkRegisterDTO: RegisterHomeworkDTO) {
+    return this.apiService.put<Homework>(this.endpoint + '/' + id, homeworkRegisterDTO);
+  }
+
+  getAllHomeworks() {
     return this.apiService.get<Homework>(this.endpoint + '/getAll');
   }
 }

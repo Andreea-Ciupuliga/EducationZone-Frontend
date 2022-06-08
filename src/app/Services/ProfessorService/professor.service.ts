@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterProfessorDTO} from "../../DTOs/ProfessorDTOs/register-professor-dto";
 import {Professor} from "../../Models/professor";
@@ -10,38 +10,40 @@ import {Professor} from "../../Models/professor";
 export class ProfessorService {
 
   private readonly endpoint = '/professor';
-  constructor(private apiService : ApiService) { }
+
+  constructor(private apiService: ApiService) {
+  }
 
   registerProfessor(professorRegisterDTO: RegisterProfessorDTO) {
-    return this.apiService.post<Professor>(this.endpoint + '/register',professorRegisterDTO);
+    return this.apiService.post<Professor>(this.endpoint + '/register', professorRegisterDTO);
   }
 
-  removeProfessor(id: number){
-    return this.apiService.delete(this.endpoint+'/'+id);
+  removeProfessor(id: number) {
+    return this.apiService.delete(this.endpoint + '/' + id);
   }
 
-  removeAllProfessors(){
-    return this.apiService.delete(this.endpoint+'/deleteAll');
+  getProfessor(id: number) {
+    return this.apiService.get<Professor>(this.endpoint + '/' + id);
   }
 
-  getProfessor(id: number){
-    return this.apiService.get<Professor>(this.endpoint + '/'+id);
+  removeAllProfessors() {
+    return this.apiService.delete(this.endpoint + '/deleteAll');
   }
 
-  getProfessorByUsername(username: String){
-    return this.apiService.get<Professor>(this.endpoint + '/getProfessorByUsername/'+username);
+  getProfessorByUsername(username: String) {
+    return this.apiService.get<Professor>(this.endpoint + '/getProfessorByUsername/' + username);
   }
 
-  getAllProfessors(){
+  getAllProfessors() {
     return this.apiService.get<Professor>(this.endpoint + '/getAll');
   }
 
-  updateProfessor(id: number,professorRegisterDTO: RegisterProfessorDTO){
-    return this.apiService.put<Professor>(this.endpoint + '/'+id,professorRegisterDTO);
+  updateProfessor(id: number, professorRegisterDTO: RegisterProfessorDTO) {
+    return this.apiService.put<Professor>(this.endpoint + '/' + id, professorRegisterDTO);
   }
 
-  getAllProfessorsByName(professorName:string){
-    return this.apiService.get<Professor>(this.endpoint + '/getAllByName/'+professorName);
+  getAllProfessorsByName(professorName: string) {
+    return this.apiService.get<Professor>(this.endpoint + '/getAllByName/' + professorName);
   }
 
   getProfessorByCourseId(courseId: number) {
