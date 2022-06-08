@@ -3,80 +3,103 @@
 
 <body>
 
-<mat-card *ngIf="isStudent" class="example-card">
-
-  <mat-card-content>
-
-    <div>
-      <p> Id: {{student.id}} </p>
-      <p> First name: {{student.firstName}} </p>
-      <p> Last name: {{student.lastName}} </p>
-      <p> Email: {{student.email}} </p>
-      <p> Username: {{student.username}} </p>
-      <p> Group number: {{student.groupNumber}} </p>
-      <p> Phone: {{student.phone}} </p>
-      <p> Department: {{student.department}} </p>
-      <br>
-    </div>
-  </mat-card-content>
-
-</mat-card>
-
-<mat-card *ngIf="isStudent">
-  <p>Update profile</p>
-  <form [formGroup]="updateStudentForm">
-
-    <input formControlName="firstName" placeholder="firstName" type="text">
-    <input formControlName="lastName" placeholder="lastName" type="text">
-    <input formControlName="password" placeholder="password" type="password">
-    <input formControlName="phone" placeholder="phone" type="text">
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+  <mat-tab label="Personal data">
 
 
-  </form>
+    <mat-card *ngIf="isStudent" class="personalData">
+      <mat-card-content>
+        <div>
+          <p> Id: {{student.id}} </p>
+          <p> First name: {{student.firstName}} </p>
+          <p> Last name: {{student.lastName}} </p>
+          <p> Email: {{student.email}} </p>
+          <p> Username: {{student.username}} </p>
+          <p> Group number: {{student.groupNumber}} </p>
+          <p> Phone: {{student.phone}} </p>
+          <p> Department: {{student.department}} </p>
+          <br>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <div>
-    <button mat-raised-button (click)="updateStudent()">Submit</button>
-  </div>
 
-</mat-card>
+    <mat-card *ngIf="isProfessor">
+      <mat-card-content>
+        <div>
+          <p> Id: {{professor.id}} </p>
+          <p> First name: {{professor.firstName}} </p>
+          <p> Last name: {{professor.lastName}} </p>
+          <p> Email: {{professor.email}} </p>
+          <p> Username: {{professor.username}} </p>
+          <p> Phone: {{professor.phone}} </p>
+          <br>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-<mat-card *ngIf="isProfessor" class="example-card">
+  </mat-tab>
 
-  <mat-card-content>
 
-    <div>
-      <p> Id: {{professor.id}} </p>
-      <p> First name: {{professor.firstName}} </p>
-      <p> Last name: {{professor.lastName}} </p>
-      <p> Email: {{professor.email}} </p>
-      <p> Username: {{professor.username}} </p>
-      <p> Phone: {{professor.phone}} </p>
-      <br>
-    </div>
-  </mat-card-content>
+  <mat-tab label="Edit profile">
+    <mat-card *ngIf="isStudent" class="editProfile">
+      <div class="register-dialog">
+        <form [formGroup]="updateStudentForm">
 
-</mat-card>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="firstName" placeholder="first name" type="text">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="lastName" placeholder="last name" type="text">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="password" placeholder="password" type="password">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="phone" placeholder="phone" type="text">
+          </mat-form-field>
 
-<mat-card *ngIf="isProfessor">
-  <p>Update profile</p>
-  <form [formGroup]="updateProfessorForm">
-    <input formControlName="firstName" placeholder="firstName" type="text">
-    <input formControlName="lastName" placeholder="lastName" type="text">
-    <input formControlName="password" placeholder="password" type="password">
-    <input formControlName="phone" placeholder="phone" type="text">
+        </form>
+      </div>
+      <div>
+        <button mat-raised-button (click)="updateStudent()">Submit</button>
+      </div>
+    </mat-card>
 
-  </form>
 
-  <div>
-    <button mat-raised-button (click)="updateProfessor()">Submit</button>
-  </div>
+    <mat-card *ngIf="isProfessor" class="editProfile">
+      <div class="register-dialog">
+        <form [formGroup]="updateProfessorForm">
 
-</mat-card>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="firstName" placeholder="first name" type="text">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="lastName" placeholder="last name" type="text">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="password" placeholder="password" type="password">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="phone" placeholder="phone" type="text">
+          </mat-form-field>
 
+        </form>
+      </div>
+      <div>
+        <button mat-raised-button (click)="updateProfessor()">Submit</button>
+      </div>
+
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
 
 </body>
-
-<router-outlet></router-outlet>
-
 </html>
-
+<router-outlet></router-outlet>

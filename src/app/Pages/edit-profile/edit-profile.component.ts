@@ -28,17 +28,17 @@ export class EditProfileComponent implements OnInit {
 
   updateStudentForm  = this.fb.group({
 
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    password: [null, Validators.required],
-    phone: [null, Validators.required],
+    firstName: [null],
+    lastName: [null],
+    password: [null],
+    phone: [null],
   })
   updateProfessorForm = this.fb.group({
 
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    password: [null, Validators.required],
-    phone: [null, Validators.required],
+    firstName: [null],
+    lastName: [null],
+    password: [null],
+    phone: [null],
   })
 
   constructor(private notifyService: NotificationService,private fb: FormBuilder,private keycloakService: KeycloakService, private studentService: StudentService,private professorService:ProfessorService) { }
