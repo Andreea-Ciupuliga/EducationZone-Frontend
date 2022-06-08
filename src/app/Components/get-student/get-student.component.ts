@@ -13,17 +13,21 @@ import {NotificationService} from "../../Services/NotificationService/notificati
   styleUrls: ['./get-student.component.scss']
 })
 export class GetStudentComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'firstName', 'lastName','email', 'username','groupNumber','phone','year','department'];
+  panelOpenState = false;
 
   public studentName: string;
   public studentId: any;
-  panelOpenState = false;
+  public courseId: any;
+
   public StudentsByName: GetStudentDTO[] = [];
+  public StudentsByCourseId: GetStudentDTO[] = [];
   public AllStudents: GetStudentDTO[] = [];
   public student: GetStudentDTO;
 
   public errorMessage: string;
 
-  constructor(private readonly studentService: StudentService, private notifyService: NotificationService) {
+  constructor(private readonly participantsService: ParticipantsService,private readonly studentService: StudentService, private notifyService: NotificationService) {
 
   }
 
@@ -35,6 +39,15 @@ export class GetStudentComponent implements OnInit {
     this.studentName = "";
     this.studentService.getAllStudentsByName(name).subscribe((data: GetStudentDTO[]) => {
       this.StudentsByName = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+    });
+  }
+
+  getAllStudentsByCourseId(id: number) {
+    this.courseId = "";
+    this.participantsService.getAllStudentsByCourseId(id).subscribe((data: GetStudentDTO[]) => {
+      this.StudentsByCourseId = data;
     }, (err) => {
       this.notifyService.showError(err.error.message);
     });

@@ -1,105 +1,310 @@
 <div>
 
+  <mat-card style="text-align: center">
+    <mat-card-title>Search course:</mat-card-title>
+    <br>
 
-
-  <!--  Get courses by name-->
-  <mat-card>
-    <p>Write course name:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="courseName" name="courseName">
+    <!--  Get courses by name-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="course name" type="text" [(ngModel)]="courseName" name="courseName">
       </mat-form-field>
-      <button mat-raised-button (click)="getAllCoursesByName(courseName)">Search</button>
+
+      <button mat-mini-fab (click)="getAllCoursesByName(courseName)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See course/courses info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngFor="let course of CoursesByName">
-            <p> Id: {{course.id}} </p>
-            <p> Course name: {{course.name}} </p>
-            <p> Number of students: {{course.numberOfStudents}} </p>
-            <p> Description: {{course.description}} </p>
-            <p> Year: {{course.year}} </p>
-            <p> Semester: {{course.semester}} </p>
-            <p> Professor name: {{course.professorName}} </p>
-            <br>
-          </div>
+
+          <table mat-table [dataSource]="CoursesByName" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> id</th>
+              <td mat-cell *matCellDef="let course"> {{course.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name</th>
+              <td mat-cell *matCellDef="let course"> {{course.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numberOfStudents">
+              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let course"> {{course.year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="semester">
+              <th mat-header-cell *matHeaderCellDef> Semester</th>
+              <td mat-cell *matCellDef="let course"> {{course.semester}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="professorName">
+              <th mat-header-cell *matHeaderCellDef> Professor name</th>
+              <td mat-cell *matCellDef="let course"> {{course.professorName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
         </mat-expansion-panel>
       </mat-accordion>
     </form>
-  </mat-card>
 
+    <br>
 
-
-
-  <!--  Get all courses-->
-  <mat-card>
-
-    <form class="example-form">
-      <button mat-raised-button (click)="getAllCourses()">Show all courses</button>
-
-      <mat-accordion>
-
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              See all courses info:
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <div *ngFor="let course of AllCourses">
-            <p> Id: {{course.id}} </p>
-            <p> Course name: {{course.name}} </p>
-            <p> Number of students: {{course.numberOfStudents}} </p>
-            <p> Description: {{course.description}} </p>
-            <p> Year: {{course.year}} </p>
-            <p> Semester: {{course.semester}} </p>
-            <p> Professor name: {{course.professorName}} </p>
-            <br>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </form>
-  </mat-card>
-
-  <!--  Get course by id-->
-  <mat-card>
-    <p>Write course id:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="courseId" name="courseId">
+    <!--  Get course by id-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="course id" type="text" [(ngModel)]="courseId" name="courseId">
       </mat-form-field>
-      <button mat-raised-button (click)="getCourse(courseId)">Search</button>
+
+      <button mat-mini-fab (click)="getCourse(courseId)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See course info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngIf="course" >
-            <p> Course name: {{course.name}} </p>
-            <p> Number of students: {{course.numberOfStudents}} </p>
-            <p> Description: {{course.description}} </p>
-            <p> Year: {{course.year}} </p>
-            <p> Semester: {{course.semester}} </p>
-            <p> Professor name: {{course.professorName}} </p>
-            <br>
+          <div *ngIf="course">
+
+            <table class="mat-elevation-z8">
+              <tr>
+                <th>Course name</th>
+                <th> Number of students</th>
+                <th> Year</th>
+                <th> Semester</th>
+                <th> Professor name</th>
+                <th> Description</th>
+              </tr>
+              <td> {{course.name}} </td>
+              <td> {{course.numberOfStudents}} </td>
+              <td> {{course.year}} </td>
+              <td> {{course.semester}} </td>
+              <td> {{course.professorName}} </td>
+              <td style="max-width: 45vw;">{{course.description}}</td>
+            </table>
+
           </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
+    <br>
+
+    <!--  Get courses by professor id-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="professor id" type="text" [(ngModel)]="professorId" name="professorId">
+      </mat-form-field>
+
+      <button mat-mini-fab (click)="getAllCoursesByProfessorId(professorId)">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See course/courses info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table [dataSource]="CoursesByName" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id </th>
+              <td mat-cell *matCellDef="let course"> {{course.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name </th>
+              <td mat-cell *matCellDef="let course"> {{course.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numberOfStudents">
+              <th mat-header-cell *matHeaderCellDef> Number of students </th>
+              <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year </th>
+              <td mat-cell *matCellDef="let course"> {{course.year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="semester">
+              <th mat-header-cell *matHeaderCellDef> Semester </th>
+              <td mat-cell *matCellDef="let course"> {{course.semester}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="professorName">
+              <th mat-header-cell *matHeaderCellDef> Professor name </th>
+              <td mat-cell *matCellDef="let course"> {{course.professorName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
+    <br>
+
+    <!--  Get courses by studentr id-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="student id" type="text" [(ngModel)]="studentId" name="studentId">
+      </mat-form-field>
+
+      <button mat-mini-fab (click)="getAllCoursesByStudentId(studentId)">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See courses info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table [dataSource]="CoursesByStudentId" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> id</th>
+              <td mat-cell *matCellDef="let course"> {{course.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name</th>
+              <td mat-cell *matCellDef="let course"> {{course.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numberOfStudents">
+              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let course"> {{course.year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="semester">
+              <th mat-header-cell *matHeaderCellDef> Semester</th>
+              <td mat-cell *matCellDef="let course"> {{course.semester}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="professorName">
+              <th mat-header-cell *matHeaderCellDef> Professor name</th>
+              <td mat-cell *matCellDef="let course"> {{course.professorName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
+  </mat-card>
+
+
+  <!--  Get all courses-->
+  <mat-card>
+    <form>
+      <div style="text-align: center">
+        <button mat-raised-button (click)="getAllCourses()">Show all courses</button>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all courses info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+
+          <table mat-table [dataSource]="AllCourses" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> id</th>
+              <td mat-cell *matCellDef="let course"> {{course.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name</th>
+              <td mat-cell *matCellDef="let course"> {{course.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numberOfStudents">
+              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let course"> {{course.year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="semester">
+              <th mat-header-cell *matHeaderCellDef> Semester</th>
+              <td mat-cell *matCellDef="let course"> {{course.semester}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="professorName">
+              <th mat-header-cell *matHeaderCellDef> Professor name</th>
+              <td mat-cell *matCellDef="let course"> {{course.professorName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
         </mat-expansion-panel>
       </mat-accordion>
     </form>

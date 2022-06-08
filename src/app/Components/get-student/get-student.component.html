@@ -1,90 +1,100 @@
 <div>
 
 
+  <mat-card style="text-align: center">
+    <mat-card-title>Search student:</mat-card-title>
+    <br>
 
-<!--  Get students by name-->
-  <mat-card>
-    <p>Write student name:</p>
-        <form class="example-form">
+    <!--  Get student/students by name-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="student name" type="text" [(ngModel)]="studentName" name="studentName">
+      </mat-form-field>
 
-          <mat-form-field class="example-form-field" appearance="fill">
-            <input matInput type="text" [(ngModel)]="studentName" name="studentName">
-          </mat-form-field>
-          <button mat-raised-button (click)="getAllStudentsByName(studentName)">Search</button>
-
-          <mat-accordion>
-
-            <mat-expansion-panel (opened)="panelOpenState = true"
-                                 (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  See student/students info:
-                </mat-panel-title>
-
-              </mat-expansion-panel-header>
-              <div *ngFor="let student of StudentsByName">
-              <p> Id: {{student.id}} </p>
-              <p> First name: {{student.firstName}} </p>
-              <p> Last name: {{student.lastName}} </p>
-              <p> Email: {{student.email}} </p>
-              <p> Username: {{student.username}} </p>
-              <p> Group number: {{student.groupNumber}} </p>
-              <p> Phone: {{student.phone}} </p>
-              <p> Department: {{student.department}} </p>
-                <br>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </form>
-  </mat-card>
-
-
-
-
-<!--  Get all students-->
-  <mat-card>
-
-    <form class="example-form">
-      <button mat-raised-button (click)="getAllStudents()">Show all students</button>
+      <button mat-mini-fab (click)="getAllStudentsByName(studentName)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              See all students info:
+              See student/students info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngFor="let student of AllStudents">
-            <p> Id: {{student.id}} </p>
-            <p> First name: {{student.firstName}} </p>
-            <p> Last name: {{student.lastName}} </p>
-            <p> Email: {{student.email}} </p>
-            <p> Username: {{student.username}} </p>
-            <p> Group number: {{student.groupNumber}} </p>
-            <p> Phone: {{student.phone}} </p>
-            <p> Department: {{student.department}} </p>
-            <br>
-          </div>
+
+          <table mat-table [dataSource]="StudentsByName" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> First name</th>
+              <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last name</th>
+              <td mat-cell *matCellDef="let student"> {{student.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let student"> {{student.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="groupNumber">
+              <th mat-header-cell *matHeaderCellDef> Group number</th>
+              <td mat-cell *matCellDef="let student"> {{student.groupNumber}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone</th>
+              <td mat-cell *matCellDef="let student"> {{student.phone}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let student"> {{student.year}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef> Department</th>
+              <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>
-  </mat-card>
 
-  <!--  Get student by id-->
-  <mat-card>
-    <p>Write student id:</p>
-    <form class="example-form">
+    <br>
 
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="studentId" name="studentId">
+    <!--  Get student by id-->
+    <form>
+
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="student id" type="text" [(ngModel)]="studentId" name="studentId">
       </mat-form-field>
-      <button mat-raised-button (click)="getStudent(studentId)">Search</button>
+
+      <button mat-mini-fab (click)="getStudent(studentId)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -93,20 +103,194 @@
             </mat-panel-title>
 
           </mat-expansion-panel-header>
-          <div *ngIf="student" >
-            <p> First name: {{student.firstName}} </p>
-            <p> Last name: {{student.lastName}} </p>
-            <p> Email: {{student.email}} </p>
-            <p> Username: {{student.username}} </p>
-            <p> Group number: {{student.groupNumber}} </p>
-            <p> Phone: {{student.phone}} </p>
-            <p> Department: {{student.department}} </p>
-            <br>
+          <div *ngIf="student">
+
+            <table class="mat-elevation-z8">
+              <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Group number</th>
+                <th>Phone</th>
+                <th>Year</th>
+                <th>Department</th>
+              </tr>
+              <td> {{student.firstName}} </td>
+              <td> {{student.lastName}} </td>
+              <td> {{student.email}} </td>
+              <td> {{student.username}} </td>
+              <td> {{student.groupNumber}} </td>
+              <td> {{student.phone}} </td>
+              <td> {{student.year}} </td>
+              <td> {{student.department}} </td>
+            </table>
+
           </div>
         </mat-expansion-panel>
       </mat-accordion>
     </form>
+
+    <br>
+
+    <!--  Get students by course id-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="course id" type="text" [(ngModel)]="courseId" name="courseId">
+      </mat-form-field>
+
+      <button mat-mini-fab (click)="getAllStudentsByCourseId(courseId)">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See students info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table [dataSource]="StudentsByCourseId" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> First name</th>
+              <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last name</th>
+              <td mat-cell *matCellDef="let student"> {{student.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let student"> {{student.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="groupNumber">
+              <th mat-header-cell *matHeaderCellDef> Group number</th>
+              <td mat-cell *matCellDef="let student"> {{student.groupNumber}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone</th>
+              <td mat-cell *matCellDef="let student"> {{student.phone}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let student"> {{student.year}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef> Department</th>
+              <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
   </mat-card>
+
+
+  <!--  Get all students-->
+  <mat-card>
+
+    <form>
+
+      <div style="text-align: center">
+        <button mat-raised-button (click)="getAllStudents()">Show all students</button>
+      </div>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all students info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table [dataSource]="AllStudents" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> First name</th>
+              <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last name</th>
+              <td mat-cell *matCellDef="let student"> {{student.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let student"> {{student.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="groupNumber">
+              <th mat-header-cell *matHeaderCellDef> Group number</th>
+              <td mat-cell *matCellDef="let student"> {{student.groupNumber}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone</th>
+              <td mat-cell *matCellDef="let student"> {{student.phone}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Year</th>
+              <td mat-cell *matCellDef="let student"> {{student.year}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef> Department</th>
+              <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card>
+
+
+
 
 </div>
 <router-outlet></router-outlet>

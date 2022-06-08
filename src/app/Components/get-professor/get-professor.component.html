@@ -1,102 +1,222 @@
 <div>
 
 
+  <mat-card style="text-align: center">
+    <mat-card-title>Search professor:</mat-card-title>
+    <br>
 
-  <!--  Get professor by name-->
-  <mat-card>
-    <p>Write professor name:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="professorName" name="professorName">
+    <!--  Get rofessor/professors by name-->
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="professor name" type="text" [(ngModel)]="professorName" name="professorName">
       </mat-form-field>
-      <button mat-raised-button (click)="getAllProfessorsByName(professorName)">Search</button>
+
+      <button mat-mini-fab (click)="getAllProfessorsByName(professorName)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See professor/professors info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngFor="let professor of ProfessorsByName">
-            <p> Id: {{professor.id}} </p>
-            <p> First name: {{professor.firstName}} </p>
-            <p> Last name: {{professor.lastName}} </p>
-            <p> Email: {{professor.email}} </p>
-            <p> Username: {{professor.username}} </p>
-            <p> Phone: {{professor.phone}} </p>
-            <br>
-          </div>
+
+          <table mat-table [dataSource]="ProfessorsByName" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> First name</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last name</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.phone}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeProfessor">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let professor">
+                <button mat-mini-fab (click)="removeProfessor(professor.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editProfessor">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let professor">
+                <button mat-mini-fab (click)="openDialogUpdateProfessor(professor.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>
-  </mat-card>
 
+    <br>
 
+    <!--  Get professor by id-->
 
-
-  <!--  Get all professors-->
-  <mat-card>
-
-    <form class="example-form">
-      <button mat-raised-button (click)="getAllProfessors()">Show all professors</button>
-
-      <mat-accordion>
-
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              See all professors info:
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <div *ngFor="let professor of AllProfessors">
-            <p> Id: {{professor.id}} </p>
-            <p> First name: {{professor.firstName}} </p>
-            <p> Last name: {{professor.lastName}} </p>
-            <p> Email: {{professor.email}} </p>
-            <p> Username: {{professor.username}} </p>
-            <p> Phone: {{professor.phone}} </p>
-            <br>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </form>
-  </mat-card>
-
-  <!--  Get professor by id-->
-  <mat-card>
-    <p>Write professor id:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="professorId" name="professorId">
+    <form>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="professor id" type="text" [(ngModel)]="professorId" name="professorId">
       </mat-form-field>
-      <button mat-raised-button (click)="getProfessor(professorId)">Search</button>
+
+      <button mat-mini-fab (click)="getProfessor(professorId)">
+        <mat-icon>search</mat-icon>
+      </button>
+
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See professor info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngIf="professor" >
-            <p> First name: {{professor.firstName}} </p>
-            <p> Last name: {{professor.lastName}} </p>
-            <p> Email: {{professor.email}} </p>
-            <p> Username: {{professor.username}} </p>
-            <p> Phone: {{professor.phone}} </p>
-            <br>
+          <div *ngIf="professor">
+
+            <table class="mat-elevation-z8">
+              <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Phone</th>
+                <th></th>
+                <th></th>
+
+              </tr>
+              <td> {{professor.firstName}} </td>
+              <td> {{professor.lastName}} </td>
+              <td> {{professor.email}} </td>
+              <td> {{professor.username}} </td>
+              <td> {{professor.phone}} </td>
+              <td>
+                <button mat-mini-fab (click)="removeProfessor(professor.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-mini-fab (click)="openDialogUpdateProfessor(professor.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </table>
+
           </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
+
+  </mat-card>
+
+
+  <!--  Get all professors-->
+  <mat-card>
+
+    <form>
+      <div style="text-align: center">
+        <button mat-raised-button (click)="getAllProfessors()">Show all professors</button>
+      </div>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See all professors info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+
+          <table mat-table [dataSource]="AllProfessors" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> First name</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last name</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone</th>
+              <td mat-cell *matCellDef="let professor"> {{professor.phone}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeProfessor">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let professor">
+                <button mat-mini-fab (click)="removeProfessor(professor.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editProfessor">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let professor">
+                <button mat-mini-fab (click)="openDialogUpdateProfessor(professor.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>

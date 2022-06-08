@@ -1,83 +1,271 @@
 <div>
 
+  <mat-card style="text-align: center">
+    <mat-card-title>Search exams:</mat-card-title>
+    <br>
 
+    <!--  Get exam by id -->
+    <form>
 
-  <!--  Get exam by course id -->
-  <mat-card>
-    <p>Write course id:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="courseId" name="courseId">
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="exam id" type="text" [(ngModel)]="examId" name="examId">
       </mat-form-field>
-      <button mat-raised-button (click)="getExamByCourseId(courseId)">Search</button>
+
+      <button mat-mini-fab (click)="getExam(examId)">
+        <mat-icon>search</mat-icon>
+      </button>
 
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See exam info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
           <div *ngIf="exam">
-            <p> Course name: {{exam.courseName}} </p>
-            <p> Description: {{exam.description}} </p>
-            <p> Exam date: {{exam.examDate}} </p>
-            <p> Description: {{exam.description}} </p>
-            <p> Points: {{exam.points}} </p>
-            <p> Exam room: {{exam.examRoom}} </p>
-            <p> Exam hour: {{exam.examHour}} </p>
-            <p> Course id: {{exam.courseId}} </p>
-            <br>
+            <table class="mat-elevation-z8">
+              <tr>
+                <th>Course name</th>
+                <th> Exam date</th>
+                <th> Exam room</th>
+                <th> Exam hour</th>
+                <th> Points</th>
+                <th> Course id</th>
+                <th> Description</th>
+                <th></th>
+              </tr>
+              <td> {{exam.courseName}} </td>
+              <td> {{exam.examDate}} </td>
+              <td> {{exam.examRoom}} </td>
+              <td> {{exam.examHour}} </td>
+              <td> {{exam.points}}</td>
+              <td> {{exam.courseId}}</td>
+              <td style="max-width: 45vw;"> {{exam.description}} </td>
+              <td>
+                <button mat-mini-fab (click)="removeExam(exam.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </table>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
     </form>
+
+    <br>
+
+    <!--  Get exam by course id -->
+    <form>
+
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="course id" type="text" [(ngModel)]="courseId" name="courseId">
+      </mat-form-field>
+
+      <button mat-mini-fab (click)="getExamByCourseId(courseId)">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See exam info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="examByCourseId">
+            <table class="mat-elevation-z8">
+              <tr>
+                <th>Id</th>
+                <th>Course name</th>
+                <th> Exam date</th>
+                <th> Exam room</th>
+                <th> Exam hour</th>
+                <th> Points</th>
+                <th> Course id</th>
+                <th> Description</th>
+                <th> </th>
+              </tr>
+              <td> {{examByCourseId.id}} </td>
+              <td> {{examByCourseId.courseName}} </td>
+              <td> {{examByCourseId.examDate}} </td>
+              <td> {{examByCourseId.examRoom}} </td>
+              <td> {{examByCourseId.examHour}} </td>
+              <td> {{examByCourseId.points}}</td>
+              <td> {{examByCourseId.courseId}}</td>
+              <td style="max-width: 45vw;"> {{examByCourseId.description}} </td>
+              <td>
+                <button mat-mini-fab (click)="removeExam(exam.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </table>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
+    <br>
+    <!--  Get all exams by student id-->
+
+    <form>
+
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="student id" type="text" [(ngModel)]="studentId" name="studentId">
+      </mat-form-field>
+
+      <button mat-mini-fab (click)="getAllExamsByStudentId(studentId)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              See exams info:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table [dataSource]="AllExamsByStudentId" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let exam"> {{exam.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name</th>
+              <td mat-cell *matCellDef="let exam"> {{exam.courseName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="examDate">
+              <th mat-header-cell *matHeaderCellDef> Exam date</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examDate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="examRoom">
+              <th mat-header-cell *matHeaderCellDef> Exam room</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examRoom}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="examHour">
+              <th mat-header-cell *matHeaderCellDef> Exam hour</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examHour}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="points">
+              <th mat-header-cell *matHeaderCellDef> Points</th>
+              <td mat-cell *matCellDef="let exam">{{exam.points}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseId">
+              <th mat-header-cell *matHeaderCellDef> Course id</th>
+              <td mat-cell *matCellDef="let exam">{{exam.courseId}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let exam">{{exam.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeExam">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let exam">
+                <button mat-mini-fab (click)="removeExam(exam.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+
   </mat-card>
 
 
-
-
-  <!--  Get all exams by student id-->
+  <!--  Get all exams-->
   <mat-card>
-    <p>Write student id:</p>
-    <form class="example-form">
-
-      <mat-form-field class="example-form-field" appearance="fill">
-        <input matInput type="text" [(ngModel)]="studentId" name="studentId">
-      </mat-form-field>
-
-      <button mat-raised-button (click)="getAllExamsByStudentId(studentId)">Show all exams</button>
-
+    <form>
+      <div style="text-align: center">
+        <button mat-raised-button (click)="getAllExams()">Show all exams</button>
+      </div>
       <mat-accordion>
-
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               See all exams info:
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-          <div *ngFor="let exam of AllExams">
-            <p> Course name: {{exam.courseName}} </p>
-            <p> Description: {{exam.description}} </p>
-            <p> Exam date: {{exam.examDate}} </p>
-            <p> Description: {{exam.description}} </p>
-            <p> Points: {{exam.points}} </p>
-            <p> Exam room: {{exam.examRoom}} </p>
-            <p> Exam hour: {{exam.examHour}} </p>
-            <p> Course id: {{exam.courseId}} </p>
-            <br>
-          </div>
+
+          <table mat-table [dataSource]="AllExams" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id</th>
+              <td mat-cell *matCellDef="let exam"> {{exam.id}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef> Course name</th>
+              <td mat-cell *matCellDef="let exam"> {{exam.courseName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="examDate">
+              <th mat-header-cell *matHeaderCellDef> Exam date</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examDate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="examRoom">
+              <th mat-header-cell *matHeaderCellDef> Exam room</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examRoom}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="examHour">
+              <th mat-header-cell *matHeaderCellDef> Exam hour</th>
+              <td mat-cell *matCellDef="let exam">{{exam.examHour}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="points">
+              <th mat-header-cell *matHeaderCellDef> Points</th>
+              <td mat-cell *matCellDef="let exam">{{exam.points}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseId">
+              <th mat-header-cell *matHeaderCellDef> Course id</th>
+              <td mat-cell *matCellDef="let exam">{{exam.courseId}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let exam">{{exam.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeExam">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let exam">
+                <button mat-mini-fab (click)="removeExam(exam.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>
   </mat-card>
-
 
 </div>
 <router-outlet></router-outlet>
