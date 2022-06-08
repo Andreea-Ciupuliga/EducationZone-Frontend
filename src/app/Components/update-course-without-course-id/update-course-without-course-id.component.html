@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Update course</h2>
+
+<mat-dialog-content class="register-dialog">
+  <form [formGroup]="registrationForm">
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="name" placeholder="name" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="description" placeholder="description" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="year" placeholder="year" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <input matInput formControlName="semester" placeholder="semester" type="text">
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="submit()">Submit</button>
+</mat-dialog-actions>
