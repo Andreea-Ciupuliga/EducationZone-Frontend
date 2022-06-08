@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Add student at course</h2>
+
+<mat-dialog-content class="register-dialog">
+  <form [formGroup]="registrationStudentAtCourseForm">
+
+    <mat-form-field appearance="fill">
+    <input matInput formControlName="studentId" placeholder="student id" type="number">
+      <mat-error
+        *ngIf=" (registrationStudentAtCourseForm.controls['studentId'].dirty || registrationStudentAtCourseForm.controls['studentId'].touched);">
+        <mat-error *ngIf="registrationStudentAtCourseForm.controls['studentId'].hasError('required')">
+          Field required
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+      <input matInput formControlName="courseId" placeholder="course id" type="number">
+        <mat-error
+          *ngIf=" (registrationStudentAtCourseForm.controls['courseId'].dirty || registrationStudentAtCourseForm.controls['courseId'].touched);">
+          <mat-error *ngIf="registrationStudentAtCourseForm.controls['courseId'].hasError('required')">
+            Field required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="registerStudentAtCourse()">Submit</button>
+</mat-dialog-actions>
+
