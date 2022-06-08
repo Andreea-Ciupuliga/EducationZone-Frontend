@@ -4,30 +4,97 @@
 
 <body>
 
-<div class="content">
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let homework of Homeworks">
+<mat-card style="text-align: center">
+  <mat-card-title>Search homeworks:</mat-card-title>
+
+  <form>
+
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="course name" type="text" [(ngModel)]="courseName" name="courseName">
+    </mat-form-field>
+
+    <button mat-mini-fab (click)="getAllHomeworksByCourseNameAndStudentUsername(courseName)">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            See homeworks info:
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <table mat-table [dataSource]="AllHomeworksByCourseName" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef> Course name</th>
+            <td mat-cell *matCellDef="let homework">{{homework.courseName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="deadline">
+            <th mat-header-cell *matHeaderCellDef> Deadline</th>
+            <td mat-cell *matCellDef="let homework"> {{homework.deadline}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef> Points</th>
+            <td mat-cell *matCellDef="let homework">{{homework.points}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+
+</mat-card>
+
+<br>
 
 
-      <mat-card class="example-card">
 
-        <mat-card-content>
-          <p>
-            Course: {{homework.courseName}} <br>
-            {{homework.description}}<br>
-            Deadline: {{homework.deadline}}<br>
-            Points: {{homework.points}}<br>
-          </p>
-        </mat-card-content>
+<div>
+  <h2 style="text-align: center">All homeworks</h2>
+  <mat-divider></mat-divider>
+  <br>
 
-      </mat-card>
+  <table mat-table [dataSource]="Homeworks" class="mat-elevation-z8">
 
-    </div>
+    <ng-container matColumnDef="courseName">
+      <th mat-header-cell *matHeaderCellDef> Course name</th>
+      <td mat-cell *matCellDef="let homework">{{homework.courseName}}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="deadline">
+      <th mat-header-cell *matHeaderCellDef> Deadline</th>
+      <td mat-cell *matCellDef="let homework"> {{homework.deadline}} </td>
+    </ng-container>
 
-  </div>
+    <ng-container matColumnDef="points">
+      <th mat-header-cell *matHeaderCellDef> Points</th>
+      <td mat-cell *matCellDef="let homework">{{homework.points}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description</th>
+      <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
 </div>
-
 
 </body>
 
