@@ -18,10 +18,6 @@ export interface User {
   styleUrls: ['./register-student.component.scss']
 })
 export class RegisterStudentComponent implements OnInit {
-  panelOpenState = false;
-  myControl = new FormControl();
-  options: GetStudentDTO[] = [];
-  filteredOptions: Observable<GetStudentDTO[]>;
 
   registrationForm = this.fb.group({
 
@@ -36,11 +32,7 @@ export class RegisterStudentComponent implements OnInit {
     department: ['', Validators.required],
   })
 
-  registrationStudentAtCourseForm = this.fb.group({
 
-    studentId: ['', Validators.required],
-    courseId: ['', Validators.required]
-  })
 
   constructor(private readonly participantsService: ParticipantsService, private readonly studentService: StudentService, private fb: FormBuilder, private notifyService: NotificationService) {
 
@@ -48,30 +40,7 @@ export class RegisterStudentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.studentService.getAllStudents().subscribe((data: GetStudentDTO[]) => {         //daca nu scriem .subscribe nu o sa se faca requestul
-      this.options = data;
-      console.log(this.options)
-    });
-
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => (typeof value === 'string' ? value : value.name)),
-    //   map(name => (name ? this._filter(name) : this.options.slice())),
-    // );
-
-
   }
-
-  //
-  // displayFn(user: GetStudentDTO): string {
-  //   return user && user.firstName ? user.firstName : '';
-  // }
-
-  // private _filter(name: string): GetStudentDTO[] {
-  //   const filterValue = name.toLowerCase();
-  //
-  //   return this.options.filter(option => option.firstName.toLowerCase().includes(filterValue));
-  // }
 
   submit(): void {
 
@@ -83,20 +52,5 @@ export class RegisterStudentComponent implements OnInit {
     });
 
   }
-
-  registerStudentAtCourse(): void {
-    let studentId = this.registrationStudentAtCourseForm.value.studentId;
-    let courseId = this.registrationStudentAtCourseForm.value.courseId;
-    this.registrationStudentAtCourseForm.reset();
-    this.participantsService.registerStudentAtCourse(studentId, courseId).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
-  }
-
-  // onSelFunc(option:GetStudentDTO){
-  //   this.selectedValue=option
-  //   console.log(this.selectedValue.firstName);
-  // }
 
 }
