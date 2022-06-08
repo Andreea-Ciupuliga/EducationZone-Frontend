@@ -3,33 +3,115 @@
 <!--Pagina pt examenele unui student-->
 <body>
 
+<mat-card style="text-align: center">
+  <mat-card-title>Search exams:</mat-card-title>
 
-<div class="content">
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let exam of Exams">
+  <form>
+
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="course name" type="text" [(ngModel)]="courseName" name="courseName">
+    </mat-form-field>
+
+    <button mat-mini-fab (click)="getAllExamsByCourseNameAndStudentUsername(courseName)">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            See exams info:
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <table mat-table [dataSource]="AllExamsByCourseName" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef> Course name</th>
+            <td mat-cell *matCellDef="let exam"> {{exam.courseName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="examDate">
+            <th mat-header-cell *matHeaderCellDef> Exam date</th>
+            <td mat-cell *matCellDef="let exam">{{exam.examDate}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="examHour">
+            <th mat-header-cell *matHeaderCellDef> Exam hour</th>
+            <td mat-cell *matCellDef="let exam">{{exam.examHour}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="examRoom">
+            <th mat-header-cell *matHeaderCellDef> Exam room</th>
+            <td mat-cell *matCellDef="let exam">{{exam.examRoom}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef> Points</th>
+            <td mat-cell *matCellDef="let exam">{{exam.points}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let exam">{{exam.description}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+
+</mat-card>
+
+<br>
 
 
-      <mat-card class="example-card">
+<div>
 
-        <mat-card-content>
-          <p>
-            Course: {{exam.courseName}} <br>
-            {{exam.description}}<br>
-            Exam date: {{exam.examDate}}<br>
-            Points: {{exam.points}}<br>
-          </p>
-        </mat-card-content>
-
-        <mat-card-actions>
-
-        </mat-card-actions>
-
-      </mat-card>
-
-    </div>
+  <h2 style="text-align: center"> All exams</h2>
+  <mat-divider></mat-divider>
+  <br>
+  <table mat-table [dataSource]="Exams" class="mat-elevation-z8">
 
 
-  </div>
+    <ng-container matColumnDef="courseName">
+      <th mat-header-cell *matHeaderCellDef> Course name</th>
+      <td mat-cell *matCellDef="let exam"> {{exam.courseName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="examDate">
+      <th mat-header-cell *matHeaderCellDef> Exam date</th>
+      <td mat-cell *matCellDef="let exam">{{exam.examDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="examHour">
+      <th mat-header-cell *matHeaderCellDef> Exam hour</th>
+      <td mat-cell *matCellDef="let exam">{{exam.examHour}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="examRoom">
+      <th mat-header-cell *matHeaderCellDef> Exam room</th>
+      <td mat-cell *matCellDef="let exam">{{exam.examRoom}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="points">
+      <th mat-header-cell *matHeaderCellDef> Points</th>
+      <td mat-cell *matCellDef="let exam">{{exam.points}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description</th>
+      <td mat-cell *matCellDef="let exam">{{exam.description}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
 </div>
 
 
