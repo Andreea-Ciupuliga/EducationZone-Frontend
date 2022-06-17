@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterHomeworkDTO} from "../../DTOs/HomeworkDTOs/register-homework-dto";
-import {Homework} from "../../Models/homework";
+import {Homework} from "../../Model/homework";
 
 @Injectable({
   providedIn: 'root'

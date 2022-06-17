@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterCourseDTO} from "../../DTOs/CourseDTOs/register-course-dto";
-import {Course} from "../../Models/course";
+import {Course} from "../../Model/course";
 
 
 @Injectable({
@@ -10,29 +10,32 @@ import {Course} from "../../Models/course";
 export class CourseService {
 
   private readonly endpoint = '/course';
-  constructor(private apiService : ApiService) { }
+
+  constructor(private apiService: ApiService) {
+  }
 
   registerCourse(courseRegisterDTO: RegisterCourseDTO) {
-    return this.apiService.post<Course>(this.endpoint + '/register',courseRegisterDTO);
+    return this.apiService.post<Course>(this.endpoint + '/register', courseRegisterDTO);
   }
 
-  removeCourse(id: number){
-    return this.apiService.delete(this.endpoint+'/'+id);
+  removeCourse(id: number) {
+    return this.apiService.delete(this.endpoint + '/' + id);
   }
 
-  getCourse(id: number){
-    return this.apiService.get<Course>(this.endpoint + '/'+id);
+  getCourse(id: number) {
+    return this.apiService.get<Course>(this.endpoint + '/' + id);
   }
 
-  getAllCourses(){
+  getAllCourses() {
     return this.apiService.get<Course>(this.endpoint + '/getAll');
   }
 
-  updateCourse(id: number,courseRegisterDTO: RegisterCourseDTO){
-    return this.apiService.put<Course>(this.endpoint + '/'+id,courseRegisterDTO);
+  updateCourse(id: number, courseRegisterDTO: RegisterCourseDTO) {
+    return this.apiService.put<Course>(this.endpoint + '/' + id, courseRegisterDTO);
   }
-  getAllCoursesByName(courseName:string){
-    return this.apiService.get<Course>(this.endpoint + '/getAllByName/'+courseName);
+
+  getAllCoursesByName(courseName: string) {
+    return this.apiService.get<Course>(this.endpoint + '/getAllByName/' + courseName);
   }
 
   getAllCoursesByProfessorId(professorId: number) {
@@ -43,7 +46,7 @@ export class CourseService {
     return this.apiService.get<Course>(this.endpoint + '/getAllCoursesByProfessorUsername/' + professorUsername)
   }
 
-  // removeAllCourses(){
-  //   return this.apiService.delete(this.endpoint+'/deleteAll');
-  // }
+  checkIfTheTeacherIsTeachingTheCourse(courseId: number, professorUsername: string) {
+    return this.apiService.get<Boolean>(this.endpoint + '/checkIfTheTeacherIsTeachingTheCourse/' + courseId + '/' + professorUsername);
+  }
 }

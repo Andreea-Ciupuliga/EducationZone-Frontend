@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterExamDTO} from "../../DTOs/ExamDTOs/register-exam-dto";
-import {Exam} from "../../Models/exam";
-import {Student} from "../../Models/student";
+import {Exam} from "../../Model/exam";
+import {Student} from "../../Model/student";
 
 @Injectable({
   providedIn: 'root'

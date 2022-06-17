@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../Api/api.service";
-import {Participants} from "../../Models/participants";
+import {Participants} from "../../Model/participants";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,10 @@ export class ParticipantsService {
 
   getAllStudentsAndGradesByCourseId(courseId: number) {
     return this.apiService.get<Participants>(this.endpoint + '/getAllStudentsAndGradesByCourseId/' + courseId)
+  }
+
+  getAllStudentsAndGradesByCourseIdAndStudentName(courseId: number, studentName: string) {
+    return this.apiService.get<Participants>(this.endpoint + '/getAllStudentsAndGradesByCourseIdAndStudentName/' + courseId + '/' + studentName)
   }
 
   removeStudentCourseRelationship(studentId: number, courseId: number) {

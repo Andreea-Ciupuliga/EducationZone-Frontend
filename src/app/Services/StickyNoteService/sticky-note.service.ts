@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterStickyNoteDto} from "../../DTOs/StickyNoteDTOs/register-sticky-note-dto";
-import {StickyNote} from "../../Models/sticky-note";
+import {StickyNote} from "../../Model/sticky-note";
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from "../Api/api.service";
 import {RegisterStudentDTO} from "../../DTOs/StudentDTOs/register-student-dto";
-import {Student} from "../../Models/student";
+import {Student} from "../../Model/student";
 
 
 @Injectable({
