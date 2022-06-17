@@ -4,7 +4,7 @@ export interface GetStudentDTO {
   lastName: string;
   email: string;
   username: string;
-  groupNumber: string;
+  groupNumber: number;
   phone: string;
   year: string;
   department: string;

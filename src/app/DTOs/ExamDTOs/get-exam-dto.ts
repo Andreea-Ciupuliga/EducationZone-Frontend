@@ -4,7 +4,7 @@ export interface GetExamDTO {
   courseName: string;
   description: string;
   examDate: string;
-  points: string;
+  points: number;
   examRoom: string;
   examHour: string;
   courseId: number;

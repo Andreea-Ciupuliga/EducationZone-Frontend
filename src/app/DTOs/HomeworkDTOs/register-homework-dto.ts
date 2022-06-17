@@ -2,6 +2,6 @@ export interface RegisterHomeworkDTO {
 
   description: string;
   deadline: string;
-  points: string;
+  points: number;
   courseId: number;
 }

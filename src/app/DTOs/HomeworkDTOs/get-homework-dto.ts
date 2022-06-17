@@ -3,7 +3,7 @@ export interface GetHomeworkDTO {
   id: number;
   description: string;
   deadline: string;
-  points: string;
+  points: number;
   courseId: number;
   courseName: string;
 }
