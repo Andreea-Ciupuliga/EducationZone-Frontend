@@ -5,7 +5,7 @@ export interface Exam {
   id: number;
   description: string;
   examDate: string;
-  points: string;
+  points: number;
   examRoom: string;
   examHour: string;
 

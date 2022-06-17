@@ -8,7 +8,7 @@ export interface Student {
   email: string;
   password: string;
   username: string;
-  groupNumber: string;
+  groupNumber: number;
   phone: string;
   year: string;
   department: string;

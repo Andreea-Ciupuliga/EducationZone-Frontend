@@ -4,7 +4,7 @@ import {Student} from "./student";
 export interface Participants {
 
   id: number;
-  examGrade: string;
+  examGrade: number;
 
   student: Student;
   course: Course;
