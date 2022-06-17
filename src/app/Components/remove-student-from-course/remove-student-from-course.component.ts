@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
-import {Student} from "../../Models/student";
+import {Student} from "../../Model/student";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {FormBuilder, Validators} from "@angular/forms";

@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {map, Observable, startWith} from "rxjs";
-import {Student} from "../../Models/student";
+import {Student} from "../../Model/student";
 import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {NotificationService} from "../../Services/NotificationService/notification.service";

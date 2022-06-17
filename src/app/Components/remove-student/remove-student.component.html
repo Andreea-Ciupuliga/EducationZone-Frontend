@@ -1,11 +1,16 @@
-<mat-card>
-  <p>Write the student id</p>
-  <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="number" [(ngModel)]="studentId">
-  </mat-form-field>
-  <button mat-raised-button (click)="removeStudent(studentId)">Delete student</button>
-  <br>
-  <button mat-raised-button (click)="removeAllStudents()">Delete all students</button>
-</mat-card>
+<h2 mat-dialog-title>Remove student</h2>
 
-<router-outlet></router-outlet>
+<mat-dialog-content>
+
+<mat-form-field appearance="fill">
+    <input matInput placeholder="student id" type="number" [(ngModel)]="studentId">
+  </mat-form-field>
+
+  <button mat-mini-fab [mat-dialog-close]="true" (click)="removeStudent(studentId)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

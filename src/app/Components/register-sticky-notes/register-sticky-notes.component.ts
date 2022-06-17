@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {StickyNoteService} from "../../Services/StickyNoteService/sticky-note.service";
 import {KeycloakService} from "keycloak-angular";
@@ -16,20 +16,16 @@ export class RegisterStickyNotesComponent implements OnInit {
     studentUsername: ['', Validators.required],
   })
 
-  constructor(private fb: FormBuilder, private readonly stickyNoteService: StickyNoteService, private keycloakService: KeycloakService) { }
+  constructor(private fb: FormBuilder, private readonly stickyNoteService: StickyNoteService, private keycloakService: KeycloakService) {
+  }
 
   ngOnInit(): void {
   }
 
   submit(): void {
-
     let stickyNoteRegisterDto = this.registrationForm.value;
     stickyNoteRegisterDto.studentUsername = this.keycloakService.getUsername();
-    this.registrationForm.reset();
     this.stickyNoteService.registerStickyNote(stickyNoteRegisterDto).subscribe((data: any) => {
-    console.log(stickyNoteRegisterDto.studentUsername)
     });
-
   }
-
 }

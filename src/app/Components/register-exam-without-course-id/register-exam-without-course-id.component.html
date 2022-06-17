@@ -25,7 +25,7 @@
 
 
     <mat-form-field appearance="fill">
-      <input matInput formControlName="points" placeholder="points" type="text">
+      <input matInput formControlName="points" placeholder="points" type="number">
       <mat-error
         *ngIf=" (registrationForm.controls['points'].dirty || registrationForm.controls['points'].touched);">
         <mat-error *ngIf="registrationForm.controls['points'].hasError('required')">

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ExamService} from "../../Services/ExamService/exam.service";
-import {Exam} from "../../Models/exam";
+import {Exam} from "../../Model/exam";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 

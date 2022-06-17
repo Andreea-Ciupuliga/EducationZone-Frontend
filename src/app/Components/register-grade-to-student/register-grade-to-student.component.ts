@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {Participants} from "../../Models/participants";
+import {Participants} from "../../Model/participants";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 
