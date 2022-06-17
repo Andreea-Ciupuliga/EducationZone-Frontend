@@ -3,6 +3,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {RegisterCourseComponent} from "../../Components/register-course/register-course.component";
 import {UpdateCourseComponent} from "../../Components/update-course/update-course.component";
 import {RemoveCourseComponent} from "../../Components/remove-course/remove-course.component";
+import {RegisterStudentAtCourseComponent} from "../../Components/register-student-at-course/register-student-at-course.component";
+import {RegisterGroupAtCourseComponent} from "../../Components/register-group-at-course/register-group-at-course.component";
+import {RemoveGroupFromCourseComponent} from "../../Components/remove-group-from-course/remove-group-from-course.component";
+import {RemoveStudentFromCourseComponent} from "../../Components/remove-student-from-course/remove-student-from-course.component";
 
 @Component({
   selector: 'app-course-administration',
@@ -32,6 +36,34 @@ export class CourseAdministrationComponent implements OnInit {
 
   openDialogRemoveCourse() {
     const dialogRef = this.dialog.open(RemoveCourseComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialogAddStudentAtCourse() {
+    const dialogRef = this.dialog.open(RegisterStudentAtCourseComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialogAddGroupOfStudentsAtCourse() {
+    const dialogRef = this.dialog.open(RegisterGroupAtCourseComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialogRemoveGroupOfStudentsFromCourse() {
+    const dialogRef = this.dialog.open(RemoveGroupFromCourseComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialogRemoveStudentFromCourse() {
+    const dialogRef = this.dialog.open(RemoveStudentFromCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
