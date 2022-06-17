@@ -1,5 +1,45 @@
+
 <app-toolbar></app-toolbar>
-<app-register-student></app-register-student>
-<app-remove-student></app-remove-student>
-<app-update-student></app-update-student>
+<html>
+
+<body>
+
+<div style="text-align: center">
+  <button mat-fab (click)="openDialogRegisterStudent()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div style="text-align: center">
+  <button mat-raised-button (click)="openDialogUpdateStudent()">
+    Update student
+  </button>
+
+  <button mat-raised-button (click)="openDialogRemoveStudent()">
+    Remove student
+  </button>
+
+  <button mat-raised-button style="background: #78DCF0" (click)="openDialogAddStudentAtCourse()">
+    Add student at course
+  </button>
+
+  <button mat-raised-button style="background: #78DCF0" (click)="openDialogAddGroupOfStudentsAtCourse()">
+    Add group of students at course
+  </button>
+
+  <button mat-raised-button style="background: #78DCF0" (click)="openDialogRemoveStudentFromCourse()">
+    Remove student from course
+  </button>
+
+  <button mat-raised-button style="background: #78DCF0" (click)="openDialogRemoveGroupOfStudentsFromCourse()">
+    Remove group of students from course
+  </button>
+
+
+</div>
+
+
+</body>
+</html>
 <app-get-student></app-get-student>
+<router-outlet></router-outlet>
