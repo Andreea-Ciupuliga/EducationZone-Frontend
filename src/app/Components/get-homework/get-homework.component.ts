@@ -3,6 +3,10 @@ import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
+import {Homework} from "../../Model/homework";
+import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
+import {UpdateHomeworkWithoutHomeworkIdComponent} from "../update-homework-without-homework-id/update-homework-without-homework-id.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-get-homework',
@@ -10,7 +14,7 @@ import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
   styleUrls: ['./get-homework.component.scss']
 })
 export class GetHomeworkComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'deadline','points', 'courseId', 'courseName', 'description'];
+  displayedColumns: string[] = ['id', 'deadline','points', 'courseId', 'courseName', 'description','removeHomework','editHomework'];
   panelOpenState = false;
 
   public homeworkId: any;
@@ -22,7 +26,7 @@ export class GetHomeworkComponent implements OnInit {
   public AllHomeworksByStudentId: GetHomeworkDTO[] = [];
   public homework: GetHomeworkDTO;
 
-  constructor(private readonly homeworkService: HomeworkService, private notifyService: NotificationService) {
+  constructor(public dialog: MatDialog,private readonly homeworkService: HomeworkService, private notifyService: NotificationService) {
 
   }
 
@@ -63,6 +67,24 @@ export class GetHomeworkComponent implements OnInit {
       this.AllHomeworksByStudentId = data;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    });
+  }
+
+  removeHomework(id: number) {
+    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+    });
+  }
+
+  openDialogUpdateHomework(id: number) {
+    const dialogRef = this.dialog.open(UpdateHomeworkWithoutHomeworkIdComponent, {
+      data: {
+        homeworkId: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 

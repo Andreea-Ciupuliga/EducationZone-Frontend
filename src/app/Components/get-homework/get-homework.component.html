@@ -31,12 +31,24 @@
                 <th>Course id</th>
                 <th>Course name</th>
                 <th>Description</th>
+                <th></th>
+                <th></th>
               </tr>
               <td>{{homework.deadline}}</td>
               <td>{{homework.points}}</td>
               <td>{{homework.courseId}}</td>
               <td>{{homework.courseName}}</td>
               <td style="max-width: 45vw;">{{homework.description}} </td>
+              <td>
+                <button mat-mini-fab (click)="removeHomework(homework.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-mini-fab (click)="openDialogUpdateHomework(homework.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </table>
           </div>
         </mat-expansion-panel>
@@ -95,6 +107,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
               <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="removeHomework(homework.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="openDialogUpdateHomework(homework.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -160,6 +190,24 @@
               <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
             </ng-container>
 
+            <ng-container matColumnDef="removeHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="removeHomework(homework.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="openDialogUpdateHomework(homework.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -218,6 +266,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
               <td mat-cell *matCellDef="let homework">{{homework.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="removeHomework(homework.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editHomework">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let homework">
+                <button mat-mini-fab (click)="openDialogUpdateHomework(homework.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

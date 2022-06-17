@@ -71,6 +71,14 @@
               <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
             </ng-container>
 
+            <ng-container matColumnDef="removeStudent">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let student">
+                <button mat-mini-fab (click)="removeStudent(student.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -115,6 +123,7 @@
                 <th>Phone</th>
                 <th>Year</th>
                 <th>Department</th>
+                <th></th>
               </tr>
               <td> {{student.firstName}} </td>
               <td> {{student.lastName}} </td>
@@ -124,6 +133,11 @@
               <td> {{student.phone}} </td>
               <td> {{student.year}} </td>
               <td> {{student.department}} </td>
+              <td>
+                <button mat-mini-fab (click)="removeStudent(student.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
             </table>
 
           </div>
@@ -197,6 +211,15 @@
             <ng-container matColumnDef="department">
               <th mat-header-cell *matHeaderCellDef> Department</th>
               <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeStudent">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let student">
+                <button mat-mini-fab (click)="removeStudent(student.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
 
@@ -275,6 +298,15 @@
             <ng-container matColumnDef="department">
               <th mat-header-cell *matHeaderCellDef> Department</th>
               <td mat-cell *matCellDef="let student"> {{student.department}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeStudent">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let student">
+                <button mat-mini-fab (click)="removeStudent(student.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
 

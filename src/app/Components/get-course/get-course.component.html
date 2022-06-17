@@ -36,7 +36,7 @@
             </ng-container>
 
             <ng-container matColumnDef="numberOfStudents">
-              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <th mat-header-cell *matHeaderCellDef> Nr. of students</th>
               <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
             </ng-container>
 
@@ -58,6 +58,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
               <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="removeCourse(course.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="openDialogUpdateCourse(course.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -93,11 +111,13 @@
             <table class="mat-elevation-z8">
               <tr>
                 <th>Course name</th>
-                <th> Number of students</th>
+                <th> Nr. of students</th>
                 <th> Year</th>
                 <th> Semester</th>
                 <th> Professor name</th>
                 <th> Description</th>
+                <th></th>
+                <th></th>
               </tr>
               <td> {{course.name}} </td>
               <td> {{course.numberOfStudents}} </td>
@@ -105,6 +125,16 @@
               <td> {{course.semester}} </td>
               <td> {{course.professorName}} </td>
               <td style="max-width: 45vw;">{{course.description}}</td>
+              <td>
+                <button mat-mini-fab (click)="removeCourse(course.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-mini-fab (click)="openDialogUpdateCourse(course.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </table>
 
           </div>
@@ -133,7 +163,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <table mat-table [dataSource]="CoursesByName" class="mat-elevation-z8">
+          <table mat-table [dataSource]="CoursesByProfessorId" class="mat-elevation-z8">
 
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -146,7 +176,7 @@
             </ng-container>
 
             <ng-container matColumnDef="numberOfStudents">
-              <th mat-header-cell *matHeaderCellDef> Number of students </th>
+              <th mat-header-cell *matHeaderCellDef> Nr. of students </th>
               <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
             </ng-container>
 
@@ -168,6 +198,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
               <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="removeCourse(course.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="openDialogUpdateCourse(course.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -212,7 +260,7 @@
             </ng-container>
 
             <ng-container matColumnDef="numberOfStudents">
-              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <th mat-header-cell *matHeaderCellDef> Nr. of students</th>
               <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
             </ng-container>
 
@@ -234,6 +282,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
               <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="removeCourse(course.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="openDialogUpdateCourse(course.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -276,7 +342,7 @@
             </ng-container>
 
             <ng-container matColumnDef="numberOfStudents">
-              <th mat-header-cell *matHeaderCellDef> Number of students</th>
+              <th mat-header-cell *matHeaderCellDef> Nr. of students</th>
               <td mat-cell *matCellDef="let course"> {{course.numberOfStudents}} </td>
             </ng-container>
 
@@ -298,6 +364,24 @@
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
               <td mat-cell *matCellDef="let course">{{course.description}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="removeCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="removeCourse(course.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="editCourse">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab (click)="openDialogUpdateCourse(course.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GetProfessorDTO} from "../../DTOs/ProfessorDTOs/get-professor-dto";
 import {ProfessorService} from "../../Services/ProfessorService/professor.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {Professor} from "../../Models/professor";
+import {Professor} from "../../Model/professor";
 import {UpdateExamWithoutExamIdComponent} from "../update-exam-without-exam-id/update-exam-without-exam-id.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 import {ExamService} from "../../Services/ExamService/exam.service";
 import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
-import {Exam} from "../../Models/exam";
+import {Exam} from "../../Model/exam";
+import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
+import {UpdateExamWithoutExamIdComponent} from "../update-exam-without-exam-id/update-exam-without-exam-id.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-get-exam',
@@ -12,7 +15,7 @@ import {Exam} from "../../Models/exam";
 })
 export class GetExamComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'courseName', 'examDate','examRoom', 'examHour','points', 'courseId','description','removeExam'];
+  displayedColumns: string[] = ['id', 'courseName', 'examDate', 'examRoom', 'examHour', 'points', 'courseId', 'description', 'removeExam','editExam'];
   panelOpenState = false;
 
   public courseId: any;
@@ -25,13 +28,14 @@ export class GetExamComponent implements OnInit {
   public exam: GetExamDTO;
   public examByCourseId: GetExamDTO;
 
-  constructor(private readonly examService: ExamService, private notifyService: NotificationService) {
+  constructor(public dialog: MatDialog, private readonly examService: ExamService, private notifyService: NotificationService) {
 
   }
 
   ngOnInit(): void {
 
   }
+
   removeExam(id: number) {
     this.examService.removeExam(id).subscribe((data: Exam) => {
     }, (err) => {
@@ -52,8 +56,6 @@ export class GetExamComponent implements OnInit {
     this.examId = "";
     this.examService.getExam(id).subscribe((data: GetExamDTO) => {
         this.exam = data;
-        console.log("exam: ");
-        console.log(this.exam);
       },
       (err) => {
         this.notifyService.showError(err.error.message);
@@ -80,4 +82,14 @@ export class GetExamComponent implements OnInit {
     );
   }
 
+  openDialogUpdateExam(id: number) {
+    const dialogRef = this.dialog.open(UpdateExamWithoutExamIdComponent, {
+      data: {
+        examId: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

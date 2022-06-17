@@ -4,7 +4,7 @@ import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {map, Observable, startWith} from "rxjs";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {StudentService} from "../../Services/StudentService/student.service";
-import {Student} from "../../Models/student";
+import {Student} from "../../Model/student";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
@@ -13,7 +13,7 @@ import {NotificationService} from "../../Services/NotificationService/notificati
   styleUrls: ['./get-student.component.scss']
 })
 export class GetStudentComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'firstName', 'lastName','email', 'username','groupNumber','phone','year','department'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName','email', 'username','groupNumber','phone','year','department','removeStudent'];
   panelOpenState = false;
 
   public studentName: string;
@@ -33,6 +33,13 @@ export class GetStudentComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  removeStudent(id: number) {
+    this.studentService.removeStudent(id).subscribe((data: Student) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+    });
   }
 
   getAllStudentsByName(name: string) {

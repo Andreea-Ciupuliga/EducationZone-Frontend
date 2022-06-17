@@ -3,6 +3,10 @@ import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 import {CourseService} from "../../Services/CourseService/course.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
+import {Course} from "../../Model/course";
+import {MatDialog} from "@angular/material/dialog";
+import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
+import {UpdateCourseWithoutCourseIdComponent} from "../update-course-without-course-id/update-course-without-course-id.component";
 
 @Component({
   selector: 'app-get-course',
@@ -10,7 +14,7 @@ import {ParticipantsService} from "../../Services/ParticipantsService/participan
   styleUrls: ['./get-course.component.scss']
 })
 export class GetCourseComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'courseName', 'numberOfStudents', 'year', 'semester', 'professorName', 'description'];
+  displayedColumns: string[] = ['id', 'courseName', 'numberOfStudents', 'year', 'semester', 'professorName', 'description', 'removeCourse', 'editCourse'];
   panelOpenState = false;
 
   public courseName: string;
@@ -25,12 +29,19 @@ export class GetCourseComponent implements OnInit {
 
   public course: GetCourseDTO;
 
-  constructor(private readonly participantsService: ParticipantsService, private readonly courseService: CourseService, private notifyService: NotificationService) {
+  constructor(public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly courseService: CourseService, private notifyService: NotificationService) {
 
   }
 
   ngOnInit(): void {
 
+  }
+
+  removeCourse(id: number) {
+    this.courseService.removeCourse(id).subscribe((data: Course) => {
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+    });
   }
 
   getAllCoursesByName(name: string) {
@@ -44,6 +55,7 @@ export class GetCourseComponent implements OnInit {
 
   getAllCoursesByProfessorId(id: number) {
     this.professorId = "";
+    console.log(id);
     this.courseService.getAllCoursesByProfessorId(id).subscribe((data: GetCourseDTO[]) => {
       this.CoursesByProfessorId = data;
     });
@@ -60,7 +72,7 @@ export class GetCourseComponent implements OnInit {
     this.courseId = "";
     this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
       this.course = data;
-      console.log(this.course)
+
     }, (err) => {
       this.notifyService.showError(err.error.message);
     });
@@ -74,4 +86,14 @@ export class GetCourseComponent implements OnInit {
     });
   }
 
+  openDialogUpdateCourse(id: number) {
+    const dialogRef = this.dialog.open(UpdateCourseWithoutCourseIdComponent, {
+      data: {
+        courseId: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
