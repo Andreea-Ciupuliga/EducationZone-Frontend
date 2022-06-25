@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
+import {RegisterStickyNotesComponent} from "../register-sticky-notes/register-sticky-notes.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ContactComponent} from "../../Pages/contact/contact.component";
 
 @Component({
   selector: 'app-toolbar',
@@ -8,19 +11,26 @@ import {KeycloakService} from "keycloak-angular";
 })
 export class ToolbarComponent implements OnInit {
   title = 'Education Zone';
-  isAdmin:boolean =false;
-  roles=this.keycloakService.getUserRoles();
-  constructor(private keycloakService: KeycloakService) {
+  isAdmin: boolean = false;
+  roles = this.keycloakService.getUserRoles();
+
+  constructor(public dialog: MatDialog, private keycloakService: KeycloakService) {
   }
 
   ngOnInit(): void {
 
-    this.roles.forEach(value=>{
+    this.roles.forEach(value => {
       if (value == 'ROLE_ADMIN')
-        this.isAdmin=true;
+        this.isAdmin = true;
     })
 
-    console.log("roluri student curent: ",this.roles)
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ContactComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 
   logout() {

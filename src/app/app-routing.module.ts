@@ -11,12 +11,14 @@ import {StudentAdministrationComponent} from "./Pages/student-administration/stu
 import {ProfessorAdministrationComponent} from "./Pages/professor-administration/professor-administration.component";
 import {GradesComponent} from "./Pages/grades/grades.component";
 import {ManageCourseComponent} from "./Pages/manage-course/manage-course.component";
-import {AccessDeniedComponent} from "./access-denied/access-denied.component";
+import {AccessDeniedComponent} from "./Pages/access-denied/access-denied.component";
 import {AuthGuard} from "./auth/auth.guard";
-import {AdminHomeComponent} from "./Pages/admin-home/admin-home.component";
+import {AdminPanelComponent} from "./Pages/admin-panel/admin-panel.component";
 import {ProfessorHomeComponent} from "./Pages/professor-home/professor-home.component";
 import {StudentHomeComponent} from "./Pages/student-home/student-home.component";
 import {EditProfileComponent} from "./Pages/edit-profile/edit-profile.component";
+import {StickyNotesComponent} from "./Pages/sticky-notes/sticky-notes.component";
+import {ContactComponent} from "./Pages/contact/contact.component";
 
 const routes: Routes = [
   {
@@ -40,12 +42,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_STUDENT'] },
   },
-  {
-    path:'grades',
-    component:GradesComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ROLE_STUDENT'] },
-  },
+
   {
     path:'courseDetails/:id',
     component: CourseDetailsComponent,
@@ -57,6 +54,12 @@ const routes: Routes = [
     component: ManageCourseComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_PROFESSOR'] },
+  },
+  {
+    path:'grades',
+    component:GradesComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
   },
   {
     path:'courseAdministration',
@@ -89,8 +92,8 @@ const routes: Routes = [
     data: { roles: ['ROLE_ADMIN'] },
   },
   {
-    path:'admin-home',
-    component:AdminHomeComponent,
+    path:'admin-panel',
+    component:AdminPanelComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_ADMIN'] },
   },
@@ -106,10 +109,22 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['ROLE_STUDENT'] },
   },
-
+  {
+    path:'stickyNotes',
+    component:StickyNotesComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_STUDENT'] },
+  },
   {
     path:'edit-profile',
     component:EditProfileComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [] },
+  },
+
+  {
+    path:'contact',
+    component:ContactComponent,
     canActivate: [AuthGuard],
     data: { roles: [] },
   },
@@ -123,7 +138,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

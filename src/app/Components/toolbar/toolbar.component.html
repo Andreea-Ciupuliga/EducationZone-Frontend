@@ -10,9 +10,12 @@
   <span>{{title}}</span>
   <span class="example-spacer"></span>
   <button mat-raised-button *ngIf="isAdmin" routerLink="/admin-panel" mat-raised-button>Admin</button>
-  <button mat-mini-fab routerLink="/edit-profile" mat-raised-button><mat-icon>person</mat-icon></button>
-  <button mat-mini-fab routerLink="/contact" mat-raised-button><mat-icon class="material-icons-outlined">contact_support</mat-icon></button>
-
+  <button mat-mini-fab routerLink="/edit-profile" mat-raised-button>
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-mini-fab (click)="openDialog()" mat-raised-button>
+    <mat-icon class="material-icons-outlined">contact_support</mat-icon>
+  </button>
 
 
   <button mat-mini-fab (click)="logout()">
