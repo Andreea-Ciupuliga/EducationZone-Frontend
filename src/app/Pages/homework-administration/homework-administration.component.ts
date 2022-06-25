@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RegisterHomeworkComponent} from "../../Components/register-homework/register-homework.component";
 import {UpdateHomeworkComponent} from "../../Components/update-homework/update-homework.component";
@@ -11,7 +11,8 @@ import {RemoveHomeworkComponent} from "../../Components/remove-homework/remove-h
 })
 export class HomeworkAdministrationComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }
@@ -19,21 +20,18 @@ export class HomeworkAdministrationComponent implements OnInit {
   openDialogAddNewHomework() {
     const dialogRef = this.dialog.open(RegisterHomeworkComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogUpdateHomework() {
     const dialogRef = this.dialog.open(UpdateHomeworkComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveHomework() {
     const dialogRef = this.dialog.open(RemoveHomeworkComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

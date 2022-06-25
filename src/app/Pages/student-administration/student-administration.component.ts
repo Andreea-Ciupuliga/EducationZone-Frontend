@@ -26,49 +26,42 @@ export class StudentAdministrationComponent implements OnInit {
   openDialogRegisterStudent() {
     const dialogRef = this.dialog.open(RegisterStudentComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogUpdateStudent() {
     const dialogRef = this.dialog.open(UpdateStudentComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveStudent() {
     const dialogRef = this.dialog.open(RemoveStudentComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveStudentFromCourse() {
     const dialogRef = this.dialog.open(RemoveStudentFromCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogAddStudentAtCourse() {
     const dialogRef = this.dialog.open(RegisterStudentAtCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogAddGroupOfStudentsAtCourse() {
     const dialogRef = this.dialog.open(RegisterGroupAtCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveGroupOfStudentsFromCourse() {
     const dialogRef = this.dialog.open(RemoveGroupFromCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 

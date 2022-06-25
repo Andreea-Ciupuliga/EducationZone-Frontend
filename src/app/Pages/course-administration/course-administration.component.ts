@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RegisterCourseComponent} from "../../Components/register-course/register-course.component";
 import {UpdateCourseComponent} from "../../Components/update-course/update-course.component";
@@ -15,7 +15,8 @@ import {RemoveStudentFromCourseComponent} from "../../Components/remove-student-
 })
 export class CourseAdministrationComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }
@@ -23,49 +24,42 @@ export class CourseAdministrationComponent implements OnInit {
   openDialogAddNewCourse() {
     const dialogRef = this.dialog.open(RegisterCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogUpdateCourse() {
     const dialogRef = this.dialog.open(UpdateCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveCourse() {
     const dialogRef = this.dialog.open(RemoveCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogAddStudentAtCourse() {
     const dialogRef = this.dialog.open(RegisterStudentAtCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogAddGroupOfStudentsAtCourse() {
     const dialogRef = this.dialog.open(RegisterGroupAtCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveGroupOfStudentsFromCourse() {
     const dialogRef = this.dialog.open(RemoveGroupFromCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   openDialogRemoveStudentFromCourse() {
     const dialogRef = this.dialog.open(RemoveStudentFromCourseComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
