@@ -17,18 +17,14 @@ export class StudentHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.getAllCoursesByStudentUsername();
   }
 
   getAllCoursesByStudentUsername() {
-
     this.studentUsername = this.keycloakService.getUsername();
     this.participantsService.getAllCoursesByStudentUsername(this.studentUsername).subscribe((data: GetCourseDTO[]) => {
       this.Courses = data;
-      console.log(this.Courses)
     });
-
   }
 
 }
