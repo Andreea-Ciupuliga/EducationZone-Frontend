@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetGradeDTO} from "../../DTOs/GradeDTOs/get-grade-dto";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {KeycloakService} from "keycloak-angular";
-import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-grades',
@@ -20,13 +20,15 @@ export class GradesComponent implements OnInit {
   public Grades: GetGradeDTO[] = [];
   public AllGradesByCourseName: GetGradeDTO[] = [];
 
-  constructor(private readonly participantsService: ParticipantsService,private keycloakService: KeycloakService) { }
+  constructor(private readonly participantsService: ParticipantsService, private keycloakService: KeycloakService, private notifyService: NotificationService) {
+  }
 
   ngOnInit(): void {
     this.getAllGradesByStudentUsername();
   }
+
   getAllGradesByStudentUsername() {
-    this.studentUsername=this.keycloakService.getUsername();
+    this.studentUsername = this.keycloakService.getUsername();
     this.participantsService.getAllGradesByStudentUsername(this.studentUsername).subscribe((data: GetGradeDTO[]) => {
       this.Grades = data;
       console.log(this.Grades)
@@ -39,6 +41,8 @@ export class GradesComponent implements OnInit {
 
     this.participantsService.getAllGradesByCourseNameAndStudentUsername(name, this.studentUsername).subscribe((data: GetGradeDTO[]) => {
       this.AllGradesByCourseName = data;
+    }, (err) => {
+      this.notifyService.showWarning(err.error.message);
     });
   }
 

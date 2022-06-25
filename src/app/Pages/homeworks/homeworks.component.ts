@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {KeycloakService} from "keycloak-angular";
-import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-homeworks',
@@ -11,7 +11,7 @@ import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 })
 export class HomeworksComponent implements OnInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['courseName','deadline','points', 'description'];
+  displayedColumns: string[] = ['courseName', 'deadline', 'points', 'description'];
 
   public courseName: string;
   private studentUsername: string = "";
@@ -19,16 +19,17 @@ export class HomeworksComponent implements OnInit {
   public Homeworks: GetHomeworkDTO[] = [];
   public AllHomeworksByCourseName: GetHomeworkDTO[] = [];
 
-  constructor(private readonly homeworkService:HomeworkService,private keycloakService: KeycloakService) { }
+  constructor(private readonly homeworkService: HomeworkService, private keycloakService: KeycloakService, private notifyService: NotificationService) {
+  }
 
   ngOnInit(): void {
     this.getAllHomeworksByStudentUsername();
   }
-  getAllHomeworksByStudentUsername(){
-    this.studentUsername=this.keycloakService.getUsername();
+
+  getAllHomeworksByStudentUsername() {
+    this.studentUsername = this.keycloakService.getUsername();
     this.homeworkService.getAllHomeworksByStudentUsername(this.studentUsername).subscribe((data: GetHomeworkDTO[]) => {
       this.Homeworks = data;
-      console.log(this.Homeworks)
     });
   }
 
@@ -38,6 +39,8 @@ export class HomeworksComponent implements OnInit {
 
     this.homeworkService.getAllHomeworksByCourseNameAndStudentUsername(name, this.studentUsername).subscribe((data: GetHomeworkDTO[]) => {
       this.AllHomeworksByCourseName = data;
+    }, (err) => {
+      this.notifyService.showWarning(err.error.message);
     });
   }
 }

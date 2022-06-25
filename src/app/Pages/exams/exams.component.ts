@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ExamService} from "../../Services/ExamService/exam.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 import {KeycloakService} from "keycloak-angular";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-exams',
@@ -18,7 +19,7 @@ export class ExamsComponent implements OnInit {
   public Exams: GetExamDTO[] = [];
   public AllExamsByCourseName: GetExamDTO[] = [];
 
-  constructor(private readonly examService: ExamService, private keycloakService: KeycloakService) {
+  constructor(private readonly examService: ExamService, private keycloakService: KeycloakService, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -29,7 +30,6 @@ export class ExamsComponent implements OnInit {
     this.studentUsername = this.keycloakService.getUsername();
     this.examService.getAllExamsByStudentUsername(this.studentUsername).subscribe((data: GetExamDTO[]) => {
       this.Exams = data;
-      console.log(this.Exams)
     });
   }
 
@@ -39,7 +39,8 @@ export class ExamsComponent implements OnInit {
 
     this.examService.getAllExamsByCourseNameAndStudentUsername(name, this.studentUsername).subscribe((data: GetExamDTO[]) => {
       this.AllExamsByCourseName = data;
-      console.log(this.Exams)
+    }, (err) => {
+      this.notifyService.showWarning(err.error.message);
     });
   }
 }
