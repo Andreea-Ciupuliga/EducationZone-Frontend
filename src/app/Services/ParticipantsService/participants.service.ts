@@ -56,6 +56,10 @@ export class ParticipantsService {
     return this.apiService.get<Participants>(this.endpoint + '/getAllStudentsAndGradesByCourseIdAndStudentName/' + courseId + '/' + studentName)
   }
 
+  checkIfTheStudentIsAddedToTheCourse(courseId: number, studentUsername: string) {
+    return this.apiService.get<Boolean>(this.endpoint + '/checkIfTheStudentIsAddedToTheCourse/' + courseId + '/' + studentUsername);
+  }
+
   removeStudentCourseRelationship(studentId: number, courseId: number) {
     return this.apiService.delete(this.endpoint + '/' + studentId + '/' + courseId);
   }
