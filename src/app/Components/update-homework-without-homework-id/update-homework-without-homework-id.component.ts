@@ -15,20 +15,20 @@ export class UpdateHomeworkWithoutHomeworkIdComponent implements OnInit {
     description: [null],
     deadline: [null],
     points: [null],
+    courseId: [null]
   })
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private readonly homeworkService: HomeworkService, private fb: FormBuilder, private notifyService: NotificationService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private readonly homeworkService: HomeworkService, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
   }
 
   submit(): void {
-    let homeworkId =  this.data.homeworkId;
+    let homeworkId = this.data.homeworkId;
     let homeworkRegisterDto = this.registrationForm.value;
+    homeworkRegisterDto.courseId = this.data.courseId;
     this.homeworkService.updateHomework(homeworkId, homeworkRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
 
   }

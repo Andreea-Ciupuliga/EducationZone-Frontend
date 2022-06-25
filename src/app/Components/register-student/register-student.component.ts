@@ -33,7 +33,6 @@ export class RegisterStudentComponent implements OnInit {
   })
 
 
-
   constructor(private readonly participantsService: ParticipantsService, private readonly studentService: StudentService, private fb: FormBuilder, private notifyService: NotificationService) {
 
   }
@@ -49,6 +48,8 @@ export class RegisterStudentComponent implements OnInit {
     this.studentService.registerStudent(studentRegisterDto).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    }, () => {
+      this.notifyService.showSuccess("Success");
     });
 
   }

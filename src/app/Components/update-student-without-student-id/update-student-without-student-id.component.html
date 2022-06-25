@@ -4,16 +4,6 @@
   <form [formGroup]="registrationForm">
 
     <mat-form-field appearance="fill">
-      <input matInput formControlName="id" placeholder="id" type="number">
-      <mat-error
-        *ngIf=" (registrationForm.controls['id'].dirty || registrationForm.controls['id'].touched);">
-        <mat-error *ngIf="registrationForm.controls['id'].hasError('required')">
-          Field required
-        </mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
       <input matInput formControlName="firstName" placeholder="firstName" type="text">
     </mat-form-field>
 

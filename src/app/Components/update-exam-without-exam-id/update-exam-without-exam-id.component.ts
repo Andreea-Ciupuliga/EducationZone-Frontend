@@ -18,6 +18,7 @@ export class UpdateExamWithoutExamIdComponent implements OnInit {
     points: [null],
     examRoom: [null],
     examHour: [null],
+    courseId: [null]
 
   })
 
@@ -30,10 +31,9 @@ export class UpdateExamWithoutExamIdComponent implements OnInit {
   submit(): void {
 
     let examRegisterDto = this.registrationForm.value;
+    examRegisterDto.courseId = this.data.courseId;
     let examId = this.data.examId;
-    this.examService.updateExam(examId,examRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
+    this.examService.updateExam(examId, examRegisterDto).subscribe((data: any) => {
     });
 
   }

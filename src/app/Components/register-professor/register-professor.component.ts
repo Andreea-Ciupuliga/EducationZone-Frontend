@@ -17,7 +17,7 @@ export class RegisterProfessorComponent implements OnInit {
 
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
+    email: ['', Validators.email],
     password: ['', Validators.required],
     username: ['', Validators.required],
     phone: ['', Validators.required],
