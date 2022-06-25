@@ -44,12 +44,12 @@
               <td> {{exam.courseId}}</td>
               <td style="max-width: 45vw;"> {{exam.description}} </td>
               <td>
-                <button mat-mini-fab (click)="removeExam(exam.id)">
+                <button mat-mini-fab (click)="removeExamForGetExamFunction(exam.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
               <td>
-                <button mat-mini-fab (click)="openDialogUpdateExam(exam.id)">
+                <button mat-mini-fab (click)="openDialogUpdateExamForGetExamFunction(exam.id,exam.courseId)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
@@ -103,12 +103,12 @@
               <td> {{examByCourseId.courseId}}</td>
               <td style="max-width: 45vw;"> {{examByCourseId.description}} </td>
               <td>
-                <button mat-mini-fab (click)="removeExam(exam.id)">
+                <button mat-mini-fab (click)="removeExamForGetExamByCourseIdFunction(examByCourseId.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
               <td>
-                <button mat-mini-fab (click)="openDialogUpdateExam(exam.id)">
+                <button mat-mini-fab (click)="openDialogUpdateExamForGetExamByCourseIdFunction(examByCourseId.id,examByCourseId.courseId)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
@@ -139,7 +139,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <table mat-table [dataSource]="AllExamsByStudentId" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceAllExamsByStudentId" class="mat-elevation-z8">
 
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef> Id</th>
@@ -184,7 +184,7 @@
             <ng-container matColumnDef="removeExam">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let exam">
-                <button mat-mini-fab (click)="removeExam(exam.id)">
+                <button mat-mini-fab (click)="removeExamForGetAllExamsByStudentIdFunction(exam.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -193,7 +193,7 @@
             <ng-container matColumnDef="editExam">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let exam">
-                <button mat-mini-fab (click)="openDialogUpdateExam(exam.id)">
+                <button mat-mini-fab (click)="openDialogUpdateExamForGetAllExamsByStudentIdFunction(exam.id,exam.courseId)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
@@ -226,7 +226,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <table mat-table [dataSource]="AllExams" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceAllExams" class="mat-elevation-z8">
 
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef> Id</th>
@@ -272,7 +272,7 @@
             <ng-container matColumnDef="removeExam">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let exam">
-                <button mat-mini-fab (click)="removeExam(exam.id)">
+                <button mat-mini-fab (click)="removeExamForGetAllExamsFunction(exam.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -281,7 +281,7 @@
             <ng-container matColumnDef="editExam">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let exam">
-                <button mat-mini-fab (click)="openDialogUpdateExam(exam.id)">
+                <button mat-mini-fab (click)="openDialogUpdateExamForGetAllExamsFunction(exam.id,exam.courseId)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
