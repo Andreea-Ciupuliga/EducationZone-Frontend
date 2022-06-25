@@ -1,19 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 import {ExamService} from "../../Services/ExamService/exam.service";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {CourseService} from "../../Services/CourseService/course.service";
-import {ActivatedRoute} from "@angular/router";
-import {FormBuilder, FormControl, NgForm, Validators} from "@angular/forms";
-import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder, Validators} from "@angular/forms";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {Exam} from "../../Models/exam";
-import {Homework} from "../../Models/homework";
-import {Participants} from "../../Models/participants";
-import {RegisterExamComponent} from "../../Components/register-exam/register-exam.component";
+import {Exam} from "../../Model/exam";
+import {Homework} from "../../Model/homework";
 import {MatDialog} from "@angular/material/dialog";
 import {RegisterExamWithoutCourseIdComponent} from "../../Components/register-exam-without-course-id/register-exam-without-course-id.component";
 import {RegisterHomeworkWithoutCourseIdComponent} from "../../Components/register-homework-without-course-id/register-homework-without-course-id.component";
@@ -22,6 +19,8 @@ import {UpdateCourseWithoutCourseIdComponent} from "../../Components/update-cour
 import {UpdateHomeworkWithoutHomeworkIdComponent} from "../../Components/update-homework-without-homework-id/update-homework-without-homework-id.component";
 import {RegisterGradeToStudentComponent} from "../../Components/register-grade-to-student/register-grade-to-student.component";
 import {GetStudentAndGradeDTO} from "../../DTOs/StudentDTOs/get-student-and-grade-dto";
+import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-manage-course',
@@ -30,13 +29,15 @@ import {GetStudentAndGradeDTO} from "../../DTOs/StudentDTOs/get-student-and-grad
 })
 export class ManageCourseComponent implements OnInit {
   displayedColumnsHomeworks: string[] = ['deadline', 'points', 'description', 'removeHomework', 'editHomework'];
-  displayedColumnsStudents: string[] = ['id', 'firstName', 'lastName','email', 'username','groupNumber','phone','year','department','grade','addGrade'];
+  displayedColumnsStudents: string[] = ['id', 'firstName', 'lastName', 'email', 'username', 'groupNumber', 'phone', 'year', 'department', 'grade', 'addGrade'];
 
+  public studentName: string;
 
+  public StudentsByName: GetStudentDTO[] = [];
   public Homeworks: GetHomeworkDTO[] = [];
-  public course: GetCourseDTO;
+  // @ts-ignore
+  public course: GetCourseDTO={id: "",name: "",numberOfStudents: "",description: "",year: "",semester: "",professorName: ""};
   public exam: GetExamDTO;
-
   public AllStudents: GetStudentAndGradeDTO[] = [];
   panelOpenState = false;
 
@@ -44,10 +45,12 @@ export class ManageCourseComponent implements OnInit {
     courseGrade: ['', Validators.required]
   });
 
-  constructor(public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly examService: ExamService, private readonly homeworkService: HomeworkService, private readonly courseService: CourseService, private route: ActivatedRoute, private fb: FormBuilder, private notifyService: NotificationService) {
+  constructor(protected readonly router: Router, protected readonly keycloakService: KeycloakService, public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly examService: ExamService, private readonly homeworkService: HomeworkService, private readonly courseService: CourseService, private route: ActivatedRoute, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
+
+    this.isAccessAllowed();
 
     this.courseService.getCourse(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetCourseDTO) => {
       this.course = data;
@@ -63,13 +66,74 @@ export class ManageCourseComponent implements OnInit {
 
   }
 
+  public async isAccessAllowed() {
+    this.courseService.checkIfTheTeacherIsTeachingTheCourse(Number(this.route.snapshot.paramMap.get('id')), this.keycloakService.getUsername()).subscribe((data: Boolean) => {
+      if (data == false)
+        this.router.navigate(['access-denied']);
+    });
+  }
+
+//==================================================================================UpdateCourse================================================================================
+  openDialogUpdateCourse() {
+    const dialogRef = this.dialog.open(UpdateCourseWithoutCourseIdComponent, {
+      data: {
+        courseId: Number(this.route.snapshot.paramMap.get('id'))
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.courseService.getCourse(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetCourseDTO) => {
+        this.course = data;
+      });
+    });
+  }
+
+//========================================================getAllStudentsByCourseIdAndStudentName===========================================================================
+
+  getAllStudentsByCourseIdAndStudentName(studentName: string) {
+    this.studentName = studentName;
+    let courseId = Number(this.route.snapshot.paramMap.get('id'));
+    this.participantsService.getAllStudentsAndGradesByCourseIdAndStudentName(courseId, studentName).subscribe((data: GetStudentAndGradeDTO[]) => {
+      this.StudentsByName = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+    });
+  }
+
+  openDialogAddGradeForStudentForGetAllStudentsByCourseIdAndStudentNameFunction(id: number) {
+    const dialogRef = this.dialog.open(RegisterGradeToStudentComponent, {
+      data: {
+        courseId: Number(this.route.snapshot.paramMap.get('id')),
+        studentId: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllStudentsByCourseIdAndStudentName(this.studentName);
+    });
+  }
+
+//============================================================getAllStudentsByCourseId===========================================================================================================
+
+
   getAllStudentsByCourseId() {
     let courseId = Number(this.route.snapshot.paramMap.get('id'));
     this.participantsService.getAllStudentsAndGradesByCourseId(courseId).subscribe((data: GetStudentAndGradeDTO[]) => {
       this.AllStudents = data;
-      console.log(this.AllStudents)
     });
   }
+
+  openDialogAddGradeForStudentForGetAllStudentsByCourseIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RegisterGradeToStudentComponent, {
+      data: {
+        courseId: Number(this.route.snapshot.paramMap.get('id')),
+        studentId: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllStudentsByCourseId();
+    });
+  }
+
+//=================================================================================EXAM=========================================================================================
 
   openDialogAddNewExam() {
     const dialogRef = this.dialog.open(RegisterExamWithoutCourseIdComponent, {
@@ -78,9 +142,31 @@ export class ManageCourseComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
     });
   }
+
+  openDialogUpdateExam(idExam: number,idCourse: number) {
+    const dialogRef = this.dialog.open(UpdateExamWithoutExamIdComponent, {
+      data: {
+        examId: idExam,
+        courseId: idCourse
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+  }
+
+  removeExam(id: number) {
+
+    this.examService.removeExam(id).subscribe((data: Exam) => {
+      this.ngOnInit();
+    });
+    window.location.reload();
+  }
+
+//===========================================================================HOMEWORK=============================================================================================
 
   openDialogAddNewHomework() {
     const dialogRef = this.dialog.open(RegisterHomeworkWithoutCourseIdComponent, {
@@ -89,70 +175,28 @@ export class ManageCourseComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.homeworkService.getAllHomeworksByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetHomeworkDTO[]) => {
+        this.Homeworks = data;
+      });
     });
   }
 
-  openDialogUpdateExam(id:number) {
-    const dialogRef = this.dialog.open(UpdateExamWithoutExamIdComponent, {
-      data: {
-        examId:id
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  openDialogUpdateCourse() {
-    const dialogRef = this.dialog.open(UpdateCourseWithoutCourseIdComponent, {
-      data: {
-        courseId: Number(this.route.snapshot.paramMap.get('id'))
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  openDialogUpdateHomework(id: number) {
+  openDialogUpdateHomework(idHomework: number, idCourse: number) {
     const dialogRef = this.dialog.open(UpdateHomeworkWithoutHomeworkIdComponent, {
       data: {
-        homeworkId: id
+        homeworkId: idHomework,
+        courseId: idCourse
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-
-  removeExam(id: number) {
-
-    this.examService.removeExam(id).subscribe((data: Exam) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
+      this.ngOnInit();
     });
   }
 
   removeHomework(id: number) {
-
     this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
-  }
-
-  openDialogAddGradeForStudent(id:number){
-    const dialogRef = this.dialog.open(RegisterGradeToStudentComponent, {
-      data: {
-        courseId: Number(this.route.snapshot.paramMap.get('id')),
-        studentId: id
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    window.location.reload();
   }
 
 }
