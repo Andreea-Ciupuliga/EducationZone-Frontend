@@ -20,16 +20,16 @@
           <p>{{stickyNote.description}}</p>
         </mat-card-content>
 
-        <button mat-mini-fab (click)="removeStickyNote(stickyNote.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-
+        <mat-dialog-actions align="end">
+          <button mat-mini-fab (click)="removeStickyNote(stickyNote.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-dialog-actions>
       </mat-card>
 
     </div>
   </div>
 </div>
-
 
 </body>
 
