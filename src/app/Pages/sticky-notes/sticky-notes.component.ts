@@ -34,7 +34,6 @@ export class StickyNotesComponent implements OnInit {
         this.stickyNotes = data;
       });
     });
-
   }
 
   removeStickyNote(id: number) {

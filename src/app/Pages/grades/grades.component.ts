@@ -31,7 +31,6 @@ export class GradesComponent implements OnInit {
     this.studentUsername = this.keycloakService.getUsername();
     this.participantsService.getAllGradesByStudentUsername(this.studentUsername).subscribe((data: GetGradeDTO[]) => {
       this.Grades = data;
-      console.log(this.Grades)
     });
   }
 

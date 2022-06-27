@@ -41,21 +41,12 @@ export class CourseDetailsComponent implements OnInit {
     });
 
     this.homeworkService.getAllHomeworksByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetHomeworkDTO[]) => {
-        this.Homeworks = data;
-        console.log(this.Homeworks);
-      },
-      (error) => {
-        console.warn(error);
-      });
+      this.Homeworks = data;
+    });
 
     this.examService.getExamByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetExamDTO) => {
-        this.exam = data;
-        console.log(this.exam);
-      },
-      (error) => {
-        console.warn(error);
-      });
-
+      this.exam = data;
+    });
   }
 
   public async isAccessAllowed() {
