@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Remove course</h2>
+
+<mat-dialog-content>
+  <p>Are you sure you want to delete this course?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="removeCourse()">Delete</button>
+</mat-dialog-actions>
