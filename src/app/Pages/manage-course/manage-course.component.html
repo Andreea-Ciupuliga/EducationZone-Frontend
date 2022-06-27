@@ -227,7 +227,7 @@
         </div>
       </mat-card-content>
 
-      <button mat-mini-fab (click)="removeExam(exam.id)">
+      <button mat-mini-fab (click)="openDialogRemoveExam(exam.id)">
         <mat-icon>delete</mat-icon>
       </button>
 
@@ -267,7 +267,7 @@
       <ng-container matColumnDef="removeHomework">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let homework">
-          <button mat-mini-fab (click)="removeHomework(homework.id)">
+          <button mat-mini-fab (click)="openDialogRemoveHomework(homework.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

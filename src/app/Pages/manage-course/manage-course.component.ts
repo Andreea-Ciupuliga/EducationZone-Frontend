@@ -9,8 +9,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {Exam} from "../../Model/exam";
-import {Homework} from "../../Model/homework";
 import {MatDialog} from "@angular/material/dialog";
 import {RegisterExamWithoutCourseIdComponent} from "../../Components/register-exam-without-course-id/register-exam-without-course-id.component";
 import {RegisterHomeworkWithoutCourseIdComponent} from "../../Components/register-homework-without-course-id/register-homework-without-course-id.component";
@@ -21,6 +19,8 @@ import {RegisterGradeToStudentComponent} from "../../Components/register-grade-t
 import {GetStudentAndGradeDTO} from "../../DTOs/StudentDTOs/get-student-and-grade-dto";
 import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {KeycloakService} from "keycloak-angular";
+import {RemoveExamConfirmationDialogComponent} from "../../Components/remove-exam-confirmation-dialog/remove-exam-confirmation-dialog.component";
+import {RemoveHomeworkConfirmationDialogComponent} from "../../Components/remove-homework-confirmation-dialog/remove-homework-confirmation-dialog.component";
 
 @Component({
   selector: 'app-manage-course',
@@ -35,8 +35,15 @@ export class ManageCourseComponent implements OnInit {
 
   public StudentsByName: GetStudentDTO[] = [];
   public Homeworks: GetHomeworkDTO[] = [];
-  // @ts-ignore
-  public course: GetCourseDTO={id: "",name: "",numberOfStudents: "",description: "",year: "",semester: "",professorName: ""};
+  public course: GetCourseDTO = {
+    id: 0,
+    name: "",
+    numberOfStudents: 0,
+    description: "",
+    year: "",
+    semester: "",
+    professorName: ""
+  };
   public exam: GetExamDTO;
   public AllStudents: GetStudentAndGradeDTO[] = [];
   panelOpenState = false;
@@ -63,7 +70,6 @@ export class ManageCourseComponent implements OnInit {
     this.examService.getExamByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetExamDTO) => {
       this.exam = data;
     });
-
   }
 
   public async isAccessAllowed() {
@@ -74,6 +80,7 @@ export class ManageCourseComponent implements OnInit {
   }
 
 //==================================================================================UpdateCourse================================================================================
+
   openDialogUpdateCourse() {
     const dialogRef = this.dialog.open(UpdateCourseWithoutCourseIdComponent, {
       data: {
@@ -96,6 +103,7 @@ export class ManageCourseComponent implements OnInit {
       this.StudentsByName = data;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.StudentsByName = [];
     });
   }
 
@@ -113,11 +121,12 @@ export class ManageCourseComponent implements OnInit {
 
 //============================================================getAllStudentsByCourseId===========================================================================================================
 
-
   getAllStudentsByCourseId() {
     let courseId = Number(this.route.snapshot.paramMap.get('id'));
     this.participantsService.getAllStudentsAndGradesByCourseId(courseId).subscribe((data: GetStudentAndGradeDTO[]) => {
       this.AllStudents = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
     });
   }
 
@@ -146,7 +155,7 @@ export class ManageCourseComponent implements OnInit {
     });
   }
 
-  openDialogUpdateExam(idExam: number,idCourse: number) {
+  openDialogUpdateExam(idExam: number, idCourse: number) {
     const dialogRef = this.dialog.open(UpdateExamWithoutExamIdComponent, {
       data: {
         examId: idExam,
@@ -158,12 +167,20 @@ export class ManageCourseComponent implements OnInit {
     });
   }
 
-  removeExam(id: number) {
-
-    this.examService.removeExam(id).subscribe((data: Exam) => {
-      this.ngOnInit();
+  openDialogRemoveExam(id: number) {
+    const dialogRef = this.dialog.open(RemoveExamConfirmationDialogComponent, {
+      data: {
+        examId: id,
+      }
     });
-    window.location.reload();
+    dialogRef.afterClosed().subscribe(result => {
+      this.examService.getExamByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetExamDTO) => {
+        this.exam = data;
+      }, (err) => {
+        // @ts-ignore
+        this.exam = null;
+      });
+    });
   }
 
 //===========================================================================HOMEWORK=============================================================================================
@@ -193,10 +210,19 @@ export class ManageCourseComponent implements OnInit {
     });
   }
 
-  removeHomework(id: number) {
-    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
+  openDialogRemoveHomework(id: number) {
+    const dialogRef = this.dialog.open(RemoveHomeworkConfirmationDialogComponent, {
+      data: {
+        homeworkId: id,
+      }
     });
-    window.location.reload();
+    dialogRef.afterClosed().subscribe(result => {
+      this.homeworkService.getAllHomeworksByCourseId(Number(this.route.snapshot.paramMap.get('id'))).subscribe((data: GetHomeworkDTO[]) => {
+        this.Homeworks = data;
+      }, () => {
+        this.Homeworks = [];
+      });
+    });
   }
 
 }
