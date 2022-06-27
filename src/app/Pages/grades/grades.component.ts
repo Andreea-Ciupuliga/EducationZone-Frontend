@@ -42,6 +42,7 @@ export class GradesComponent implements OnInit {
       this.AllGradesByCourseName = data;
     }, (err) => {
       this.notifyService.showWarning(err.error.message);
+      this.AllGradesByCourseName = [];
     });
   }
 
