@@ -41,6 +41,7 @@ export class HomeworksComponent implements OnInit {
       this.AllHomeworksByCourseName = data;
     }, (err) => {
       this.notifyService.showWarning(err.error.message);
+      this.AllHomeworksByCourseName = [];
     });
   }
 }

@@ -41,6 +41,7 @@ export class ExamsComponent implements OnInit {
       this.AllExamsByCourseName = data;
     }, (err) => {
       this.notifyService.showWarning(err.error.message);
+      this.AllExamsByCourseName = [];
     });
   }
 }
