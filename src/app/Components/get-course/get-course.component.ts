@@ -3,12 +3,10 @@ import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 import {CourseService} from "../../Services/CourseService/course.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
-import {Course} from "../../Model/course";
 import {MatDialog} from "@angular/material/dialog";
-import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
 import {UpdateCourseWithoutCourseIdComponent} from "../update-course-without-course-id/update-course-without-course-id.component";
-import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {MatTableDataSource} from "@angular/material/table";
+import {RemoveCourseConfirmationDialogComponent} from "../remove-course-confirmation-dialog/remove-course-confirmation-dialog.component";
 
 @Component({
   selector: 'app-get-course',
@@ -45,8 +43,7 @@ export class GetCourseComponent implements OnInit {
 
   }
 
-
-//=========================================getAllCoursesByName================================================
+//=========================================getAllCoursesByName===============================================================
   getAllCoursesByName(name: string) {
     this.courseName = name;
     this.courseService.getAllCoursesByName(name).subscribe((data: GetCourseDTO[]) => {
@@ -54,6 +51,7 @@ export class GetCourseComponent implements OnInit {
       this.dataSourceCoursesByName.data = this.CoursesByName;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceCoursesByName.data = [];
     });
   }
 
@@ -64,12 +62,8 @@ export class GetCourseComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
-
           const course = this.CoursesByName.find(course => course.id == id)
-
           if (course) {
             this.oldCourse = course;
             var index = this.CoursesByName.indexOf(this.oldCourse)
@@ -77,35 +71,31 @@ export class GetCourseComponent implements OnInit {
             this.dataSourceCoursesByName.data = this.CoursesByName;
             this.change.detectChanges();
           }
-
         },
         (err) => {
           this.notifyService.showError(err.error.message);
         }
       );
-
-
     });
   }
 
-  removeCourseForGetAllCoursesByNameFunction(id: number) {
-    this.courseService.removeCourse(id).subscribe((data: Course) => {
-
-
+  openDialogRemoveCourseForGetAllCoursesByNameFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveCourseConfirmationDialogComponent, {
+      data: {
+        courseId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.courseService.getAllCoursesByName(this.courseName).subscribe((data: GetCourseDTO[]) => {
         this.CoursesByName = data;
         this.dataSourceCoursesByName.data = this.CoursesByName;
       }, (err) => {
         this.dataSourceCoursesByName.data = [];
       });
-
-
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 
-//==============================================getAllCoursesByProfessorId=======================================
+//==============================================getAllCoursesByProfessorId======================================================
   getAllCoursesByProfessorId(id: number) {
     this.professorId = id;
     this.courseService.getAllCoursesByProfessorId(id).subscribe((data: GetCourseDTO[]) => {
@@ -113,6 +103,7 @@ export class GetCourseComponent implements OnInit {
       this.dataSourceCoursesByProfessorId.data = this.CoursesByProfessorId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceCoursesByProfessorId.data = [];
     });
   }
 
@@ -147,24 +138,24 @@ export class GetCourseComponent implements OnInit {
     });
   }
 
-  removeCourseForGetAllCoursesByProfessorIdFunction(id: number) {
-    this.courseService.removeCourse(id).subscribe((data: Course) => {
-
-
+  openDialogRemoveCourseForGetAllCoursesByProfessorIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveCourseConfirmationDialogComponent, {
+      data: {
+        courseId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.courseService.getAllCoursesByProfessorId(this.professorId).subscribe((data: GetCourseDTO[]) => {
         this.CoursesByProfessorId = data;
         this.dataSourceCoursesByProfessorId.data = this.CoursesByProfessorId;
       }, (err) => {
         this.dataSourceCoursesByProfessorId.data = [];
       });
-
-
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 
-//==============================================getAllCoursesByStudentId=======================================
+//==============================================getAllCoursesByStudentId======================================================
+
   getAllCoursesByStudentId(id: number) {
     this.studentId = id;
     this.participantsService.getAllCoursesByStudentId(id).subscribe((data: GetCourseDTO[]) => {
@@ -172,6 +163,7 @@ export class GetCourseComponent implements OnInit {
       this.dataSourceCoursesByStudentId.data = this.CoursesByStudentId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceCoursesByStudentId.data = [];
     });
   }
 
@@ -182,12 +174,8 @@ export class GetCourseComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
-
           const course = this.CoursesByStudentId.find(course => course.id == id)
-
           if (course) {
             this.oldCourse = course;
             var index = this.CoursesByStudentId.indexOf(this.oldCourse)
@@ -195,35 +183,32 @@ export class GetCourseComponent implements OnInit {
             this.dataSourceCoursesByStudentId.data = this.CoursesByStudentId;
             this.change.detectChanges();
           }
-
         },
         (err) => {
           this.notifyService.showError(err.error.message);
-        }
-      );
-
-
+        });
     });
   }
 
-  removeCourseForGetAllCoursesByStudentIdFunction(id: number) {
-    this.courseService.removeCourse(id).subscribe((data: Course) => {
 
-
+  openDialogRemoveCourseForGetAllCoursesByStudentIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveCourseConfirmationDialogComponent, {
+      data: {
+        courseId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.participantsService.getAllCoursesByStudentId(this.studentId).subscribe((data: GetCourseDTO[]) => {
         this.CoursesByStudentId = data;
         this.dataSourceCoursesByStudentId.data = this.CoursesByStudentId;
       }, (err) => {
         this.dataSourceCoursesByStudentId.data = [];
       });
-
-
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 
 //===============================================getCourse=====================================================
+
   getCourse(id: number) {
     this.courseId = id;
     this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
@@ -231,6 +216,8 @@ export class GetCourseComponent implements OnInit {
 
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      // @ts-ignore
+      this.course = null;
     });
   }
 
@@ -241,34 +228,37 @@ export class GetCourseComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
         this.course = data;
       })
-
-
     });
   }
 
-  removeCourseForGetCourseFunction(id: number) {
-    this.courseService.removeCourse(id).subscribe((data: Course) => {
-
-      // @ts-ignore
-      this.course = null
-
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
+  openDialogRemoveCourseForGetCourseFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveCourseConfirmationDialogComponent, {
+      data: {
+        courseId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.courseService.getCourse(id).subscribe((data: GetCourseDTO) => {
+        this.course = data;
+      }, (err) => {
+        // @ts-ignore
+        this.course = null
+      });
     });
   }
 
 //===============================================getAllCourses=====================================================
+
   getAllCourses() {
     this.courseService.getAllCourses().subscribe((data: GetCourseDTO[]) => {
       this.AllCourses = data;
       this.dataSourceAllCourses.data = this.AllCourses;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceAllCourses.data = [];
     });
   }
 
@@ -283,11 +273,14 @@ export class GetCourseComponent implements OnInit {
     });
   }
 
-  removeCourseForGetAllCoursesFunction(id: number) {
-    this.courseService.removeCourse(id).subscribe((data: Course) => {
+  openDialogRemoveCourseForGetAllCoursesFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveCourseConfirmationDialogComponent, {
+      data: {
+        courseId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.getAllCourses()
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 }
