@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
@@ -10,23 +10,32 @@ import {NotificationService} from "../../Services/NotificationService/notificati
 })
 export class RegisterGroupAtCourseComponent implements OnInit {
 
-  constructor(private readonly participantsService: ParticipantsService,private notifyService: NotificationService,private fb: FormBuilder) { }
+  constructor(private readonly participantsService: ParticipantsService, private notifyService: NotificationService, private fb: FormBuilder) {
+  }
+
   registrationGroupOfStudentsAtCourseForm = this.fb.group({
 
-    groupNumber: ['', Validators.required],
-    courseId: ['', Validators.required]
+    groupNumber: [null, Validators.required],
+    courseId: [null, Validators.required]
   })
+
   ngOnInit(): void {
   }
 
   registerGroupOfStudentsAtCourse(): void {
     let groupNumber = this.registrationGroupOfStudentsAtCourseForm.value.groupNumber;
     let courseId = this.registrationGroupOfStudentsAtCourseForm.value.courseId;
-    this.registrationGroupOfStudentsAtCourseForm.reset();
+
+    if (groupNumber == null || courseId == null)
+      throw this.notifyService.showError("The record was not saved because all fields are required");
+
     this.participantsService.registerGroupAtCourse(groupNumber, courseId).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
   }
 
 }

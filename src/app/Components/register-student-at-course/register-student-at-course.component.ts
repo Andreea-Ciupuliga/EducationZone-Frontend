@@ -11,8 +11,8 @@ import {NotificationService} from "../../Services/NotificationService/notificati
 export class RegisterStudentAtCourseComponent implements OnInit {
   registrationStudentAtCourseForm = this.fb.group({
 
-    studentId: ['', Validators.required],
-    courseId: ['', Validators.required]
+    studentId: [null, Validators.required],
+    courseId: [null, Validators.required]
   })
 
   constructor(private readonly participantsService: ParticipantsService, private notifyService: NotificationService, private fb: FormBuilder) {
@@ -24,10 +24,16 @@ export class RegisterStudentAtCourseComponent implements OnInit {
   registerStudentAtCourse(): void {
     let studentId = this.registrationStudentAtCourseForm.value.studentId;
     let courseId = this.registrationStudentAtCourseForm.value.courseId;
-    this.registrationStudentAtCourseForm.reset();
+
+    if (studentId == null || courseId == null)
+      throw this.notifyService.showError("The record was not saved because all fields are required");
+
     this.participantsService.registerStudentAtCourse(studentId, courseId).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
   }
 }

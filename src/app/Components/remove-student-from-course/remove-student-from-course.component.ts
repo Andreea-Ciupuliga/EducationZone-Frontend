@@ -14,8 +14,8 @@ export class RemoveStudentFromCourseComponent implements OnInit {
 
   removeStudentFromCourseForm = this.fb.group({
 
-    studentId: ['', Validators.required],
-    courseId: ['', Validators.required]
+    studentId: [null, Validators.required],
+    courseId: [null, Validators.required]
   })
 
   constructor(private readonly participantsService: ParticipantsService, private notifyService: NotificationService, private fb: FormBuilder) {
@@ -27,11 +27,17 @@ export class RemoveStudentFromCourseComponent implements OnInit {
   removeStudentFromCourse() {
     let studentId = this.removeStudentFromCourseForm.value.studentId;
     let courseId = this.removeStudentFromCourseForm.value.courseId;
-    this.removeStudentFromCourseForm.reset();
+
+    if (studentId == null || courseId == null)
+      throw this.notifyService.showError("All fields are required");
+
     this.participantsService.removeStudentCourseRelationship(studentId, courseId).subscribe((data: Student) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
   }
 
 

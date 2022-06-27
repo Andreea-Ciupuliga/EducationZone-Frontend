@@ -28,13 +28,18 @@ export class UpdateCourseComponent implements OnInit {
   submit(): void {
 
     let courseId = this.registrationForm.value.id;
+
+    if (courseId == null)
+      throw this.notifyService.showError("Course id is required");
+
     let courseRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.courseService.updateCourse(courseId, courseRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
-
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
   }
-
 }

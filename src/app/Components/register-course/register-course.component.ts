@@ -33,9 +33,12 @@ export class RegisterCourseComponent implements OnInit {
     let courseRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.courseService.registerCourse(courseRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
 
   }
 

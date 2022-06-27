@@ -12,6 +12,7 @@ export class RemoveCourseComponent implements OnInit {
 
   constructor(private readonly courseService: CourseService, private notifyService: NotificationService) {
   }
+
   public courseId: any;
 
   ngOnInit(): void {
@@ -19,9 +20,16 @@ export class RemoveCourseComponent implements OnInit {
 
   removeCourse(id: number) {
     this.courseId = "";
+
+    if (id == null)
+      throw this.notifyService.showError("Field required");
+
     this.courseService.removeCourse(id).subscribe((data: Course) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
-    });
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+      },
+      () => {
+        this.notifyService.showSuccess("Success");
+      });
   }
 }
