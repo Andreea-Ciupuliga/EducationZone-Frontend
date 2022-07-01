@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
-import {RegisterStickyNotesComponent} from "../register-sticky-notes/register-sticky-notes.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ContactComponent} from "../../Pages/contact/contact.component";
 

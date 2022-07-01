@@ -31,11 +31,17 @@ export class UpdateStudentComponent implements OnInit {
 
   submit(): void {
     let studentId = this.registrationForm.value.id;
+
+    if (studentId == null)
+      throw this.notifyService.showError("Student id is required");
+
     let studentRegisterDto = this.registrationForm.value;
-    this.registrationForm.reset();
+
     this.studentService.updateStudent(studentId, studentRegisterDto).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    },()=>{
+      this.notifyService.showSuccess("Success");
     });
 
   }

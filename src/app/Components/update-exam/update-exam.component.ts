@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {ExamService} from "../../Services/ExamService/exam.service";
 import {StudentService} from "../../Services/StudentService/student.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-update-exam',
@@ -29,11 +30,12 @@ export class UpdateExamComponent implements OnInit {
 
   submit(): void {
     let examId = this.registrationForm.value.id;
+
+    if (examId == null)
+      throw this.notifyService.showError("Exam id is required");
+
     let examRegisterDto = this.registrationForm.value;
-    this.registrationForm.reset();
     this.examService.updateExam(examId, examRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
 
   }

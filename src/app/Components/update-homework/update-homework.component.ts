@@ -28,11 +28,13 @@ export class UpdateHomeworkComponent implements OnInit {
 
   submit(): void {
     let homeworkId = this.registrationForm.value.id;
+
+    if (homeworkId == null)
+      throw this.notifyService.showError("Homework id is required");
+
     let homeworkRegisterDto = this.registrationForm.value;
     this.registrationForm.reset();
     this.homeworkService.updateHomework(homeworkId, homeworkRegisterDto).subscribe((data: any) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
 
   }

@@ -30,11 +30,16 @@ export class UpdateProfessorComponent implements OnInit {
 
   submit(): void {
     let professorId = this.registrationForm.value.id;
+
+    if (professorId == null)
+      throw this.notifyService.showError("Professor id is required");
+
     let professorRegisterDto = this.registrationForm.value;
-    this.registrationForm.reset();
     this.professorService.updateProfessor(professorId, professorRegisterDto).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    },()=>{
+      this.notifyService.showSuccess("Success");
     });
 
   }

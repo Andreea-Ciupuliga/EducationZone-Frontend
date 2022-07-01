@@ -33,10 +33,6 @@ export class UpdateCourseWithoutCourseIdComponent implements OnInit {
     let courseRegisterDto = this.registrationForm.value;
     let courseId = this.data.courseId;
     this.courseService.updateCourse(courseId, courseRegisterDto).subscribe((data: any) => {
-    }, () => {
-
-    },()=>{
-      this.notifyService.showSuccess("Success");
     });
 
   }
