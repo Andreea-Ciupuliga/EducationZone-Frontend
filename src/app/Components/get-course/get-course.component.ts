@@ -127,14 +127,10 @@ export class GetCourseComponent implements OnInit {
             this.dataSourceCoursesByProfessorId.data = this.CoursesByProfessorId;
             this.change.detectChanges();
           }
-
         },
         (err) => {
           this.notifyService.showError(err.error.message);
-        }
-      );
-
-
+        });
     });
   }
 
