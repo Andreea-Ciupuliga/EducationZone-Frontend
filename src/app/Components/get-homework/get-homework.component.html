@@ -1,14 +1,14 @@
 <div>
 
   <mat-card style="text-align: center">
-    <mat-card-title>Search homeworks:</mat-card-title>
+    <mat-card-title>Search homework:</mat-card-title>
     <br>
 
     <!--  Get homework by id-->
     <form>
 
       <mat-form-field appearance="fill">
-        <input matInput placeholder="homework id" type="text" [(ngModel)]="homeworkId" name="homeworkId">
+        <input matInput placeholder="homework id" type="number" [(ngModel)]="homeworkId" name="homeworkId">
       </mat-form-field>
 
       <button mat-mini-fab (click)="getHomework(homeworkId)">
@@ -40,7 +40,7 @@
               <td>{{homework.courseName}}</td>
               <td style="max-width: 45vw;">{{homework.description}} </td>
               <td>
-                <button mat-mini-fab (click)="removeHomeworkForGetHomeworkFunction(homework.id)">
+                <button mat-mini-fab (click)="openDialogRemoveHomeworkForGetHomeworkFunction(homework.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -62,7 +62,7 @@
     <form>
 
       <mat-form-field appearance="fill">
-        <input matInput placeholder="course id" type="text" [(ngModel)]="courseId" name="courseId">
+        <input matInput placeholder="course id" type="number" [(ngModel)]="courseId" name="courseId">
       </mat-form-field>
 
       <button mat-mini-fab (click)="getAllHomeworksByCourseId(courseId)">
@@ -74,7 +74,7 @@
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              See homeworks info:
+              See homework info:
             </mat-panel-title>
           </mat-expansion-panel-header>
 
@@ -113,7 +113,7 @@
             <ng-container matColumnDef="removeHomework">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let homework">
-                <button mat-mini-fab (click)="removeHomeworkForGetAllHomeworksByCourseIdFunction(homework.id)">
+                <button mat-mini-fab (click)="openDialogRemoveHomeworkForGetAllHomeworksByCourseIdFunction(homework.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -144,7 +144,7 @@
     <form>
 
       <mat-form-field appearance="fill">
-        <input matInput placeholder="student id" type="text" [(ngModel)]="studentId" name="studentId">
+        <input matInput placeholder="student id" type="number" [(ngModel)]="studentId" name="studentId">
       </mat-form-field>
 
       <button mat-mini-fab (click)="getAllHomeworksByStudentId(studentId)">
@@ -156,7 +156,7 @@
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              See homeworks info:
+              See homework info:
             </mat-panel-title>
           </mat-expansion-panel-header>
 
@@ -195,7 +195,7 @@
             <ng-container matColumnDef="removeHomework">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let homework">
-                <button mat-mini-fab (click)="removeHomeworkForGetAllHomeworksByStudentIdFunction(homework.id)">
+                <button mat-mini-fab (click)="openDialogRemoveHomeworkForGetAllHomeworksByStudentIdFunction(homework.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -227,7 +227,7 @@
 
     <form>
       <div style="text-align: center">
-        <button mat-raised-button (click)="getAllHomeworks()">Show all homeworks</button>
+        <button mat-raised-button (click)="getAllHomeworks()">Show all homework</button>
       </div>
       <mat-accordion>
 
@@ -235,7 +235,7 @@
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              See all homeworks info:
+              See all homework info:
             </mat-panel-title>
 
           </mat-expansion-panel-header>
@@ -274,7 +274,7 @@
             <ng-container matColumnDef="removeHomework">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let homework">
-                <button mat-mini-fab (click)="removeHomeworkForGetAllHomeworksFunction(homework.id)">
+                <button mat-mini-fab (click)="openDialogRemoveHomeworkForGetAllHomeworksFunction(homework.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>

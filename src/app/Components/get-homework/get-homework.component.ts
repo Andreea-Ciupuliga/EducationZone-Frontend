@@ -2,13 +2,10 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
-import {Homework} from "../../Model/homework";
-import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
 import {UpdateHomeworkWithoutHomeworkIdComponent} from "../update-homework-without-homework-id/update-homework-without-homework-id.component";
 import {MatDialog} from "@angular/material/dialog";
-import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {MatTableDataSource} from "@angular/material/table";
+import {RemoveHomeworkConfirmationDialogComponent} from "../remove-homework-confirmation-dialog/remove-homework-confirmation-dialog.component";
 
 @Component({
   selector: 'app-get-homework',
@@ -42,19 +39,31 @@ export class GetHomeworkComponent implements OnInit {
   }
 
 //====================================getHomework===================================================================================================
+
   getHomework(id: number) {
     this.homeworkId = "";
     this.homeworkService.getHomework(id).subscribe((data: GetHomeworkDTO) => {
       this.homework = data;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      // @ts-ignore
+      this.homework = null;
     });
   }
 
-  removeHomeworkForGetHomeworkFunction(id: number) {
-    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-      // @ts-ignore
-      this.homework = null;
+  openDialogRemoveHomeworkForGetHomeworkFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveHomeworkConfirmationDialogComponent, {
+      data: {
+        homeworkId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.homeworkService.getHomework(id).subscribe((data: GetHomeworkDTO) => {
+        this.homework = data;
+      }, (err) => {
+        // @ts-ignore
+        this.homework = null;
+      });
     });
   }
 
@@ -74,18 +83,25 @@ export class GetHomeworkComponent implements OnInit {
   }
 
 //====================================getAllHomeworks===================================================================================================
+
   getAllHomeworks() {
     this.homeworkService.getAllHomeworks().subscribe((data: GetHomeworkDTO[]) => {
       this.AllHomeworks = data;
       this.dataSourceAllHomeworks.data = this.AllHomeworks;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceAllHomeworks.data = [];
     });
   }
 
-  removeHomeworkForGetAllHomeworksFunction(id: number) {
-    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-      this.getAllHomeworks();
+  openDialogRemoveHomeworkForGetAllHomeworksFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveHomeworkConfirmationDialogComponent, {
+      data: {
+        homeworkId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllHomeworks()
     });
   }
 
@@ -102,6 +118,7 @@ export class GetHomeworkComponent implements OnInit {
   }
 
 //======================================getAllHomeworksByCourseId=================================================================================================
+
   getAllHomeworksByCourseId(id: number) {
     this.courseId = id;
     this.homeworkService.getAllHomeworksByCourseId(id).subscribe((data: GetHomeworkDTO[]) => {
@@ -109,20 +126,23 @@ export class GetHomeworkComponent implements OnInit {
       this.dataSourceAllHomeworksByCourseId.data = this.AllHomeworksByCourseId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceAllHomeworksByCourseId.data = [];
     });
   }
 
-  removeHomeworkForGetAllHomeworksByCourseIdFunction(id: number) {
-    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-
+  openDialogRemoveHomeworkForGetAllHomeworksByCourseIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveHomeworkConfirmationDialogComponent, {
+      data: {
+        homeworkId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.homeworkService.getAllHomeworksByCourseId(this.courseId).subscribe((data: GetHomeworkDTO[]) => {
         this.AllHomeworksByCourseId = data;
         this.dataSourceAllHomeworksByCourseId.data = this.AllHomeworksByCourseId;
       }, (err) => {
         this.dataSourceAllHomeworksByCourseId.data = [];
       });
-
-
     });
   }
 
@@ -134,26 +154,20 @@ export class GetHomeworkComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.homeworkService.getHomework(idHomework).subscribe((data: GetHomeworkDTO) => {
-
-          const homework = this.AllHomeworksByCourseId.find(homework => homework.id == idHomework)
-
-          if (homework) {
-            this.oldHomework = homework;
-            var index = this.AllHomeworksByCourseId.indexOf(this.oldHomework)
-            this.AllHomeworksByCourseId[index] = data;
-            this.dataSourceAllHomeworksByCourseId.data = this.AllHomeworksByCourseId;
-          }
+        const homework = this.AllHomeworksByCourseId.find(homework => homework.id == idHomework)
+        if (homework) {
+          this.oldHomework = homework;
+          var index = this.AllHomeworksByCourseId.indexOf(this.oldHomework)
+          this.AllHomeworksByCourseId[index] = data;
+          this.dataSourceAllHomeworksByCourseId.data = this.AllHomeworksByCourseId;
         }
-      );
-
-
+      });
     });
   }
 
 //========================================getAllHomeworksByStudentId===============================================================================================
+
   getAllHomeworksByStudentId(id: number) {
     this.studentId = id;
     this.homeworkService.getAllHomeworksByStudentId(id).subscribe((data: GetHomeworkDTO[]) => {
@@ -161,20 +175,23 @@ export class GetHomeworkComponent implements OnInit {
       this.dataSourceAllHomeworksByStudentId.data = this.AllHomeworksByStudentId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceAllHomeworksByStudentId.data = [];
     });
   }
 
-  removeHomeworkForGetAllHomeworksByStudentIdFunction(id: number) {
-    this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-
+  openDialogRemoveHomeworkForGetAllHomeworksByStudentIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveHomeworkConfirmationDialogComponent, {
+      data: {
+        homeworkId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.homeworkService.getAllHomeworksByStudentId(this.studentId).subscribe((data: GetHomeworkDTO[]) => {
         this.AllHomeworksByStudentId = data;
         this.dataSourceAllHomeworksByStudentId.data = this.AllHomeworksByStudentId;
       }, (err) => {
         this.dataSourceAllHomeworksByStudentId.data = [];
       });
-
-
     });
   }
 
@@ -186,24 +203,16 @@ export class GetHomeworkComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.homeworkService.getHomework(idHomework).subscribe((data: GetHomeworkDTO) => {
-
-          const homework = this.AllHomeworksByStudentId.find(homework => homework.id == idHomework)
-
-          if (homework) {
-            this.oldHomework = homework;
-            var index = this.AllHomeworksByStudentId.indexOf(this.oldHomework)
-            this.AllHomeworksByStudentId[index] = data;
-            this.dataSourceAllHomeworksByStudentId.data = this.AllHomeworksByStudentId;
-            this.change.detectChanges();
-          }
+        const homework = this.AllHomeworksByStudentId.find(homework => homework.id == idHomework)
+        if (homework) {
+          this.oldHomework = homework;
+          var index = this.AllHomeworksByStudentId.indexOf(this.oldHomework)
+          this.AllHomeworksByStudentId[index] = data;
+          this.dataSourceAllHomeworksByStudentId.data = this.AllHomeworksByStudentId;
+          this.change.detectChanges();
         }
-      );
-
-
+      });
     });
   }
-
 }
