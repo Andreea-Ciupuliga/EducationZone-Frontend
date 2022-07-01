@@ -56,6 +56,12 @@ import {UpdateCourseWithoutCourseIdComponent} from './Components/update-course-w
 import {UpdateHomeworkWithoutHomeworkIdComponent} from './Components/update-homework-without-homework-id/update-homework-without-homework-id.component';
 import {RegisterGradeToStudentComponent} from './Components/register-grade-to-student/register-grade-to-student.component';
 import {UpdateProfessorWithoutProfessorIdComponent} from './Components/update-professor-without-professor-id/update-professor-without-professor-id.component';
+import { UpdateStudentWithoutStudentIdComponent } from './Components/update-student-without-student-id/update-student-without-student-id.component';
+import { RemoveHomeworkConfirmationDialogComponent } from './Components/remove-homework-confirmation-dialog/remove-homework-confirmation-dialog.component';
+import { RemoveCourseConfirmationDialogComponent } from './Components/remove-course-confirmation-dialog/remove-course-confirmation-dialog.component';
+import { RemoveExamConfirmationDialogComponent } from './Components/remove-exam-confirmation-dialog/remove-exam-confirmation-dialog.component';
+import { RemoveStudentConfirmationDialogComponent } from './Components/remove-student-confirmation-dialog/remove-student-confirmation-dialog.component';
+import { RemoveProfessorConfirmationDialogComponent } from './Components/remove-professor-confirmation-dialog/remove-professor-confirmation-dialog.component';
 //material imports
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
@@ -76,7 +82,7 @@ import {FormsModule} from '@angular/forms';
 import {ToastrModule} from "ngx-toastr";
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
-import { UpdateStudentWithoutStudentIdComponent } from './Components/update-student-without-student-id/update-student-without-student-id.component';
+
 
 
 
@@ -136,6 +142,11 @@ import { UpdateStudentWithoutStudentIdComponent } from './Components/update-stud
     RegisterGradeToStudentComponent,
     UpdateProfessorWithoutProfessorIdComponent,
     UpdateStudentWithoutStudentIdComponent,
+    RemoveHomeworkConfirmationDialogComponent,
+    RemoveCourseConfirmationDialogComponent,
+    RemoveExamConfirmationDialogComponent,
+    RemoveStudentConfirmationDialogComponent,
+    RemoveProfessorConfirmationDialogComponent,
 
 
   ],

@@ -25,28 +25,27 @@ export class AuthGuard extends KeycloakAuthGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    // Force the user to log in if currently unauthenticated.
+    // Obligam userul sa se autentifice daca nu a facut-o inca.
     if (!this.authenticated) {
       await this.keycloak.login({
         redirectUri: window.location.origin + state.url,
       });
     }
 
-    // Get the roles required from the route.
+    // Extragem rolurile necesare din route.
     // @ts-ignore
     const requiredRoles = route.data.roles;
-    console.log("requiredRoles: "+requiredRoles)
 
-    // Allow the user to to proceed if no additional roles are required to access the route.
+    // Permitem utilizatorului sa continue daca nu sunt necesare roluri suplimentare pentru a accesa ruta.
     if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
       return true;
     }
 
-    // Allow the user to proceed if all the required roles are present.
+    // Permitem utilizatorului sa continue daca are toate rolurile necesare.
     if (requiredRoles.every((role) => this.roles.includes(role))) {
       return true;
     } else {
-      // redirect to error page if the user doesn't have the nessecairy  role to access
+      // redirectionam pe pagina de home daca nu are rolurile necesare
       this.router.navigate(['/home']);
       return false;
     }
