@@ -37,6 +37,8 @@ export class RegisterProfessorComponent implements OnInit {
     this.professorService.registerProfessor(professorRegisterDto).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    },()=>{
+      this.notifyService.showSuccess("Success");
     });
 
   }

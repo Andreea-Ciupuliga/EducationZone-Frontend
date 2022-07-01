@@ -34,7 +34,7 @@ export class RegisterExamWithoutCourseIdComponent implements OnInit {
     let examRegisterDto = this.registrationForm.value;
     examRegisterDto.courseId = this.data.courseId;
     this.examService.registerExam(examRegisterDto).subscribe((data: any) => {
-      });
+    });
 
   }
 

@@ -44,7 +44,6 @@ export class RegisterStudentComponent implements OnInit {
   submit(): void {
 
     let studentRegisterDto = this.registrationForm.value;
-    this.registrationForm.reset();
     this.studentService.registerStudent(studentRegisterDto).subscribe((data: any) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);

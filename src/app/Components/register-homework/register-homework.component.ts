@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
+import {ExamService} from "../../Services/ExamService/exam.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-register-homework',
@@ -16,7 +18,7 @@ export class RegisterHomeworkComponent implements OnInit {
     courseId: ['', Validators.required],
   })
 
-  constructor(private readonly homeworkService: HomeworkService, private fb: FormBuilder) {
+  constructor(private readonly homeworkService: HomeworkService, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {

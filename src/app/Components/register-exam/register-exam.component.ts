@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {ExamService} from "../../Services/ExamService/exam.service";
+import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
+import {NotificationService} from "../../Services/NotificationService/notification.service";
 
 @Component({
   selector: 'app-register-exam',
@@ -11,16 +13,16 @@ import {ExamService} from "../../Services/ExamService/exam.service";
 export class RegisterExamComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    description: ['', Validators.required],
-    examDate: ['', Validators.required],
-    points: ['', Validators.required],
-    examRoom: ['', Validators.required],
-    examHour: ['', Validators.required],
-    courseId: ['', Validators.required],
+    description: [null, Validators.required],
+    examDate: [null, Validators.required],
+    points: [null, Validators.required],
+    examRoom: [null, Validators.required],
+    examHour: [null, Validators.required],
+    courseId: [null, Validators.required],
 
   })
 
-  constructor(private readonly examService: ExamService, private fb: FormBuilder) {
+  constructor(private readonly examService: ExamService, private fb: FormBuilder, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -29,9 +31,9 @@ export class RegisterExamComponent implements OnInit {
   submit(): void {
 
     let examRegisterDto = this.registrationForm.value;
-    this.registrationForm.reset();
-    this.examService.registerExam(examRegisterDto).subscribe((data: any) => {
-    });
+
+      this.examService.registerExam(examRegisterDto).subscribe((data: any) => {
+      });
 
   }
 }
