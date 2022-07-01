@@ -16,24 +16,24 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
           //eu folosesc functia aceea pentru a obtine informatii despre user deci o sa las setarea ca "true"
           loadUserProfileAtStartUp: true,
           initOptions: {
-            //   This is an action we specified on keycloak load
-            //   We have two options : 'login-required'|'check-sso'
-            //   If is set to 'login-required' this means your browser will do a full redirect to the Keycloak server and back to your application.
-            //   If is set to  'check-sso'  instead this action will be performed in a hidden iframe, so your application resources only need to be loaded and parsed once by the browser.
-            //   Then you will need to add the silentCheckSsoRedirectUri and create a html file   silent-check-sso.html with this content
-            // <html>
-            //    <body>
-            //         <script>
-            //           parent.postMessage(location.href, location.origin);
-            //         </script>
-            //      </body>
-            // </html>
+            /*Aceasta este o acțiune pe care o specificam cand se incarca keycloak
+              -exista 2 optiuni 'login-required' si 'check-sso'
+              -daca este setat la 'login-required' inseamna ca browserul va face o redirecționare către serverul Keycloak și înapoi la aplicația noastra.
+              -daca este setat la la „check-sso”, aceasta acțiune va fi efectuată într-un iframe ascuns, a.i. resursele aplicației trebuie să fie incarcate și analizate o sg data de browser.
+              Daca mergem pe a 2 a optiune va trebui sa adaug silentCheckSsoRedirectUri si sa creez un fișier html silent-check-sso.html cu acest conținut:
+               <html>
+                <body>
+                     <script>
+                       parent.postMessage(location.href, location.origin);
+                     </script>
+                  </body>
+               </html>
+            */
             onLoad: 'login-required',
             checkLoginIframe: true,
             // silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
           },
-          // By default the keycloak-angular library add Authorization: Bearer TOKEN to all http requests
-          // Then to exclude a list of URLs that should not have the authorization header we need to provide  them here.
+          //In mod implicit, keycloak adaugă Autorizare: Bearer TOKEN la toate solicitările http. Daca vreau sa exclud adresa URL care sa nu aiba antetul de autorizare pot sa le pun aici:
           bearerExcludedUrls: [],
         });
         resolve(resolve);
