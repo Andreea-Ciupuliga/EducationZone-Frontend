@@ -2,12 +2,11 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 import {ExamService} from "../../Services/ExamService/exam.service";
-import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
 import {Exam} from "../../Model/exam";
-import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
 import {UpdateExamWithoutExamIdComponent} from "../update-exam-without-exam-id/update-exam-without-exam-id.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
+import {RemoveExamConfirmationDialogComponent} from "../remove-exam-confirmation-dialog/remove-exam-confirmation-dialog.component";
 
 @Component({
   selector: 'app-get-exam',
@@ -48,11 +47,12 @@ export class GetExamComponent implements OnInit {
       this.examByCourseId = data;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      // @ts-ignore
+      this.examByCourseId = null;
     });
   }
 
   openDialogUpdateExamForGetExamByCourseIdFunction(idExam: number, idCourse: number) {
-
     const dialogRef = this.dialog.open(UpdateExamWithoutExamIdComponent, {
       data: {
         examId: idExam,
@@ -65,28 +65,37 @@ export class GetExamComponent implements OnInit {
         this.examByCourseId = data;
         this.change.detectChanges();
       });
-
     });
   }
 
-  removeExamForGetExamByCourseIdFunction(id: number) {
-    this.examService.removeExam(id).subscribe((data: Exam) => {
-      // @ts-ignore
-      this.examByCourseId = null;
+  openDialogRemoveExamForGetExamByCourseIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveExamConfirmationDialogComponent, {
+      data: {
+        examId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.examService.getExamByCourseId(id).subscribe((data: GetExamDTO) => {
+        this.examByCourseId = data;
+      }, (err) => {
+        // @ts-ignore
+        this.examByCourseId = null;
+      });
     });
   }
+
 
 //============================================getExam================================================================================================================
 
   getExam(id: number) {
     this.examId = "";
     this.examService.getExam(id).subscribe((data: GetExamDTO) => {
-        this.exam = data;
-      },
-      (err) => {
-        this.notifyService.showError(err.error.message);
-      }
-    );
+      this.exam = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+      // @ts-ignore
+      this.exam = null;
+    });
   }
 
   openDialogUpdateExamForGetExamFunction(idExam: number, idCourse: number) {
@@ -97,23 +106,33 @@ export class GetExamComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.examService.getExam(idExam).subscribe((data: GetExamDTO) => {
         this.exam = data;
         this.change.detectChanges();
       });
+    });
+  }
 
-
+  openDialogRemoveExamForGetExamFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveExamConfirmationDialogComponent, {
+      data: {
+        examId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.examService.getExam(id).subscribe((data: GetExamDTO) => {
+        this.exam = data;
+      }, (err) => {
+        // @ts-ignore
+        this.exam = null;
+      });
     });
   }
 
   removeExamForGetExamFunction(id: number) {
     this.examService.removeExam(id).subscribe((data: Exam) => {
-
       // @ts-ignore
       this.exam = null;
-
     });
   }
 
@@ -126,6 +145,7 @@ export class GetExamComponent implements OnInit {
       this.dataSourceAllExamsByStudentId.data = this.AllExamsByStudentId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceAllExamsByStudentId.data = [];
     });
   }
 
@@ -137,12 +157,8 @@ export class GetExamComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
-
       this.examService.getExam(idExam).subscribe((data: GetExamDTO) => {
-
         const exam = this.AllExamsByStudentId.find(exam => exam.id == idExam)
-
         if (exam) {
           this.oldExam = exam;
           var index = this.AllExamsByStudentId.indexOf(this.oldExam)
@@ -150,27 +166,26 @@ export class GetExamComponent implements OnInit {
           this.dataSourceAllExamsByStudentId.data = this.AllExamsByStudentId;
           this.change.detectChanges();
         }
-
       });
-
-
     });
   }
 
-  removeExamForGetAllExamsByStudentIdFunction(id: number) {
-    this.examService.removeExam(id).subscribe((data: Exam) => {
-
-
+  openDialogRemoveExamForGetAllExamsByStudentIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveExamConfirmationDialogComponent, {
+      data: {
+        examId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.examService.getAllExamsByStudentId(this.studentId).subscribe((data: GetExamDTO[]) => {
         this.AllExamsByStudentId = data;
         this.dataSourceAllExamsByStudentId.data = this.AllExamsByStudentId;
       }, (err) => {
         this.dataSourceAllExamsByStudentId.data = [];
       });
-
-
     });
   }
+
 
 //===================================getAllExams=========================================================================================================================
 
@@ -180,6 +195,7 @@ export class GetExamComponent implements OnInit {
         this.dataSourceAllExams.data = this.AllExams;
       }, (err) => {
         this.notifyService.showError(err.error.message);
+        this.dataSourceAllExams.data = [];
       }
     );
   }
@@ -196,9 +212,15 @@ export class GetExamComponent implements OnInit {
     });
   }
 
-  removeExamForGetAllExamsFunction(id: number) {
-    this.examService.removeExam(id).subscribe((data: Exam) => {
+  openDialogRemoveExamForGetAllExamsFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveExamConfirmationDialogComponent, {
+      data: {
+        examId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.getAllExams();
     });
   }
+
 }
