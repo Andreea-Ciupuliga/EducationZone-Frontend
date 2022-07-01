@@ -20,9 +20,15 @@ export class RemoveStudentComponent implements OnInit {
 
   removeStudent(id: number) {
     this.studentId = "";
+
+    if(id == null)
+      throw this.notifyService.showError("Student id required");
+
     this.studentService.removeStudent(id).subscribe((data: Student) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    }, () => {
+      this.notifyService.showSuccess("Success");
     });
   }
 
@@ -30,6 +36,8 @@ export class RemoveStudentComponent implements OnInit {
     this.studentService.removeAllStudents().subscribe((data: Student) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    }, () => {
+      this.notifyService.showSuccess("Success");
     })
   }
 

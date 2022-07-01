@@ -21,9 +21,11 @@ export class RemoveHomeworkComponent implements OnInit {
 
   removeHomework(id: number) {
     this.homeworkId = "";
+
+    if(id == null)
+      throw this.notifyService.showError("Homework id is required");
+
     this.homeworkService.removeHomework(id).subscribe((data: Homework) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 

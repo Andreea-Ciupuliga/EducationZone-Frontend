@@ -21,9 +21,11 @@ export class RemoveExamComponent implements OnInit {
 
   removeExam(id: number) {
     this.examId = "";
+
+    if(id == null)
+      throw this.notifyService.showError("Exam id is required");
+
     this.examService.removeExam(id).subscribe((data: Exam) => {
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 

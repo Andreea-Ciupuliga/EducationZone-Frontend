@@ -27,8 +27,7 @@ export class RemoveCourseComponent implements OnInit {
     this.courseService.removeCourse(id).subscribe((data: Course) => {
       }, (err) => {
         this.notifyService.showError(err.error.message);
-      },
-      () => {
+      }, () => {
         this.notifyService.showSuccess("Success");
       });
   }

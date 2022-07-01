@@ -22,9 +22,15 @@ export class RemoveProfessorComponent implements OnInit {
 
   removeProfessor(id: number) {
     this.professorId = "";
+
+    if (id == null)
+      throw this.notifyService.showError("Professor id required");
+
     this.professorService.removeProfessor(id).subscribe((data: Professor) => {
     }, (err) => {
       this.notifyService.showError(err.error.message);
+    }, () => {
+      this.notifyService.showSuccess("Success");
     });
   }
 
