@@ -35,25 +35,74 @@ $EducationZone-Frontend-theme: mat.define-light-theme((
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
-  height: 100%;
+  //height: 100%;
   background: #FFFFFF;
-}
 
+
+}
+p {
+  font-size: 17px;
+}
 body {
   margin: 10px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
 }
 
 .mat-card {
   background: #DEF2F1;
   margin-top: 10px;
+  //max-width: 400px;
+  //text-align: center;
+  //alignment: center;
 }
 
-.mat-raised-button:not([icon]) {
+.mat-raised-button:not([icon]), .mat-fab:not([icon]), .mat-mini-fab:not([icon]) {
   margin: 5px;
   background: #569EAD;
 }
 
-.mat-expansion-panel{
+.mat-expansion-panel {
   background: white
 }
+
+.mat-dialog-content {
+  width: 350px;
+  text-align: center;
+}
+
+.register-dialog {
+  background-color: #DEF2F1;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  color: black;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+
+
+//#569EAD
+//#DEF2F1
+//#FFFFFF
+//#326273
+
+//#3c7379
+//#dffcff
+//#bff9ff
+//#78DCF0
+//#5EADBD
+
+
+//form>input{
+//  height: 30px;
+//  margin: 5px;
+//  border: 1.5px solid #569EAD;
+//  border-radius: 4px;
+//}

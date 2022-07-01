@@ -25,7 +25,6 @@ export class ProfessorHomeComponent implements OnInit {
     this.professorUsername=this.keycloakService.getUsername();
     this.courseService.getAllCoursesByProfessorUsername(this.professorUsername).subscribe((data: GetCourseDTO[]) => {
       this.Courses = data;
-      console.log(this.Courses)
     });
   }
 }
