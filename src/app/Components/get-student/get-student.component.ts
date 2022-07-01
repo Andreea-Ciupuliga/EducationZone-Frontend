@@ -1,17 +1,13 @@
-import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {GetStudentDTO} from "../../DTOs/StudentDTOs/get-student-dto";
-import {empty, map, Observable, startWith, Subject, Subscription, takeUntil} from "rxjs";
 import {ParticipantsService} from "../../Services/ParticipantsService/participants.service";
 import {StudentService} from "../../Services/StudentService/student.service";
-import {Student} from "../../Model/student";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
-import {UpdateProfessorWithoutProfessorIdComponent} from "../update-professor-without-professor-id/update-professor-without-professor-id.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UpdateStudentWithoutStudentIdComponent} from "../update-student-without-student-id/update-student-without-student-id.component";
-import {Router, NavigationEnd} from "@angular/router";
-
-import {MatTable, MatTableDataSource} from "@angular/material/table";
+import {Router} from "@angular/router";
+import {MatTableDataSource} from "@angular/material/table";
+import {RemoveStudentConfirmationDialogComponent} from "../remove-student-confirmation-dialog/remove-student-confirmation-dialog.component";
 
 @Component({
   selector: 'app-get-student',
@@ -38,7 +34,7 @@ export class GetStudentComponent implements OnInit {
   public oldStudent: GetStudentDTO;
   public errorMessage: string;
 
-  constructor(private change: ChangeDetectorRef, private router: Router, public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly studentService: StudentService, private notifyService: NotificationService) {
+  constructor( private router: Router, public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly studentService: StudentService, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -49,21 +45,24 @@ export class GetStudentComponent implements OnInit {
   //====================================getAllStudents===========================================================================================================================
 
   getAllStudents() {
-    this.studentService.getAllStudents()
-      .subscribe((data: GetStudentDTO[]) => {
-          this.AllStudents = data;
-          this.dataSourceAllStudents.data = this.AllStudents;
-        }, (err) => {
-          this.notifyService.showError(err.error.message);
-        }
-      );
+    this.studentService.getAllStudents().subscribe((data: GetStudentDTO[]) => {
+        this.AllStudents = data;
+        this.dataSourceAllStudents.data = this.AllStudents;
+      }, (err) => {
+        this.notifyService.showError(err.error.message);
+        this.dataSourceAllStudents.data = [];
+      }
+    );
   }
 
-  removeStudentForGetAllStudentsFunction(id: number) {
-    this.studentService.removeStudent(id).subscribe((data: Student) => {
+  openDialogRemoveStudentForGetAllStudentsFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveStudentConfirmationDialogComponent, {
+      data: {
+        studentId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.getAllStudents();
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 
@@ -87,24 +86,25 @@ export class GetStudentComponent implements OnInit {
       this.dataSourceStudentsByName.data = this.StudentsByName;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceStudentsByName.data = [];
     });
   }
 
-  removeStudentForGetAllStudentsByNameFunction(id: number) {
-    this.studentService.removeStudent(id).subscribe((data: Student) => {
-
-
+  openDialogRemoveStudentForGetAllStudentsByNameFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveStudentConfirmationDialogComponent, {
+      data: {
+        studentId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.studentService.getAllStudentsByName(this.studentName).subscribe((data: GetStudentDTO[]) => {
         this.StudentsByName = data;
         this.dataSourceStudentsByName.data = this.StudentsByName;
+        console.log(" openDialogRemoveStudentForGetAllStudentsByNameFunction")
       }, (err) => {
         this.dataSourceStudentsByName.data = [];
       })
-
-
     });
-
-
   }
 
   openDialogUpdateStudentForGetAllStudentsByNameFunction(id: number) {
@@ -114,21 +114,16 @@ export class GetStudentComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
       this.studentService.getStudent(id).subscribe((data: GetStudentDTO) => {
+        const student = this.StudentsByName.find(student => student.id == id)
+        if (student) {
+          this.oldStudent = student;
+          var index = this.StudentsByName.indexOf(this.oldStudent)
+          this.StudentsByName[index] = data;
+          this.dataSourceStudentsByName.data = this.StudentsByName;
 
-          const student = this.StudentsByName.find(student => student.id == id)
-
-          if (student) {
-            this.oldStudent = student;
-            var index = this.StudentsByName.indexOf(this.oldStudent)
-            this.StudentsByName[index] = data;
-            this.dataSourceStudentsByName.data = this.StudentsByName;
-            this.change.detectChanges();
-          }
-
-        });
-
+        }
+      });
     });
   }
 
@@ -142,25 +137,23 @@ export class GetStudentComponent implements OnInit {
       this.dataSourceStudentsByCourseId.data = this.StudentsByCourseId;
     }, (err) => {
       this.notifyService.showError(err.error.message);
+      this.dataSourceStudentsByCourseId.data = [];
     });
   }
 
-  removeStudentForGetAllStudentsByCourseIdFunction(id: number) {
-    this.studentService.removeStudent(id).subscribe((data: Student) => {
-
-
+  openDialogRemoveStudentForGetAllStudentsByCourseIdFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveStudentConfirmationDialogComponent, {
+      data: {
+        studentId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.participantsService.getAllStudentsByCourseId(this.courseId).subscribe((data: GetStudentDTO[]) => {
         this.StudentsByCourseId = data;
         this.dataSourceStudentsByCourseId.data = this.StudentsByCourseId;
-
-
       }, (err) => {
         this.dataSourceStudentsByCourseId.data = [];
       })
-
-
-    }, (err) => {
-      this.notifyService.showError(err.error.message);
     });
   }
 
@@ -171,56 +164,48 @@ export class GetStudentComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
       this.studentService.getStudent(id).subscribe((data: GetStudentDTO) => {
-
           const student = this.StudentsByCourseId.find(student => student.id == id)
-
           if (student) {
             this.oldStudent = student;
             var index = this.StudentsByCourseId.indexOf(this.oldStudent)
             this.StudentsByCourseId[index] = data;
             this.dataSourceStudentsByCourseId.data = this.StudentsByCourseId;
-            this.change.detectChanges();
           }
-
         },
         (err) => {
           this.notifyService.showError(err.error.message);
-        }
-      );
+        });
     });
   }
 
 //=============================================GetStudent==================================================================================================
 
   getStudent(id: number) {
-    this.studentId = "";
+    this.studentId = id;
     this.studentService.getStudent(id).subscribe((data: GetStudentDTO) => {
-        this.student = data;
-      },
-      (err) => {
-        this.notifyService.showError(err.error.message);
-      }
-    );
+      this.student = data;
+    }, (err) => {
+      this.notifyService.showError(err.error.message);
+      // @ts-ignore
+      this.student = null;
+    });
   }
 
-  removeStudentForGetStudentFunction(id: number) {
-    this.studentService.removeStudent(id).subscribe((data: Student) => {
-
-      this.student = {
-        id:0,
-        firstName: "",
-        lastName: "",
-        email: "",
-        username: "",
+  openDialogRemoveStudentForGetStudentFunction(id: number) {
+    const dialogRef = this.dialog.open(RemoveStudentConfirmationDialogComponent, {
+      data: {
+        studentId: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.studentService.getStudent(id).subscribe((data: GetStudentDTO) => {
+        this.student = data;
+        console.log(" openDialogRemoveStudentForGetStudentFunction")
+      }, (err) => {
         // @ts-ignore
-        groupNumber:"",
-        phone: "",
-        year: "",
-        department: ""
-      };
-
+        this.student = null;
+      });
     });
   }
 
@@ -231,11 +216,9 @@ export class GetStudentComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
       this.studentService.getStudent(id).subscribe((data: GetStudentDTO) => {
-          this.student = data;
-          this.change.detectChanges();
-        });
+        this.student = data;
+      });
     });
   }
 }
