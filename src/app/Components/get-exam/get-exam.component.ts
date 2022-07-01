@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {NotificationService} from "../../Services/NotificationService/notification.service";
 import {GetExamDTO} from "../../DTOs/ExamDTOs/get-exam-dto";
 import {ExamService} from "../../Services/ExamService/exam.service";
@@ -31,7 +31,7 @@ export class GetExamComponent implements OnInit {
   public dataSourceAllExamsByStudentId = new MatTableDataSource<GetExamDTO>();
   private oldExam: GetExamDTO;
 
-  constructor(private change: ChangeDetectorRef, public dialog: MatDialog, private readonly examService: ExamService, private notifyService: NotificationService) {
+  constructor( public dialog: MatDialog, private readonly examService: ExamService, private notifyService: NotificationService) {
 
   }
 
@@ -63,7 +63,6 @@ export class GetExamComponent implements OnInit {
 
       this.examService.getExamByCourseId(this.courseId).subscribe((data: GetExamDTO) => {
         this.examByCourseId = data;
-        this.change.detectChanges();
       });
     });
   }
@@ -108,7 +107,6 @@ export class GetExamComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.examService.getExam(idExam).subscribe((data: GetExamDTO) => {
         this.exam = data;
-        this.change.detectChanges();
       });
     });
   }
@@ -164,7 +162,6 @@ export class GetExamComponent implements OnInit {
           var index = this.AllExamsByStudentId.indexOf(this.oldExam)
           this.AllExamsByStudentId[index] = data;
           this.dataSourceAllExamsByStudentId.data = this.AllExamsByStudentId;
-          this.change.detectChanges();
         }
       });
     });

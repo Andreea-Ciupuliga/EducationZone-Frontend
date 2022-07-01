@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {GetHomeworkDTO} from "../../DTOs/HomeworkDTOs/get-homework-dto";
 import {HomeworkService} from "../../Services/HomeworkService/homework.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
@@ -30,7 +30,7 @@ export class GetHomeworkComponent implements OnInit {
   public homework: GetHomeworkDTO;
   private oldHomework: GetHomeworkDTO;
 
-  constructor(private change: ChangeDetectorRef, public dialog: MatDialog, private readonly homeworkService: HomeworkService, private notifyService: NotificationService) {
+  constructor( public dialog: MatDialog, private readonly homeworkService: HomeworkService, private notifyService: NotificationService) {
 
   }
 
@@ -210,7 +210,7 @@ export class GetHomeworkComponent implements OnInit {
           var index = this.AllHomeworksByStudentId.indexOf(this.oldHomework)
           this.AllHomeworksByStudentId[index] = data;
           this.dataSourceAllHomeworksByStudentId.data = this.AllHomeworksByStudentId;
-          this.change.detectChanges();
+
         }
       });
     });

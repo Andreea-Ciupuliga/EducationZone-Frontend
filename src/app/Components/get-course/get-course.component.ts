@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetCourseDTO} from "../../DTOs/CourseDTOs/get-course-dto";
 import {CourseService} from "../../Services/CourseService/course.service";
 import {NotificationService} from "../../Services/NotificationService/notification.service";
@@ -35,7 +35,7 @@ export class GetCourseComponent implements OnInit {
 
   public course: GetCourseDTO;
 
-  constructor(private change: ChangeDetectorRef, public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly courseService: CourseService, private notifyService: NotificationService) {
+  constructor( public dialog: MatDialog, private readonly participantsService: ParticipantsService, private readonly courseService: CourseService, private notifyService: NotificationService) {
 
   }
 
@@ -69,7 +69,6 @@ export class GetCourseComponent implements OnInit {
             var index = this.CoursesByName.indexOf(this.oldCourse)
             this.CoursesByName[index] = data;
             this.dataSourceCoursesByName.data = this.CoursesByName;
-            this.change.detectChanges();
           }
         },
         (err) => {
@@ -125,7 +124,6 @@ export class GetCourseComponent implements OnInit {
             var index = this.CoursesByProfessorId.indexOf(this.oldCourse)
             this.CoursesByProfessorId[index] = data;
             this.dataSourceCoursesByProfessorId.data = this.CoursesByProfessorId;
-            this.change.detectChanges();
           }
         },
         (err) => {
@@ -177,7 +175,6 @@ export class GetCourseComponent implements OnInit {
             var index = this.CoursesByStudentId.indexOf(this.oldCourse)
             this.CoursesByStudentId[index] = data;
             this.dataSourceCoursesByStudentId.data = this.CoursesByStudentId;
-            this.change.detectChanges();
           }
         },
         (err) => {
